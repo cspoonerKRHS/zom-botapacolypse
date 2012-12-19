@@ -34,6 +34,7 @@ class Robot():
         print "I've moved to", position
         
     def move(self):
+        self.rect = self.rect.move(self.speed)
         print "I've moved", self.speed
         
     def shootElect(self):
@@ -42,7 +43,12 @@ class Robot():
     def hurt(self):
         print "I'm hurt"
         
-    def distToPoint(self, other):
+    def distToPoint(self, pt):
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
     def sight(self, other):

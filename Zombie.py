@@ -43,25 +43,33 @@ class Zombie():
         return "I am the Undead" + str(self.rect.center) + str(self.speed) + str(self.living)
     
     def place(self, position):
-        print "I've moved to", position
+        self.rect = self.rect.move(pt)
     
     def move(self):
-        print "I've moved", self.speed
+        self.rect = self.rect.move(self.speed)
         #if pygame.mixer
         #   self.zombieNoise.play()
         
     def chase(self, other):
-        print "I am chasing, at a faster speed,", other
+        self.rect = self.rect.move(self.speed*2)
         
     def sight(self, other):
-        print "I have seen", other
+        
     
-    def distToPoint(self):
-        print "I can see", str(distToPoint)
+    def distToPoint(self, pt):
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         
     def collideWall(self, screenWidth, screenHeight):
-        print "Trying to hit screen walls", screenWidth, screenHeight
-        
+        if (self.rect.left < 0 
+            or self.rect.right > self.screenWidth):
+            self.speed[0] = self.speed[0]*-0.2
+        if (self.rect.top < 0 
+            or self.rect.bottom >self.screenHeight):
+            self.speed[1] = self.speed[1]*-0.2
     def collideMazeWall(self, mazeWall):
         print "Trying to hit the maze wall", str(mazeWall)
         
