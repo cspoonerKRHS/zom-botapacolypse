@@ -12,20 +12,18 @@
 #------------------------------------------------------------------------------
 import pygame, math, sys, random
 
-class Ball():
-    def __init__(self, speed, position):
+class HealthBar():
+    def __init__(self, position):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("")]
-        self.surfaces += [pygame.image.load("")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.speed = speed
         self.place(position)
-        self.maxHealth = maxHealth
-        if pygame.mixer:
-            self.healthSound = pygame.mixer.Sound("health.wav")
+        #if pygame.mixer:
+        #    self.healthSound = pygame.mixer.Sound("health.wav")
         
     def  __str__(self):
         return "I'm a Health Bar " + str(self.rect.center) + str(self.speed) + str(self.living)
@@ -33,7 +31,7 @@ class Ball():
     def place(self, position):
         print "I'm in place", position
         
-    def maxHealth(self, maxHealth)
+    def maxHealth(self, maxHealth):
         print "This how much health you have to start", str(maxHealth)
            
     

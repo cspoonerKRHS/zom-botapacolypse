@@ -24,19 +24,19 @@ screenHeight = 600
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
-man = Man("man.png",5, [100, 100])
+man = Man(5, [400, 400])
 zombies = [] 
 maxZombies = 4
 robots = []
 maxRobots = 3
-mazewall = MazeWall()
+mazeWall = MazeWall([200,200])
 stick = Stick([125, 100])
-taser = Taser()
-stunGun = StunGun()
-electricity = Electricity()
-pistol = Pistol()
-projectile = Projectile()
-healthBar = HealthBar()
+taser = Taser([300,300])
+stunGun = StunGun([150,200])
+electricity = Electricity([1,1], [130,206])
+pistol = Pistol([250,250])
+projectile = Projectile([2,2], [500,500])
+healthBar = HealthBar([100,100])
 
 bgColor = 0,0,0
 
@@ -76,44 +76,52 @@ while True:
             
                     
     if man.living:
-        man.collideWall(screenWidth, screenHeight)
+        man.collideWall()
         man.collideMazeWall(mazeWall)
-        for zombie in zombies
+        for zombie in zombies:
             man.collideZombie(zombie)
-        for robot in robots
+        for robot in robots:
             man.collideRobot(robot)
         man.collideStick(stick)
         man.collideTaser(taser)
         man.collideStunGun(stunGun)
         man.collideElectricity(electricity)
         man.collidePistol(pistol)
-        if man.attack(stick)
-            if stick.attack(zombie)
+        if man.attackWithStick(stick, Zombie):
+            if stick.attack(zombie):
                 stick.useDown(zombie, 1)
-            elif stick.attack(robot)
+        if man.attackWithStick(stick, Robot):    
+            if stick.attack(robot):
                 stick.useDown(robot, 1)
-            elif stick.attack(mazeWall)
+        if man.attackWithStick(stick, MazeWall):    
+            if stick.attack(mazeWall):
                 stick.useDown(mazeWall, 4)
-        if man.attack(taser)
-            if taser.attack(zombie)
+        if man.attackWithTaser(taser, Zombie):
+            if taser.attack(zombie):
                 taser.useDown(zombie, 1)
-            elif taser.attack(robot)
+        if man.attackWithTaser(taser, Robot):    
+            if taser.attack(robot):
                 taser.useDown(robot, 1)
-            elif taser.attack(mazeWall)
+        if man.attackWithTaser(taser, MazeWall):    
+            if taser.attack(mazeWall):
                 taser.useDown(mazeWall, 1)
-        if man.attack(stunGun)
-            if stunGun.attack(zombie)
+        if man.attackWithStunGun(stunGun, Zombie):
+            if stunGun.attack(zombie):
                 stunGun.useDown(zombie, 1)
-            elif stunGun.attack(robot)
+        if man.attackWithStunGun(stunGun, Robot):    
+            if stunGun.attack(robot):
                 stunGun.useDown(robot, 1)
-            elif stunGun.attack(mazeWall)
+        if man.attackWithStunGun(stunGun, MazeWall):    
+            if stunGun.attack(mazeWall):
                 stunGun.useDown(mazeWall, 1)
-        if man.attack(pistol)
-            if pistol.attack(zombie)
+        if man.attackWithPistol(pistol, Zombie):
+            if pistol.attack(zombie):
                 pistol.useDown(zombie, 1)
-            elif pistol.attack(robot)
+        if man.attackWithPistol(pistol, Robot):    
+            if pistol.attack(robot):
                 pistol.useDown(robot, 1)
-            elif pistol.attack(mazeWall)
+        if man.attackWithPistol(pistol, MazeWall):    
+            if pistol.attack(mazeWall):
                 pistol.useDown(mazeWall, 1)
             
     
@@ -129,15 +137,14 @@ while True:
             zombie.move()
             zombie.collideMazeWall(mazeWall)
             zombie.collideWall(screenWidth, screenHeight)
-            zombie.collideRobot(robot)
+            zombie.collideRobot(Robot)
             zombie.collideElectricity(electricity)
             zombie.collideProjectile(projectile)
             zombie.sight(man)
             zombie.chase(man)
-            zombie.bite(man)
+            zombie.biteMan(man)
             zombie.hurt(man)
-            zombie.die(man)
-            zombie.dropItem(man)
+            zombie.dropItem()
             if not zombie.unDead:
                 zombies.remove(zombie)            
             
@@ -150,16 +157,16 @@ while True:
         robots += [Robot(robotSpeed, robotPos)]
         
     for robot in robots:
-        if robot.living = True:
-        robot.move()
-        robot.collideMazeWall(mazeWall)
-        robot.collideWall(screenWidth, screenHeight)
-        robot.collideElectricity(electricity)
-        robot.collideProjectile(projectile)
-        robot.sight(man)
-        robot.shootElect(man)
-        robot.hurt(man)
-        robot.dropItem(man)
+        if robot.living:
+			robot.move()
+			robot.collideMazeWall(mazeWall)
+			robot.collideWall(screenWidth, screenHeight)
+			robot.collideElectricity(electricity)
+			robot.collideProjectile(projectile)
+			robot.sight(man)
+			robot.shootElect()
+			robot.hurt()
+			robot.dropItem()
         if not robot.living:
             robots.remove(robot)
 
@@ -170,26 +177,26 @@ while True:
     screen.blit(mazeWall.surface, mazeWall.rect)    
     screen.blit(man.surface, man.rect)
     for zombie in zombies:
-        if zombie.living
+        if zombie.unDead:
             screen.blit(zombie.surface, zombie.rect)
     for robot in robots:
-        if robot.living
+        if robot.living:
             screen.blit(robot.surface, robot.rect)
-    if stick.living
+    if stick.notBroken:
         screen.blit(stick.surface, stick.rect)
-    if taser.living
+    if taser.notBroken:
         screen.blit(taser.surface, taser.rect)
-    if stunGun.living
+    if stunGun.notBroken:
         screen.blit(stunGun.surface, stunGun.rect)
-    if stick.living
+    if stick.notBroken:
         screen.blit(stick.surface, stick.rect)    
-    if pistol.living
+    if pistol.notBroken:
         screen.blit(pistol.surface, pistol.rect)
-    if pistol.living
-        if pistol.attack
+    if pistol.notBroken:
+        if pistol.attack:
             screen.blit(projectile.surface, projectile.rect)
-    if stunGun.living
-        if stunGun.attack
+    if stunGun.notBroken:
+        if stunGun.attack:
             screen.blit(electricity.surface, electricity.rect)
     
     

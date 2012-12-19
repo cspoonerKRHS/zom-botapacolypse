@@ -15,18 +15,17 @@ import pygame, math, sys, random
 class Robot():
     def __init__(self, speed, position):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("")]
-        self.surfaces += [pygame.image.load("")]
+        self.surfaces += [pygame.image.load("rsc/Robot/robotright1.png")]
+        self.surfaces += [pygame.image.load("rsc/Robot/robotright2.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.speed = speed
         self.place(position)
-        self.living = True
-        self.sight(distToPoint) 
-        if pygame.mixer:
-            self.robotSound = pygame.mixer.Sound("Robot.wav")
+        self.living = True 
+        #if pygame.mixer:
+        #    self.robotSound = pygame.mixer.Sound("Robot.wav")
         
     def  __str__(self):
         return "I'm a Robot " + str(self.rect.center) + str(self.speed) + str(self.living)
@@ -37,34 +36,37 @@ class Robot():
     def move(self):
         print "I've moved", self.speed
         
-    def shootElect():
+    def shootElect(self):
         print "I'm shooting Electricity " 
         
-    def hurt():
+    def hurt(self):
         print "I'm hurt"
         
-    def distToPoint(self, man or zombie or other or MazeWall or Wall):
-        print "I'm near something ", str(position)
+    def distToPoint(self, other):
+        print "I'm near something ", str(other.rect.center)
         
-    def sight(distToPoint):
-        print "I can see ", str(distToPoint)
+    def sight(self, other):
+        print "I can see ", other
         
     def dropItem(self):
         print "I drop this" 
         
-    def remove(self)
+    def remove(self):
         print "I'm gone" 
       
     def collideWall(self, screenWidth, screenHeight):
         print "trying to hit edges of screen", screenWidth, screenHeight
         
     def collideMazeWall(self, MazeWall):
-        print "trying to hit paddle", str(MazeWall)
+        print "trying to hit ", str(MazeWall)
         #if pygame.mixer:
         #   self.bounceSound.play()
         
     def collideElectricity(self, Electricity):
         print "trying to hit ", str(Electricity)
+        
+    def collideProjectile(self, projectile):
+        print "I'm being shot by", projectile
         
     def collideRobot (self, other):
         print "trying to hit ", str(other)  
