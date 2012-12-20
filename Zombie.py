@@ -13,6 +13,8 @@
 import pygame, math
 from Taser import Taser
 
+
+
 class Zombie():
     # Attributes or Variables
     # surface
@@ -34,16 +36,17 @@ class Zombie():
         self.rect = self.surface.get_rect()
         self.speed = speed
         self.place(position)
+        self.screenWidth = screenSize[0]
+        self.screenHeight = screenSize[1]
         self.unDead = True
         #if pygame.mixer:
-        #    self.zombieNoise = pygame.mixer.sound("zombie.wav")
-    
+        #    self.zombieNoise = pygame.mixer.sound("zombie.wav")   
     
     def __str__(self):
         return "I am the Undead" + str(self.rect.center) + str(self.speed) + str(self.living)
     
     def place(self, position):
-        self.rect = self.rect.move(pt)
+        self.rect = self.rect.move(position)
     
     def move(self):
         self.rect = self.rect.move(self.speed)
@@ -55,13 +58,13 @@ class Zombie():
         
     def sight(self, other):
         
-    
-    def distToPoint(self, pt):
-        x1 = self.rect.center[0]
-        x2 = pt[0]
-        y1 = self.rect.center[1]
-        y2 = pt[1]
-        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+        def distToPoint(self, pt):
+            x1 = self.rect.center[0]
+            x2 = pt[0]
+            y1 = self.rect.center[1]
+            y2 = pt[1]
+            return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+            print "I'm near something ", str(other.rect.center)
         
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
