@@ -15,8 +15,11 @@ import pygame, math, sys, random
 from MazeWall import MazeWall
 from Zombie import Zombie
 
+from Electricity import Electricity
+from Projectile import Projectile
+
 class Robot():
-    def __init__(self, speed, position):
+    def __init__(self, speed = [2,2], position):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/Robot/robotright1.png")]
         self.surfaces += [pygame.image.load("rsc/Robot/robotright2.png")]
@@ -44,9 +47,15 @@ class Robot():
     def shootElect(self):
         if self.frame > 1:
             screen.blit(electricity.surface, electricity.rect)
-        print "I'm shooting Electricity " 
+        print "I'm shooting Electricity "
+            
         
     def hurt(self):
+        if self.living:
+            if self.collideElectricity
+                self.living = False
+            if self.collideProjectile
+                
         print "I'm hurt"
         
     def distToPoint(self, pt):
@@ -90,9 +99,31 @@ class Robot():
         #   self.bounceSound.play()
         
     def collideElectricity(self, Electricity):
+        if self.living and Electricity.living:
+            if (self.rect.right > Electricity.rect.left 
+                and self.rect.left < Electricity.rect.right):
+                if (self.rect.bottom > Electricity.rect.top and 
+                    self.rect.top < Electricity.rect.bottom):
+                    if (self.distToPoint(Electricity.rect.center)
+                        < self.radius + Electricity.radius):  
+                        self.speed[0] = self.speed[0] * -1
+                        self.speed[1] = self.speed[1] * -1
+                        Electricity.speed[0] = Electricity.speed[0] * -1
+                        Electricity.speed[1] = Electricity.speed[1] * -1
         print "trying to hit ", str(Electricity)
         
-    def collideProjectile(self, projectile):
+    def collideProjectile(self, Projectile):
+        if self.living and Projectile.living:
+            if (self.rect.right > Projectile.rect.left 
+                and self.rect.left < Projectile.rect.right):
+                if (self.rect.bottom > Projectile.rect.top and 
+                    self.rect.top < Projectile.rect.bottom):
+                    if (self.distToPoint(Projectile.rect.center)
+                        < self.radius + Projectile.radius):  
+                        self.speed[0] = self.speed[0] * -1
+                        self.speed[1] = self.speed[1] * -1
+                        Projectile.speed[0] = Projectile.speed[0] * -1
+                        Projectile.speed[1] = Projectile.speed[1] * -1
         print "I'm being shot by", projectile
         
     def collideRobot (self, other):
