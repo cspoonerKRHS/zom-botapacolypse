@@ -25,9 +25,11 @@ class Zombie():
     # screenWidth
     # screenHeight
     # unDead
+
+   
     
     # Methods or Functions
-    def __init__(self, speed, position):
+    def __init__(self, speed, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/zombie/zombie.png")]
         self.frame = 0
@@ -35,6 +37,7 @@ class Zombie():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.speed = speed
+        speed = [2, 2]
         self.place(position)
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
@@ -53,8 +56,8 @@ class Zombie():
         #if pygame.mixer
         #   self.zombieNoise.play()
         
-    def chase(self, other):
-        self.rect = self.rect.move(self.speed*2)
+    def chase(self, speed):
+        self.rect = self.rect.move(self.speed + self.speed)
         
     def sight(self, other):
         

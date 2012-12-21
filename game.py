@@ -130,7 +130,7 @@ while True:
                      random.randint(1,6)]
         zombiePos = [random.randint(100,screenWidth-100),
                    random.randint(100,screenHeight/2)]
-        zombies += [Zombie(zombieSpeed, zombiePos)]
+        zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
         
     for zombie in zombies:
         if zombie.unDead:
@@ -141,7 +141,7 @@ while True:
             zombie.collideElectricity(electricity)
             zombie.collideProjectile(projectile)
             zombie.sight(man)
-            zombie.chase(man)
+            zombie.chase([2,2])
             zombie.biteMan(man)
             zombie.hurt(man)
             zombie.dropItem()
