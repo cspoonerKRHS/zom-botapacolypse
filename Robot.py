@@ -46,15 +46,15 @@ class Robot():
         
     def shootElect(self):
         if self.frame > 1:
-            screen.blit(electricity.surface, electricity.rect)
+            screen.blit(Electricity.surface, Electricity.rect)
         print "I'm shooting Electricity "
             
         
     def hurt(self):
         if self.living:
-            if self.collideElectricity
+            if Electricity.collideAttackRobot:
                 self.living = False
-            if self.collideProjectile
+            if Projectile.collideAttackRobot:
                 
         print "I'm hurt"
         
