@@ -55,9 +55,9 @@ class Electricity():
         print "Trying to hit the maze wall"
         
     def collideAttackRobot(self, robot):
-        print "Trying to collide with the robot"
+        print "Trying to collide with the robot by killing it"
         
-    def collideAttackZomie(self, other):
+    def collideAttackZombie(self, other):
         print "Trying to collide with the zombie"
    
     def remove(self):
