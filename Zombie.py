@@ -36,12 +36,15 @@ class Zombie():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.speed = speed
         speed = [2, 2]
+        self.maxSpeed = 3
+        self.speed = speed
+        self.detectionRadius = 50
         self.place(position)
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
         self.unDead = True
+        self.life = 100
         #if pygame.mixer:
         #    self.zombieNoise = pygame.mixer.sound("zombie.wav")   
     
@@ -56,22 +59,19 @@ class Zombie():
         #if pygame.mixer
         #   self.zombieNoise.play()
         
-    def chase(self, speed):
-        if self.sight(other)
-            self.rect = self.rect.move(self.speed + self.speed)
-        
-    def sight(self, other, pt):
-        x1 = self.rect.center[0]
-        x2 = pt[0]
-        y1 = self.rect.center[1]
-        y2 = pt[1]
-        x1 = other.rect.center[0]
-        x2 = pt[0]
-        y1 = other.rect.center[1]
-        y2 = p1[0]
-        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        print "I'm near something ", str(other.rect.center)
-        
+    def chase(self, player):
+        if distToPoint(self.rect.center, player.rect.center) < self.detectionRadius:
+            pX = player.rect.center[0]
+            py = player.rect.center[1]
+            zX = self.rect.center[0]
+            zY = self.rect.center[1]
+            
+            if pX > zX:
+                self.speed[0] = self.maxSpeed
+            elif pX < zX:
+                self.speed[0] = -self.maxSpeed
+            else:
+                self.speed[0] = 0
         
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -130,7 +130,10 @@ class Zombie():
                     return True
         
     def biteMan(self, man):
-        print "Trying to bite", str(man)
+        if man.collideZombie(self)
+            man.life = man.life-20
+        
+        print "Trying to bite", man
     
     def hurt(self, other):
         print "I've gotten hurt by", str(other)
