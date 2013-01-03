@@ -29,8 +29,10 @@ class Robot():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.speed = speed
+        self.detectionRadius = 100
         self.place(position)
-        self.living = True 
+        self.living = True
+        self.life = 100
         #if pygame.mixer:
         #    self.robotSound = pygame.mixer.Sound("Robot.wav")
         
@@ -45,16 +47,16 @@ class Robot():
         print "I've moved", self.speed
         
     def shootElect(self):
-        if self.frame > 1:
+        if self.sight():
             screen.blit(Electricity.surface, Electricity.rect)
         print "I'm shooting Electricity "
-            
-        
+       
     def hurt(self):
         if self.living:
             if Electricity.collideAttackRobot:
-                self.living = False
+                self.life = 0
             if Projectile.collideAttackRobot:
+                self.life = 50
                 
         print "I'm hurt"
         
@@ -67,11 +69,14 @@ class Robot():
         print "I'm near something ", str(other.rect.center)
         
     def sight(self, other):
-        if (self.distToPoint(Man.rect.center)):
-            self.shootElect()
+        if distToPoint(self.rect.center, Man.rect.center) < self.detectionRadius:
+        px = Man.rect.center[0]
+        p
         print "I can see ", other
         
     def dropItem(self):
+        if self.life = 0
+            screen.blit(taser.surface, taser.rect)
         print "I drop this" 
          
       
@@ -93,7 +98,6 @@ class Robot():
                         < self.radius + MazeWall.radius):  
                         self.speed[0] = self.speed[0] * -1
                         self.speed[1] = self.speed[1] * -1
-
         print "trying to hit ", str(MazeWall)
         #if pygame.mixer:
         #   self.bounceSound.play()
@@ -140,7 +144,9 @@ class Robot():
                         other.speed[1] = other.speed[1] * -1
                         return True
         return False
-        
-        
+    
+    if self.life = 0
+        self.living = False
+       
         print "trying to hit ", str(other)  
     
