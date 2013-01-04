@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------
 import pygame, math
 from Taser import Taser
-
+from Robot import Robot
 
 
 class Zombie():
@@ -36,6 +36,7 @@ class Zombie():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         speed = [2, 2]
         self.maxSpeed = 3
         self.speed = speed
@@ -142,12 +143,12 @@ class Zombie():
         print "Trying to bite", man
         
     def dropItem(self):
-        if self.unDead = False
+        if self.unDead == False:
             screen.blit(pistol.surface, pistol.rect)
         print "I've droped", (Taser or stunGun or stick or pistol)
     
-    if self.life = 0
-        self.unDead = False
+        if self.life == 0:
+            self.unDead = False
                     
         #return True
         

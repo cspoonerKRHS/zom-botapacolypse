@@ -24,6 +24,7 @@ class MazeWall():
     def __init__(self, position):
         self.surface = pygame.image.load("rsc/MazeWall/blocks.png")
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         self.place(position)
     
     def __str__(self):

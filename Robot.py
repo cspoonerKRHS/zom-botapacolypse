@@ -12,8 +12,6 @@
 #------------------------------------------------------------------------------
 import pygame, math, sys, random
 
-from MazeWall import MazeWall
-from Zombie import Zombie
 
 from Electricity import Electricity
 from Projectile import Projectile
@@ -79,7 +77,7 @@ class Robot():
         print "I can see You"
         
     def dropItem(self):
-        if self.living = False:
+        if self.living == False:
             screen.blit(taser.surface, taser.rect)
         print "I drop this" 
          
