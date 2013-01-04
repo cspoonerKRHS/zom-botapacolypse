@@ -137,15 +137,14 @@ while True:
             zombie.move()
             zombie.collideMazeWall(mazeWall)
             zombie.collideWall(screenWidth, screenHeight)
-            zombie.collideRobot(Robot)
-            zombie.collideElectricity(electricity)
-            zombie.collideProjectile(projectile)
-            zombie.chase([2,2])
+            for robot in robots:
+                zombie.collideRobot(robot)
+            zombie.chase(man)
             zombie.biteMan(man)
             zombie.hurt(man)
             zombie.dropItem()
-            if not zombie.unDead:
-                zombies.remove(zombie)            
+        if not zombie.unDead:
+            zombies.remove(zombie)            
             
     
     while len(robots) < maxRobots:
@@ -160,8 +159,6 @@ while True:
 			robot.move()
 			robot.collideMazeWall(mazeWall)
 			robot.collideWall(screenWidth, screenHeight)
-			robot.collideElectricity(electricity)
-			robot.collideProjectile(projectile)
 			robot.shootElect()
 			robot.hurt()
 			robot.dropItem()

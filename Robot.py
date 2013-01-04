@@ -12,14 +12,12 @@
 #------------------------------------------------------------------------------
 import pygame, math, sys, random
 
-from MazeWall import MazeWall
-from Zombie import Zombie
 
 from Electricity import Electricity
 from Projectile import Projectile
 
 class Robot():
-    def __init__(self, speed = [2,2], position):
+    def __init__(self, speed, position):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/Robot/robotright1.png")]
         self.surfaces += [pygame.image.load("rsc/Robot/robotright2.png")]
@@ -28,6 +26,8 @@ class Robot():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        speed = [2, 2]
+        self.maxSpeed = 3
         self.speed = speed
         self.detectionRadius = 100
         self.place(position)
@@ -54,9 +54,9 @@ class Robot():
     def hurt(self):
         if self.living:
             if Electricity.collideAttackRobot:
-                self.life = 0
+                self.life = self.life - 100
             if Projectile.collideAttackRobot:
-                self.life = 50
+                self.life = self.life - 50
                 
         print "I'm hurt"
         
@@ -68,14 +68,16 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
-    def sight(self, other):
+    def sight(self, Man):
         if distToPoint(self.rect.center, Man.rect.center) < self.detectionRadius:
-        px = Man.rect.center[0]
-        p
-        print "I can see ", other
+            pX = Man.rect.center[0]
+            pY = Man.rect.center[1]
+            zX = self.rect.center[0]
+            zY = self.rect.center[1]
+        print "I can see You"
         
     def dropItem(self):
-        if self.life = 0
+        if self.living == False:
             screen.blit(taser.surface, taser.rect)
         print "I drop this" 
          
@@ -101,36 +103,9 @@ class Robot():
         print "trying to hit ", str(MazeWall)
         #if pygame.mixer:
         #   self.bounceSound.play()
-        
-    def collideElectricity(self, Electricity):
-        if self.living and Electricity.living:
-            if (self.rect.right > Electricity.rect.left 
-                and self.rect.left < Electricity.rect.right):
-                if (self.rect.bottom > Electricity.rect.top and 
-                    self.rect.top < Electricity.rect.bottom):
-                    if (self.distToPoint(Electricity.rect.center)
-                        < self.radius + Electricity.radius):  
-                        self.speed[0] = self.speed[0] * -1
-                        self.speed[1] = self.speed[1] * -1
-                        Electricity.speed[0] = Electricity.speed[0] * -1
-                        Electricity.speed[1] = Electricity.speed[1] * -1
-        print "trying to hit ", str(Electricity)
-        
-    def collideProjectile(self, Projectile):
-        if self.living and Projectile.living:
-            if (self.rect.right > Projectile.rect.left 
-                and self.rect.left < Projectile.rect.right):
-                if (self.rect.bottom > Projectile.rect.top and 
-                    self.rect.top < Projectile.rect.bottom):
-                    if (self.distToPoint(Projectile.rect.center)
-                        < self.radius + Projectile.radius):  
-                        self.speed[0] = self.speed[0] * -1
-                        self.speed[1] = self.speed[1] * -1
-                        Projectile.speed[0] = Projectile.speed[0] * -1
-                        Projectile.speed[1] = Projectile.speed[1] * -1
-        print "I'm being shot by", projectile
-        
+           
     def collideRobot (self, other):
+        print "trying to hit ", str(other)
         if self.living and other.living:
             if (self.rect.right > other.rect.left 
                 and self.rect.left < other.rect.right):
@@ -145,8 +120,8 @@ class Robot():
                         return True
         return False
     
-    if self.life = 0
-        self.living = False
+        if self.life == 0:
+            self.living = False
        
-        print "trying to hit ", str(other)  
+  
     
