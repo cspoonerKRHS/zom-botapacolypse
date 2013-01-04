@@ -62,7 +62,7 @@ class Zombie():
     def chase(self, player):
         if distToPoint(self.rect.center, player.rect.center) < self.detectionRadius:
             pX = player.rect.center[0]
-            py = player.rect.center[1]
+            pY = player.rect.center[1]
             zX = self.rect.center[0]
             zY = self.rect.center[1]
             
@@ -73,6 +73,13 @@ class Zombie():
             else:
                 self.speed[0] = 0
         
+            if pY > zY:
+                self.speed[0] = self.maxSpeed
+            elif pY < zY:
+                self.speed[0] = -self.maxSpeed
+            else:
+                self.speed[0] = 0
+    
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
         x2 = pt[0]
@@ -130,19 +137,17 @@ class Zombie():
                     return True
         
     def biteMan(self, man):
-        if man.collideZombie(self)
-            man.life = man.life-20
-        
+        if man.collideZombie(self):
+            man.life = man.life - 20
         print "Trying to bite", man
-    
-    def hurt(self, other):
-        print "I've gotten hurt by", str(other)
         
     def dropItem(self):
+        if self.unDead = False
+            screen.blit(pistol.surface, pistol.rect)
         print "I've droped", (Taser or stunGun or stick or pistol)
     
-    def remove(self):
-        print "I am being removed from the game", self
+    if self.life = 0
+        self.unDead = False
                     
         #return True
         
