@@ -144,8 +144,8 @@ while True:
             zombie.biteMan(man)
             zombie.hurt(man)
             zombie.dropItem()
-            if not zombie.unDead:
-                zombies.remove(zombie)            
+        if not zombie.unDead:
+            zombies.remove(zombie)            
             
     
     while len(robots) < maxRobots:
