@@ -60,6 +60,14 @@ class Zombie():
         #if pygame.mixer
         #   self.zombieNoise.play()
         
+    def distToPoint(self, pt):
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+        print "I'm near something ", str(other.rect.center)
+        
     def chase(self, player):
         if distToPoint(self.rect.center, player.rect.center) < self.detectionRadius:
             pX = player.rect.center[0]
@@ -80,14 +88,6 @@ class Zombie():
                 self.speed[0] = -self.maxSpeed
             else:
                 self.speed[0] = 0
-    
-    def distToPoint(self, pt):
-        x1 = self.rect.center[0]
-        x2 = pt[0]
-        y1 = self.rect.center[1]
-        y2 = pt[1]
-        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        print "I'm near something ", str(other.rect.center)
         
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 

@@ -22,6 +22,7 @@ class Pistol():
         self.rect = self.surface.get_rect()
         self.place(position)
         self.notBroken = True
+        self.use = 2
         if pygame.mixer:
             self.gunshotSound = pygame.mixer.Sound("gunshot.wav")
         
@@ -29,21 +30,21 @@ class Pistol():
         return "I'm a Pistol " + str(self.rect.center) + str(self.notBroken)
         
     def attack(self, other):
+        if Man.attackWithPistol(self, other):
+            screen.blit(projectile.surface, projectile.rect)
         print "I've attacked", str(other)
      
     def place(self, position):
         print "I've moved to", position
-        
-    def shoot(self):
-     print "I shot", str(self)
-        
-    def createProjectile(self):
-        print "I created a Projectile"
-        
+   
     def useDown(self):
+        if self.attack(other):
+            self.use == self.use-1
         print "I've been used", str(self)
         
     def broken(self):
+        if self.use == 0
+            self.remove
         print "I'm broken", str(self)
         
     def remove(self):
