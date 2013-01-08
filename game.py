@@ -18,18 +18,19 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-screenWidth = 800
-screenHeight = 600
+screenWidth = 1400
+screenHeight = 800
 
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
 man = Man(5, [400, 400])
 zombies = [] 
-maxZombies = 4
+maxZombies = 10
 robots = []
-maxRobots = 3
-mazeWall = MazeWall([200,200])
+maxRobots = 10
+mazeWall = MazeWall([400,400])
+mazeWall.place([200, 200])
 stick = Stick([125, 100])
 taser = Taser([300,300])
 stunGun = StunGun([150,200])
@@ -38,7 +39,7 @@ pistol = Pistol([250,250])
 projectile = Projectile([2,2], [500,500])
 healthBar = HealthBar([100,100])
 
-bgColor = 0,0,0
+bgColor = 100,100,10
 
 while True:
     for event in pygame.event.get():
@@ -135,13 +136,13 @@ while True:
     for zombie in zombies:
         if zombie.unDead:
             zombie.move()
+            zombie.collideZombie(zombie)
             zombie.collideMazeWall(mazeWall)
             zombie.collideWall(screenWidth, screenHeight)
             for robot in robots:
                 zombie.collideRobot(robot)
             zombie.chase(man)
             zombie.biteMan(man)
-            zombie.hurt(man)
             zombie.dropItem()
         if not zombie.unDead:
             zombies.remove(zombie)            
@@ -152,14 +153,14 @@ while True:
                      random.randint(1,6)]
         robotPos = [random.randint(100,screenWidth-100),
                    random.randint(100,screenHeight/2)]
-        robots += [Robot(robotSpeed, robotPos)]
+        robots += [Robot(robotSpeed, robotPos, screenSize)]
         
     for robot in robots:
         if robot.living:
 			robot.move()
 			robot.collideMazeWall(mazeWall)
 			robot.collideWall(screenWidth, screenHeight)
-			robot.shootElect()
+			robot.shootElect(man)
 			robot.hurt()
 			robot.dropItem()
         if not robot.living:
@@ -194,8 +195,7 @@ while True:
         if stunGun.attack:
             screen.blit(electricity.surface, electricity.rect)
     
-    
-    clock.tick(30)
+    pygame.display.flip()
     print clock.get_fps()
 
      

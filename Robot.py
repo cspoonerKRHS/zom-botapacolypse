@@ -17,7 +17,7 @@ from Electricity import Electricity
 from Projectile import Projectile
 
 class Robot():
-    def __init__(self, speed, position):
+    def __init__(self, speed, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/Robot/robotright1.png")]
         self.surfaces += [pygame.image.load("rsc/Robot/robotright2.png")]
@@ -26,11 +26,14 @@ class Robot():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         speed = [2, 2]
         self.maxSpeed = 3
         self.speed = speed
         self.detectionRadius = 100
         self.place(position)
+        self.screenWidth = screenSize[0]
+        self.screenHeight = screenSize[1]
         self.living = True
         self.life = 100
         #if pygame.mixer:
@@ -40,14 +43,15 @@ class Robot():
         return "I'm a Robot " + str(self.rect.center) + str(self.speed) + str(self.living)
      
     def place(self, position):
+        self.rect = self.rect.move(position)
         print "I've moved to", position
         
     def move(self):
         self.rect = self.rect.move(self.speed)
         print "I've moved", self.speed
         
-    def shootElect(self):
-        if self.sight():
+    def shootElect(self, other):
+        if self.sight(other):
             screen.blit(Electricity.surface, Electricity.rect)
         print "I'm shooting Electricity "
        
@@ -68,10 +72,10 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
-    def sight(self, Man):
-        if distToPoint(self.rect.center, Man.rect.center) < self.detectionRadius:
-            pX = Man.rect.center[0]
-            pY = Man.rect.center[1]
+    def sight(self, man):
+        if self.distToPoint(man.rect.center) < self.detectionRadius:
+            pX = man.rect.center[0]
+            pY = man.rect.center[1]
             zX = self.rect.center[0]
             zY = self.rect.center[1]
         print "I can see You"
@@ -84,12 +88,12 @@ class Robot():
       
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
-            or self.rect.right > self.screenWidth):
+            or self.rect.right > screenWidth):
             self.speed[0] = self.speed[0]*-1
         if (self.rect.top < 0 
-            or self.rect.bottom >self.screenHeight):
+            or self.rect.bottom > screenHeight):
             self.speed[1] = self.speed[1]*-1
-        print "trying to hit edges of screen", screenWidth, screenHeight
+        print " robot trying to hit edges of screen", screenWidth, screenHeight
         
     def collideMazeWall(self, MazeWall):
         if (self.rect.right > MazeWall.rect.left 

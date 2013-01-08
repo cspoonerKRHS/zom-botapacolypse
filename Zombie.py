@@ -68,10 +68,10 @@ class Zombie():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
-    def chase(self, player):
-        if distToPoint(self.rect.center, player.rect.center) < self.detectionRadius:
-            pX = player.rect.center[0]
-            pY = player.rect.center[1]
+    def chase(self, man):
+        if self.distToPoint(man.rect.center) < self.detectionRadius:
+            pX = man.rect.center[0]
+            pY = man.rect.center[1]
             zX = self.rect.center[0]
             zY = self.rect.center[1]
             
@@ -92,10 +92,10 @@ class Zombie():
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
             or self.rect.right > self.screenWidth):
-            self.speed[0] = self.speed[0]*-0.2
+            self.speed[0] = self.speed[0]*-1
         if (self.rect.top < 0 
             or self.rect.bottom >self.screenHeight):
-            self.speed[1] = self.speed[1]*-0.2
+            self.speed[1] = self.speed[1]*-1
     
     def collideMazeWall(self, mazeWall):
         print "Trying to hit the maze wall", str(mazeWall)
@@ -105,8 +105,8 @@ class Zombie():
                 self.rect.top < mazeWall.rect.bottom):
                 if (self.distToPoint(mazeWall.rect.center)
                     < self.radius + mazeWall.radius):  
-                    self.speed[0] = self.speed[0] * 0
-                    self.speed[1] = self.speed[1] * 0
+                    self.speed[0] = self.speed[0] * -1
+                    self.speed[1] = self.speed[1] * -1
                     return True
         
     def collideRobot(self, robot):
@@ -117,24 +117,23 @@ class Zombie():
                 self.rect.top < robot.rect.bottom):
                 if (self.distToPoint(robot.rect.center)
                     < self.radius + robot.radius):  
-                    self.speed[0] = self.speed[0] * 0
-                    self.speed[1] = self.speed[1] * 0
-                    robot.speed[0] = robot.speed[0] * 0
-                    robot.speed[1] = robot.speed[1] * 0
+                    self.speed[0] = self.speed[0] * -1
+                    self.speed[1] = self.speed[1] * -1
+                    robot.speed[0] = robot.speed[0] * -1
+                    robot.speed[1] = robot.speed[1] * -1
                     return True
         
     def collideZombie(self, other):
-        print "Trying to collide with my comrade", str(zombie)
         if (self.rect.right > other.rect.left 
             and self.rect.left < other.rect.right):
             if (self.rect.bottom > other.rect.top and 
                 self.rect.top < other.rect.bottom):
                 if (self.distToPoint(other.rect.center)
                     < self.radius + other.radius):  
-                    self.speed[0] = self.speed[0] * 0
-                    self.speed[1] = self.speed[1] * 0
-                    other.speed[0] = other.speed[0] * 0
-                    other.speed[1] = other.speed[1] * 0
+                    self.speed[0] = self.speed[0] * -1
+                    self.speed[1] = self.speed[1] * -1
+                    other.speed[0] = other.speed[0] * -1
+                    other.speed[1] = other.speed[1] * -1
                     return True
         
     def biteMan(self, man):
