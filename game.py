@@ -163,6 +163,7 @@ while True:
         if robot.living:
 			robot.move()
 			robot.collideMazeWall(mazeWall)
+			robot.collideRobot(robot)
 			robot.collideWall(screenWidth, screenHeight)
 			robot.shootElect(man)
 			robot.hurt()
