@@ -48,6 +48,7 @@ class Man():
     
     def place(self, position):
         print "I've moved to", position
+        self.rect = self.rect.move(position)
     
     def move(self):
         print "I've moved", self.speed
