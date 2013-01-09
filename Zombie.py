@@ -31,7 +31,7 @@ class Zombie():
     # Methods or Functions
     def __init__(self, speed, position, screenSize):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("rsc/zombie/zombie.png")]
+        self.surfaces += [pygame.image.load("rsc/zombie/zombie2.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
@@ -40,7 +40,7 @@ class Zombie():
         speed = [2, 2]
         self.maxSpeed = 3
         self.speed = speed
-        self.detectionRadius = 1000
+        self.detectionRadius = 100
         self.place(position)
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
