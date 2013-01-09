@@ -141,7 +141,10 @@ while True:
             zombie.collideWall(screenWidth, screenHeight)
             for robot in robots:
                 zombie.collideRobot(robot)
-            zombie.chase(man)
+            if zombie.chase(man):
+                for first in range(0,len(zombies)-2):
+                    for second in range(first+1, len(zombies)-1):
+                        zombies[first].collideZombie2(zombies[second])
             zombie.biteMan(man)
             zombie.dropItem()
         if not zombie.unDead:

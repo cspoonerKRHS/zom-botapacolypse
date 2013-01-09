@@ -135,7 +135,21 @@ class Zombie():
                     other.speed[0] = other.speed[0] * -1
                     other.speed[1] = other.speed[1] * -1
                     return True
-        
+                    
+    def collideZombie2(self, other):
+        if (self.rect.right > other.rect.left 
+            and self.rect.left < other.rect.right):
+            if (self.rect.bottom > other.rect.top and 
+                self.rect.top < other.rect.bottom):
+                if (self.distToPoint(other.rect.center)
+                    < self.radius + other.radius):  
+                    self.speed[0] = self.speed[0] * 0
+                    self.speed[1] = self.speed[1] * 0
+                    other.speed[0] = other.speed[0] * 0
+                    other.speed[1] = other.speed[1] * 0
+                    return True
+
+    
     def biteMan(self, man):
         if man.collideZombie(self):
             man.life = man.life - 20
