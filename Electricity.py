@@ -25,7 +25,7 @@ class Electricity():
     # Methods or Functions
     def __init__(self, speed, position):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("rsc/electricity/electricity.png")]
+        self.surfaces += [pygame.image.load("rsc/electricity/electricity2.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]

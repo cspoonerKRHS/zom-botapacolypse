@@ -51,7 +51,7 @@ class Robot():
         print "I've moved", self.speed
         
     def shootElect(self, other):
-        if self.sight(other):
+        if self.sight(man):
             screen.blit(Electricity.surface, Electricity.rect)
         print "I'm shooting Electricity "
        
@@ -72,7 +72,7 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
-    def sight(self, man):
+    def sight(self, other):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
             pX = man.rect.center[0]
             pY = man.rect.center[1]
