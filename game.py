@@ -26,9 +26,9 @@ screen = pygame.display.set_mode(screenSize)
 
 man = Man(5, [400, 400])
 zombies = [] 
-maxZombies = 10
+maxZombies = 4
 robots = []
-maxRobots = 10
+maxRobots = 4
 mazeWall = MazeWall([400,400])
 mazeWall.place([200, 200])
 stick = Stick([125, 100])
@@ -145,7 +145,11 @@ while True:
             zombie.biteMan(man)
             zombie.dropItem()
         if not zombie.unDead:
-            zombies.remove(zombie)            
+            zombies.remove(zombie)  
+
+    for first in range(0,len(zombies)-2):
+        for second in range(first+1, len(zombies)-1):
+            zombies[first].collideZombie(zombies[second])
             
     
     while len(robots) < maxRobots:
@@ -159,12 +163,17 @@ while True:
         if robot.living:
 			robot.move()
 			robot.collideMazeWall(mazeWall)
+			robot.collideRobot(robot)
 			robot.collideWall(screenWidth, screenHeight)
 			robot.shootElect(man)
 			robot.hurt()
 			robot.dropItem()
         if not robot.living:
             robots.remove(robot)
+            
+    for first in range(0,len(robots)-2):
+        for second in range(first+1, len(robots)-1):
+            robots[first].collideRobot(robots[second])
 
     #stick.swing.whack.snapInHalf
        
