@@ -37,7 +37,7 @@ class Zombie():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
-        speed = [2, 3]
+        speed = [2, 2]
         self.maxSpeed = 3
         self.speed = speed
         self.detectionRadius = 100
