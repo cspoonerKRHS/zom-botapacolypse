@@ -40,7 +40,7 @@ class Zombie():
         speed = [2, 2]
         self.maxSpeed = 3
         self.speed = speed
-        self.detectionRadius = 100
+        self.detectionRadius = 1000
         self.place(position)
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
@@ -83,11 +83,11 @@ class Zombie():
                 self.speed[0] = 0
         
             if pY > zY:
-                self.speed[0] = self.maxSpeed
+                self.speed[1] = self.maxSpeed
             elif pY < zY:
-                self.speed[0] = -self.maxSpeed
+                self.speed[1] = -self.maxSpeed
             else:
-                self.speed[0] = 0
+                self.speed[1] = 0
         
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
