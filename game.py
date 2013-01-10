@@ -18,8 +18,8 @@ pygame.init()
 
 clock = pygame.time.Clock()
 
-screenWidth = 1400
-screenHeight = 800
+screenWidth = 800
+screenHeight = 600
 
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
@@ -208,7 +208,10 @@ while True:
             screen.blit(electricity.surface, electricity.rect)
     
     pygame.display.flip()
+    print "-----------------------"
+    clock.tick(35)
     print clock.get_fps()
+    print "-----------------------"
 
      
     

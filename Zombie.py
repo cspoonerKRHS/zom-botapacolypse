@@ -151,8 +151,7 @@ class Zombie():
 
     
     def biteMan(self, man):
-        if man.collideZombie(self):
-            man.life = man.life - 20
+
         print "Trying to bite", man
         
     def dropItem(self):

@@ -38,6 +38,7 @@ class Man():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         self.speed = speed
         self.place(position)
         self.living = True
@@ -56,8 +57,14 @@ class Man():
     def direction(self, direction):
         print "I am trying to move", direction
     
-    def distToPoint(self):
-        print "I can see", str(distToPoint)
+    def distToPoint(self, pt):
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+        print "I'm near something ", str(other.rect.center)
+
         
     def collideWall(self):
         print "Trying to hit screen walls", screenWidth, screenHeight    

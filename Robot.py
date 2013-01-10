@@ -28,7 +28,7 @@ class Robot():
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         speed = [2, 2]
-        self.maxSpeed = 3
+        self.maxSpeed = 0
         self.speed = speed
         self.detectionRadius = 100
         self.place(position)
@@ -51,7 +51,7 @@ class Robot():
         print "I've moved", self.speed
         
     def shootElect(self, other):
-        if self.sight(man):
+        if self.sight(other):
             screen.blit(Electricity.surface, Electricity.rect)
         print "I'm shooting Electricity "
        
@@ -72,12 +72,26 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         print "I'm near something ", str(other.rect.center)
         
-    def sight(self, other):
+    def sight(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
             pX = man.rect.center[0]
             pY = man.rect.center[1]
             zX = self.rect.center[0]
             zY = self.rect.center[1]
+                        
+            if pX > zX:
+                self.speed[0] = self.maxSpeed
+            elif pX < zX:
+                self.speed[0] = -self.maxSpeed
+            else:
+                self.speed[0] = 0
+        
+            if pY > zY:
+                self.speed[1] = self.maxSpeed
+            elif pY < zY:
+                self.speed[1] = -self.maxSpeed
+            else:
+                self.speed[1] = 0
         print "I can see You"
         
     def dropItem(self):
