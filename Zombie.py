@@ -41,6 +41,8 @@ class Zombie():
         self.maxSpeed = 3
         self.speed = speed
         self.detectionRadius = 100
+        self.biteRadius = 10
+        self.noSpeed = 0
         self.place(position)
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
@@ -151,7 +153,25 @@ class Zombie():
 
     
     def biteMan(self, man):
-
+        if self.distToPoint(man.rect.center) < self.biteRadius:
+            pX = man.rect.center[0]
+            pY = man.rect.center[1]
+            zX = self.rect.center[0]
+            zY = self.rect.center[1]
+            
+            if pX > zX:
+                self.speed[0] = self.noSpeed
+            elif pX < zX:
+                self.speed[0] = -self.noSpeed
+            else:
+                self.speed[0] = 0
+        
+            if pY > zY:
+                self.speed[1] = self.noSpeed
+            elif pY < zY:
+                self.speed[1] = -self.noSpeed
+            else:
+                self.speed[1] = 0        
         print "Trying to bite", man
         
     def dropItem(self):

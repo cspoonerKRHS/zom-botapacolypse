@@ -39,6 +39,7 @@ class Man():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
+        
         self.speed = speed
         self.place(position)
         self.living = True
@@ -54,9 +55,26 @@ class Man():
     def move(self):
         print "I've moved", self.speed
     
-    def direction(self, direction):
-        print "I am trying to move", direction
-    
+    def direction(self, dir):
+        print "I am trying to move", dir
+        if dir == "up":
+            self.speed[1] = -self.speed
+        elif dir == "down":
+            self.speed[1] = self.speed
+        elif dir == "stop up":
+            self.speed[1] = 0
+        elif dir == "stop up":
+            self.speed[1] = 0
+            
+        if dir == "right":
+            self.speed[1] = self.speed
+        elif dir == "left":
+            self.speed[1] = -self.speed
+        elif dir == "stop right":
+            self.speed[1] = 0
+        elif dir == "stop left":
+            self.speed[1] = 0
+        
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
         x2 = pt[0]
@@ -72,12 +90,12 @@ class Man():
     def collideMazeWall(self, MazeWall):
         print "Trying to hit the maze wall", str(MazeWall)
         
-    def collideRobot(self, robot):
+    def collideRobot(self, other):
         print "Trying to collide with the robot", str(Robot)
         
     def collideZombie(self, other):
         print "Trying to collide zombie", str(Zombie)
-        
+                            
     def collideStick(self, stick):
         print "I have collided with", stick
         
