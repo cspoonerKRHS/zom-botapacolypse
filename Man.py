@@ -31,7 +31,7 @@ class Man():
     # living
     
     # Methods or Functions
-    def __init__(self, speed, position):
+    def __init__(self, maxSpeed, position):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc\man\man.png")]
         self.frame = 0
@@ -39,8 +39,8 @@ class Man():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
-        
-        self.speed = speed
+        self.maxSpeed = maxSpeed
+        self.speed = [0,0]
         self.place(position)
         self.living = True
     
@@ -49,31 +49,33 @@ class Man():
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
     
     def place(self, position):
-        print "I've moved to", position
+        #print "I've moved to", position
         self.rect = self.rect.move(position)
     
     def move(self):
         print "I've moved", self.speed
+        self.rect = self.rect.move(self.speed)
     
     def direction(self, dir):
         print "I am trying to move", dir
         if dir == "up":
-            self.speed[1] = -self.speed
+            self.speed[1] = -self.maxSpeed
         elif dir == "down":
-            self.speed[1] = self.speed
+            self.speed[1] = self.maxSpeed
         elif dir == "stop up":
             self.speed[1] = 0
-        elif dir == "stop up":
+        elif dir == "stop down":
             self.speed[1] = 0
             
         if dir == "right":
-            self.speed[1] = self.speed
+            self.speed[0] = self.maxSpeed
         elif dir == "left":
-            self.speed[1] = -self.speed
+            self.speed[0] = -self.maxSpeed
         elif dir == "stop right":
-            self.speed[1] = 0
+            self.speed[0] = 0
         elif dir == "stop left":
-            self.speed[1] = 0
+            self.speed[0] = 0
+        
         
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -81,7 +83,7 @@ class Man():
         y1 = self.rect.center[1]
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        print "I'm near something ", str(other.rect.center)
+        #print "I'm near something ", str(other.rect.center)
 
         
     def collideWall(self):
