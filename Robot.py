@@ -44,16 +44,16 @@ class Robot():
      
     def place(self, position):
         self.rect = self.rect.move(position)
-        print "I've moved to", position
+        #print "I've moved to", position
         
     def move(self):
         self.rect = self.rect.move(self.speed)
-        print "I've moved", self.speed
+        #print "I've moved", self.speed
         
     def shootElect(self, other):
         if self.sight(other):
             screen.blit(Electricity.surface, Electricity.rect)
-        print "I'm shooting Electricity "
+        #print "I'm shooting Electricity "
        
     def hurt(self):
         if self.living:
@@ -62,7 +62,7 @@ class Robot():
             if Projectile.collideAttackRobot:
                 self.life = self.life - 50
                 
-        print "I'm hurt"
+       # print "I'm hurt"
         
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -70,7 +70,7 @@ class Robot():
         y1 = self.rect.center[1]
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        print "I'm near something ", str(other.rect.center)
+        #print "I'm near something ", str(other.rect.center)
         
     def sight(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
@@ -92,12 +92,12 @@ class Robot():
                 self.speed[1] = -self.maxSpeed
             else:
                 self.speed[1] = 0
-        print "I can see You"
+        #print "I can see You"
         
     def dropItem(self):
         if self.living == False:
             screen.blit(taser.surface, taser.rect)
-        print "I drop this" 
+        #print "I drop this" 
          
       
     def collideWall(self, screenWidth, screenHeight):
@@ -107,7 +107,7 @@ class Robot():
         if (self.rect.top < 0 
             or self.rect.bottom > screenHeight):
             self.speed[1] = self.speed[1]*-1
-        print " robot trying to hit edges of screen", screenWidth, screenHeight
+        #print " robot trying to hit edges of screen", screenWidth, screenHeight
         
     def collideMazeWall(self, MazeWall):
         if (self.rect.right > MazeWall.rect.left 
@@ -118,12 +118,12 @@ class Robot():
                         < self.radius + MazeWall.radius):  
                         self.speed[0] = self.speed[0] * -1
                         self.speed[1] = self.speed[1] * -1
-        print "trying to hit ", str(MazeWall)
+        #print "trying to hit ", str(MazeWall)
         #if pygame.mixer:
         #   self.bounceSound.play()
            
     def collideRobot (self, other):
-        print "trying to hit ", str(other)
+        #print "trying to hit ", str(other)
         if self.living and other.living:
             if (self.rect.right > other.rect.left 
                 and self.rect.left < other.rect.right):

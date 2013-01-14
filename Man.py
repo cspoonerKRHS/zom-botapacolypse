@@ -40,7 +40,7 @@ class Man():
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         self.maxSpeed = maxSpeed
-        self.speed = [0,0]
+        self.speed = [2,2]
         self.place(position)
         self.living = True
     
@@ -57,7 +57,7 @@ class Man():
         self.rect = self.rect.move(self.speed)
     
     def direction(self, dir):
-        print "I am trying to move", dir
+        #print "I am trying to move", dir
         if dir == "up":
             self.speed[1] = -self.maxSpeed
         elif dir == "down":
@@ -138,7 +138,7 @@ class Man():
         print "I have attacked", str(pistol), other
     
     def hurt(self, other):
-        print "I've gotten hurt by", str(other)
+        print "I've been hurt by", str(other)
     
     def die(self):
         print "I have died"

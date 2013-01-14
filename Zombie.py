@@ -68,7 +68,7 @@ class Zombie():
         y1 = self.rect.center[1]
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        print "I'm near something ", str(other.rect.center)
+        #print "I'm near something ", str(other.rect.center)
         
     def chase(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
@@ -100,7 +100,7 @@ class Zombie():
             self.speed[1] = self.speed[1]*-1
     
     def collideMazeWall(self, mazeWall):
-        print "Trying to hit the maze wall", str(mazeWall)
+        #print "Trying to hit the maze wall", str(mazeWall)
         if (self.rect.right > mazeWall.rect.left 
             and self.rect.left < mazeWall.rect.right):
             if (self.rect.bottom > mazeWall.rect.top and 
@@ -112,7 +112,7 @@ class Zombie():
                     return True
         
     def collideRobot(self, robot):
-        print "Trying to collide with the robot", str(robot)
+        #print "Trying to collide with the robot", str(robot)
         if (self.rect.right > robot.rect.left 
             and self.rect.left < robot.rect.right):
             if (self.rect.bottom > robot.rect.top and 
@@ -172,12 +172,12 @@ class Zombie():
                 self.speed[1] = -self.noSpeed
             else:
                 self.speed[1] = 0        
-        print "Trying to bite", man
+        #print "Trying to bite", man
         
     def dropItem(self):
         if self.unDead == False:
             screen.blit(pistol.surface, pistol.rect)
-        print "I've droped", (Taser or stunGun or stick or pistol)
+        #print "I've droped", (Taser or stunGun or stick or pistol)
     
         if self.life == 0:
             self.unDead = False
