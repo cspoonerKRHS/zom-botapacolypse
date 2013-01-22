@@ -165,13 +165,15 @@ while True:
         
     for robot in robots:
         if robot.living:
-			robot.move()
-			robot.collideMazeWall(mazeWall)
-			robot.collideRobot(robot)
-			robot.collideWall(screenWidth, screenHeight)
-			robot.shootElect(man)
-			robot.hurt()
-			robot.dropItem()
+            robot.move()
+            robot.collideMazeWall(mazeWall)
+            robot.collideRobot(robot)
+            robot.collideWall(screenWidth, screenHeight)
+            robot.shootElect(man)
+            if not robot.shootElect(man):
+                robot.move()
+            robot.hurt()
+            robot.dropItem()
         if not robot.living:
             robots.remove(robot)
             
