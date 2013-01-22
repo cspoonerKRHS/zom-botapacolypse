@@ -34,6 +34,9 @@ class Man():
     def __init__(self, maxSpeed, position):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc\man\man.png")]
+        self.surfaces += [pygame.image.load("rsc\man\mann.png")]
+        self.surfaces += [pygame.image.load("rsc\man\mane.png")]
+        self.surfaces += [pygame.image.load("rsc\man\manw.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
@@ -59,8 +62,10 @@ class Man():
     def direction(self, dir):
         #print "I am trying to move", dir
         if dir == "up":
+            self.surface = pygame.image.load("rsc\man\mann.png")
             self.speed[1] = -self.maxSpeed
         elif dir == "down":
+            self.surface = pygame.image.load("rsc\man\man.png")
             self.speed[1] = self.maxSpeed
         elif dir == "stop up":
             self.speed[1] = 0
@@ -68,8 +73,10 @@ class Man():
             self.speed[1] = 0
             
         if dir == "right":
+            self.surface = pygame.image.load("rsc\man\mane.png")
             self.speed[0] = self.maxSpeed
         elif dir == "left":
+            self.surface = pygame.image.load("rsc\man\manw.png")
             self.speed[0] = -self.maxSpeed
         elif dir == "stop right":
             self.speed[0] = 0
