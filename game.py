@@ -77,6 +77,7 @@ while True:
             
                     
     if man.living:
+        man.move()
         man.collideWall()
         man.collideMazeWall(mazeWall)
         for zombie in zombies:
@@ -208,10 +209,10 @@ while True:
             screen.blit(electricity.surface, electricity.rect)
     
     pygame.display.flip()
-    print "-----------------------"
+    #print "-----------------------"
     clock.tick(35)
-    print clock.get_fps()
-    print "-----------------------"
+    #print clock.get_fps()
+    #print "-----------------------"
 
      
     
