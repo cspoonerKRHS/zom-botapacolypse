@@ -30,6 +30,7 @@ class HealthBar():
      
     def place(self, position):
         print "I'm in place", position
+        self.rect = self.rect.move(position)
         
     def maxHealth(self, maxHealth):
         print "This how much health you have to start", str(maxHealth)

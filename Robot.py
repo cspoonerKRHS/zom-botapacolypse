@@ -19,7 +19,7 @@ from Projectile import Projectile
 class Robot():
     def __init__(self, speed, position, screenSize):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("rsc/Robot/robotright1.png")]
+        self.surfaces += [pygame.image.load("rsc/Robot/robot2.png")]
         self.surfaces += [pygame.image.load("rsc/Robot/robotright2.png")]
         self.surfaces += [pygame.image.load("rsc/Robot/robotshoot2.png")]
         self.frame = 0

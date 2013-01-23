@@ -37,7 +37,8 @@ stunGun = StunGun([150,200])
 electricity = Electricity([1,1], [130,206])
 pistol = Pistol([250,250])
 projectile = Projectile([2,2], [500,500])
-healthBar = HealthBar([100,100])
+healthBar = HealthBar([630, 10])
+
 
 bgColor = 100,100,10
 
@@ -209,6 +210,7 @@ while True:
     if stunGun.notBroken:
         if stunGun.attack:
             screen.blit(electricity.surface, electricity.rect)
+    screen.blit(healthBar.surface, healthBar.rect)
     
     pygame.display.flip()
     #print "-----------------------"
