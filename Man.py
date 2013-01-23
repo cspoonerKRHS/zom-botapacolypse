@@ -103,7 +103,14 @@ class Man():
         #print "Trying to hit screen walls", screenWidth, screenHeight    
     
     def collideMazeWall(self, MazeWall):
-        pass
+        if (self.rect.right > MazeWall.rect.left 
+                and self.rect.left < MazeWall.rect.right):
+                if (self.rect.bottom > MazeWall.rect.top and 
+                    self.rect.top < MazeWall.rect.bottom):
+                    if (self.distToPoint(MazeWall.rect.center)
+                        < self.radius + MazeWall.radius):  
+                        self.speed[0] = self.speed[0] * 0
+                        self.speed[1] = self.speed[1] * 0
         #print "Trying to hit the maze wall", str(MazeWall)
         
     def collideRobot(self, other):

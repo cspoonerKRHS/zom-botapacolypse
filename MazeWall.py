@@ -32,6 +32,7 @@ class MazeWall():
     
     def place(self, position):
         print "I'm staying at", position
+        self.rect = self.rect.move(position)
     
     def distToPoint(self):
         print "I can see", str(distToPoint)

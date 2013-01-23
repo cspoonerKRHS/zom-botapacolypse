@@ -29,7 +29,7 @@ zombies = []
 maxZombies = 4
 robots = []
 maxRobots = 4
-mazeWall = MazeWall([400,400])
+mazeWall = MazeWall([100,100])
 mazeWall.place([200, 200])
 stick = Stick([125, 100])
 taser = Taser([300,300])
