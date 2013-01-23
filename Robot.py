@@ -27,8 +27,8 @@ class Robot():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
-        speed = [2, 2]
-        self.maxSpeed = 0
+        speed = [0, 0]
+        self.maxSpeed = 2
         self.speed = speed
         self.detectionRadius = 100
         self.place(position)
@@ -74,25 +74,17 @@ class Robot():
         
     def sight(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
-            pX = man.rect.center[0]
-            pY = man.rect.center[1]
-            zX = self.rect.center[0]
-            zY = self.rect.center[1]
-                        
-            if pX > zX:
-                self.speed[0] = self.maxSpeed
-            elif pX < zX:
-                self.speed[0] = -self.maxSpeed
-            else:
-                self.speed[0] = 0
-        
-            if pY > zY:
-                self.speed[1] = self.maxSpeed
-            elif pY < zY:
-                self.speed[1] = -self.maxSpeed
-            else:
-                self.speed[1] = 0
+            self.speed = [0,0]
+        else:
+            if self.speed == [0,0]:
+                self.randomDirection()
         #print "I can see You"
+    
+    def randomDirection(self):
+        while self.speed == [0,0]:
+            xmult = random.randint(-1,1)
+            ymult = random.randint(-1,1)
+            self.speed = [self.maxSpeed * xmult, self.maxSpeed * ymult]
         
     def dropItem(self):
         if self.living == False:
