@@ -10,6 +10,8 @@ from Electricity import Electricity
 from Pistol import Pistol
 from Projectile import Projectile
 from HealthBar import HealthBar
+from mazeMap1 import level
+
 
 if pygame.mixer:
     pygame.mixer.init()
@@ -39,6 +41,8 @@ pistol = Pistol([250,250])
 projectile = Projectile([2,2], [500,500])
 healthBar = HealthBar([630, 10])
 
+
+map = level("maze1.lvl", screenSize)
 
 bgColor = 100,100,10
 

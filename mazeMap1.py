@@ -1,21 +1,25 @@
 import pygame, math, sys
-from MazeWall import MazeWall
+from Block import Block
 
 class level():
     def __init__(self, level, screenSize):
+        self.screenSize = screenSize
+        self.screenWidth = screenSize[0]
+        self.screenHeight = screenSize[1]
         self.load(level)
         
         
-    def load(self, level)
-        geofile="/rsc/maps/"+ level +".lvl"
-        thingfile="/rsc/maps/"+ level +".tng"
-        self.mazeWall = []
+    def load(self, level):
+        geoMap="rcs/maps/"+ level +".lvl"
+        thingMap="rcs/maps/"+ level +".tng"
+        self.blocks = []
+        self.fblocks = []
+        self.wblocks = []
+        self.dblocks = []
         geofile = open(geoMap, "r")
         lines = geofile.readlines()
         geofile.close()
         newlines = []
-        self.screenWidth = screenSize[0]
-        self.screenHeight = screenSize[1]
         self.nspawn = False
         
 
@@ -28,12 +32,13 @@ class level():
             
         for y, line in enumerate(newlines):
             for x, c in enumerate(line):
-                if c == "m":
-                    self.mazeWalls += [MazeWall([(x*10)+5, (y*10)+5], screenSize,"rcs/MazeWall/MazeWall.png",(10,10))]
-  
+                if c == "w":
+                    self.blocks += [MazeWall([(x*10)+5, (y*10)+5], self.screenSize,"rcs/mazeWall/mazeWall.png",(10,10))]
+                
+                    
         #----Done with file---
         
-        thingfile = open(thingMap, "r")
+        thingfile = open(thingMap, "m")
         lines = thingfile.readlines()
         thingfile.close() 
         
@@ -46,10 +51,3 @@ class level():
                     newline += character
             newlines += [newline]
             
-        for y, line in enumerate(newlines):
-            for x, c in enumerate(line):
-                if c == "p":
-                    self.dblocks += [Block([(x*10)+5, (y*10)+5], screenSize,"rcs/imgs/block/spawnspace.png",(10,10))]
-                    
-
-                    
