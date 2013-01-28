@@ -23,6 +23,7 @@ class MazeWall():
     # Methods or Functions
     def __init__(self, position):
         self.surface = pygame.image.load("rsc/MazeWall/block4.png")
+        self.surface = pygame.transform.scale(self.surface, [20,20])
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         self.place(position)
@@ -32,7 +33,7 @@ class MazeWall():
     
     def place(self, position):
         print "I'm staying at", position
-        self.rect = self.rect.move(position)
+        self.rect.center = position
     
     def distToPoint(self):
         print "I can see", str(distToPoint)
