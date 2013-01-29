@@ -28,7 +28,7 @@ class Robot():
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         speed = [0, 0]
-        self.maxSpeed = 2
+        self.maxSpeed = 1
         self.speed = speed
         self.detectionRadius = 100
         self.place(position)

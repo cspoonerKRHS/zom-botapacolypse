@@ -26,7 +26,7 @@ screenHeight = 600
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
-man = Man(5, [400, 400])
+man = Man(3, [400, 400])
 zombies = [] 
 maxZombies = 4
 robots = []
@@ -148,6 +148,7 @@ while True:
             for robot in robots:
                 zombie.collideRobot(robot)
             if zombie.chase(man):
+                zombie.collideWall(screenWidth, screenHeight)
                 for first in range(0,len(zombies)-2):
                     for second in range(first+1, len(zombies)-1):
                         zombies[first].collideZombie2(zombies[second])
@@ -162,8 +163,8 @@ while True:
             
     
     while len(robots) < maxRobots:
-        robotSpeed = [random.randint(1,6), 
-                     random.randint(1,6)]
+        robotSpeed = [random.randint(1,1), 
+                     random.randint(1,1)]
         robotPos = [random.randint(100,screenWidth-100),
                    random.randint(100,screenHeight/2)]
         robots += [Robot(robotSpeed, robotPos, screenSize)]
@@ -185,12 +186,17 @@ while True:
     for first in range(0,len(robots)-2):
         for second in range(first+1, len(robots)-1):
             robots[first].collideRobot(robots[second])
-
+            
     #stick.swing.whack.snapInHalf
        
     screen.fill(bgColor)
     
     for mazeWall in map.mazeWalls:
+        for zombie in zombies:
+            zombie.collideMazeWall(mazeWall)
+        for robot in robots:
+            robot.collideMazeWall(mazeWall)
+        man.collideMazeWall(mazeWall)
         screen.blit(mazeWall.surface, mazeWall.rect) 
     screen.blit(man.surface, man.rect)
     for zombie in zombies:

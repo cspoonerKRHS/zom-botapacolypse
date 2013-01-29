@@ -37,11 +37,11 @@ class Zombie():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
-        speed = [2, 2]
-        self.maxSpeed = 3
+        speed = [1, 1]
+        self.maxSpeed = 1
         self.speed = speed
         self.detectionRadius = 100
-        self.biteRadius = 10
+        self.biteRadius = 15
         self.noSpeed = 0
         self.place(position)
         self.screenWidth = screenSize[0]
