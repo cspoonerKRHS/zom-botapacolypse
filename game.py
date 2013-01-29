@@ -190,7 +190,8 @@ while True:
        
     screen.fill(bgColor)
     
-       
+    for mazeWall in map.mazeWalls:
+        screen.blit(mazeWall.surface, mazeWall.rect) 
     screen.blit(man.surface, man.rect)
     for zombie in zombies:
         if zombie.unDead:
@@ -214,8 +215,6 @@ while True:
     if stunGun.notBroken:
         if stunGun.attack:
             screen.blit(electricity.surface, electricity.rect)
-    for mazeWall in map.mazeWalls:
-        screen.blit(mazeWall.surface, mazeWall.rect) 
     screen.blit(healthBar.surface, healthBar.rect)
     
     pygame.display.flip()
