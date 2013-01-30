@@ -41,7 +41,7 @@ class Man():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.radius = self.rect.width/2
+        self.radius = self.rect.width/2.4
         self.maxSpeed = maxSpeed
         self.speed = [0,0]
         self.place(position)

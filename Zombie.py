@@ -32,11 +32,14 @@ class Zombie():
     def __init__(self, speed, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/zombie/zombie2.png")]
+        self.surfaces += [pygame.image.load("rsc\zombie\zombie2n.png")]
+        self.surfaces += [pygame.image.load("rsc\zombie\zombie2w.png")]
+        self.surfaces += [pygame.image.load("rsc\zombie\zombie2e.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.radius = self.rect.width/2
+        self.radius = self.rect.width/2.2
         speed = [1, 1]
         self.maxSpeed = 1
         self.speed = speed
@@ -59,6 +62,15 @@ class Zombie():
     
     def move(self):
         self.rect = self.rect.move(self.speed)
+        if self.speed[0] == 1:
+            self.surface = [pygame.image.load("rsc\zombie\zombie2e.png")]
+        if self.speed[0] == -1:
+            self.surface = [pygame.image.load("rsc\zombie\zombie2w.png")]
+        if self.speed[1] == 1:
+            self.surface = [pygame.image.load("rsc\zombie\zombie2.png")]
+        if self.speed[1] == -1:
+            self.surface = [pygame.image.load("rsc\zombie\zombie2n.png")]
+            
         #if pygame.mixer
         #   self.zombieNoise.play()
         
