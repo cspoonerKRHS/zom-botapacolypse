@@ -62,14 +62,6 @@ class Zombie():
     
     def move(self):
         self.rect = self.rect.move(self.speed)
-        if self.speed[0] == 1:
-            self.surface = [pygame.image.load("rsc\zombie\zombie2e.png")]
-        if self.speed[0] == -1:
-            self.surface = [pygame.image.load("rsc\zombie\zombie2w.png")]
-        if self.speed[1] == 1:
-            self.surface = [pygame.image.load("rsc\zombie\zombie2.png")]
-        if self.speed[1] == -1:
-            self.surface = [pygame.image.load("rsc\zombie\zombie2n.png")]
             
         #if pygame.mixer
         #   self.zombieNoise.play()
