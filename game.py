@@ -26,7 +26,7 @@ screenHeight = 600
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
-man = Man(3, [400, 400])
+man = Man(3, [20, 20])
 zombies = [] 
 maxZombies = 4
 robots = []
@@ -44,7 +44,7 @@ healthBar = HealthBar([630, 10])
 
 map = level("maze1.lvl", screenSize)
 
-bgColor = 100,100,10
+bgColor = 50, 50, 50
 
 while True:
     for event in pygame.event.get():
