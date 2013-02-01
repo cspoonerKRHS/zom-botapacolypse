@@ -36,12 +36,14 @@ class Projectile():
     
     
     def __str__(self):
-        return "I am electricity" + str(self.rect.center) + str(self.notBroken)
+        return "I am a Projecile" + str(self.rect.center) + str(self.notBroken)
     
     def place(self, position):
+        self.rect.center = position
         print "I've moved to", position
     
     def move(self):
+        self.rect = self.rect.move(self.speed)
         print "I've moved", self.speed
     
     def distToPoint(self):
