@@ -38,7 +38,7 @@ taser = Taser([300,300])
 stunGun = StunGun([150,200])
 electricity = Electricity([1,1], [130,206])
 pistol = Pistol([250,250])
-projectile = Projectile([2,2], [500,500])
+projectile = Projectile([2,2], [500,500],screenSize)
 healthBar = HealthBar([630, 10])
 
 
