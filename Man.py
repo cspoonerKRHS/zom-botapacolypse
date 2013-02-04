@@ -56,7 +56,7 @@ class Man():
         self.rect = self.rect.move(position)
     
     def move(self):
-        print "I've moved", self.speed
+        #print "I've moved", self.speed
         self.rect = self.rect.move(self.speed)
     
     def direction(self, dir):
@@ -125,18 +125,38 @@ class Man():
                 if (self.rect.bottom > MazeWall.rect.top and 
                     self.rect.top < MazeWall.rect.bottom):
                     if (self.distToPoint(MazeWall.rect.center)
-                        < self.radius + MazeWall.radius):  
-                        self.speed[0] = self.speed[0] * 0
-                        self.speed[1] = self.speed[1] * 0
+                        < self.radius + MazeWall.radius): 
+                        
+                        """
+                        self.speed[0] = self.speed[0] * -1
+                        self.speed[1] = self.speed[1] * -1
+                        
+                        self.move()
+                        """
+                        
+                        self.speed[0] = 0
+                        self.speed[1] = 0
+                        
+                        
+                        
+                        if self.rect.top < MazeWall.rect.bottom:
+                            self.rect.top = MazeWall.rect.bottom + 1
+                            print "hit head"
+                        elif self.rect.bottom > MazeWall.rect.top:
+                            self.rect.bottom = MazeWall.rect.top - 1
+                            print "hit feet"
+                        
+                        
+                        elif MazeWall.rect.right > self.rect.left:
+                            self.rect.right = MazeWall.rect.left + 1
+                        elif MazeWall.rect.left < self.rect.right:
+                            self.rect.left = MazeWall.rect.right + 1
+                      
         #print "Trying to hit the maze wall", str(MazeWall)
         
     def collideRobot(self, other):
         pass
         #print "Trying to collide with the robot", str(Robot)
-        
-    def collideZombie(self, other):
-        pass
-        #print "Trying to collide zombie", str(Zombie)
                             
     def collideStick(self, stick):
         pass

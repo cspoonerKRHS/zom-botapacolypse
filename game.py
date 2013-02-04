@@ -85,8 +85,6 @@ while True:
         man.move()
         man.collideWall()
         man.collideMazeWall(mazeWall)
-        for zombie in zombies:
-            man.collideZombie(zombie)
         for robot in robots:
             man.collideRobot(robot)
         man.collideStick(stick)
