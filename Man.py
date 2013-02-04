@@ -148,7 +148,7 @@ class Man():
                         
                         
                         elif MazeWall.rect.right > self.rect.left:
-                            self.rect.right = MazeWall.rect.left - 1
+                            self.rect.right = MazeWall.rect.left + 1
                         elif MazeWall.rect.left < self.rect.right:
                             self.rect.left = MazeWall.rect.right + 1
                       
