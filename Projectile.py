@@ -51,7 +51,7 @@ class Projectile():
         print "I've moved", self.speed
         pass
         
-    def distToPoint(self):
+    def distToPoint(self, pt):
         #print "I can see", str(distToPoint)
         x1 = self.rect.center[0]
         x2 = pt[0]
@@ -59,12 +59,12 @@ class Projectile():
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
                 
-    def collideWall(self, screenWidth, screenHeight):
+    def collideWall(self, screenSize):
         if (self.rect.left < 0 
-            or self.rect.right > screenWidth):
+            or self.rect.right > screenSize):
             self.speed[0] = self.speed[0]*-1
         if (self.rect.top < 0 
-            or self.rect.bottom > screenHeight):
+            or self.rect.bottom > screenSize):
             self.speed[1] = self.speed[1]*-1
             print "Trying to hit screen walls", screenWidth, screenHeight
             pass

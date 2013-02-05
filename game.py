@@ -38,7 +38,8 @@ taser = Taser([300,300])
 stunGun = StunGun([150,200])
 electricity = Electricity([1,1], [130,206])
 pistol = Pistol([250,250])
-projectile = Projectile([2,2], [500,500],screenSize)
+projectiles = []
+maxProjectiles = 2
 healthBar = HealthBar([630, 10])
 
 
@@ -63,7 +64,7 @@ while True:
                 or event.key == pygame.K_a):
                     man.direction("left")
             elif (event.key == pygame.K_SPACE):
-                man.attack("attack")
+                projectiles += [Projectile([10,0], man.rect.center, screenSize)]
         elif event.type == pygame.KEYUP:
             if (event.key == pygame.K_UP 
                 or event.key == pygame.K_w):
@@ -78,7 +79,7 @@ while True:
                 or event.key == pygame.K_a):
                     man.direction("stop left")
             elif (event.key == pygame.K_SPACE):
-                man.attack("stop attack")
+                projectiles += [Projectile([10,0], man.rect.center, screenSize)]
             
                     
     if man.living:
@@ -128,6 +129,17 @@ while True:
         if man.attackWithPistol(pistol, MazeWall):    
             if pistol.attack(mazeWall):
                 pistol.useDown(mazeWall, 1)
+        for projectile in projectiles:
+            if projectile.notBroken:
+                projectile.move()
+                projectile.collideWall(screenSize)
+                projectile.collideMazeWall(mazeWall)
+                if projectile.collideAttackZombie(zombie):
+                    zombie.unDead == False
+                if projectile.collideAttackRobot(robot):
+                    robot.living == False
+            if not projectile.notBroken:
+                projectiles.remove(projectile)
             
     
     while len(zombies) < maxZombies:
@@ -213,8 +225,8 @@ while True:
         screen.blit(stick.surface, stick.rect)    
     if pistol.notBroken:
         screen.blit(pistol.surface, pistol.rect)
-    if pistol.notBroken:
-        if pistol.attack:
+    for projectile in projectiles:
+        if projectile.notBroken:
             screen.blit(projectile.surface, projectile.rect)
     if stunGun.notBroken:
         if stunGun.attack:
