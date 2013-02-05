@@ -26,7 +26,7 @@ screenHeight = 600
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
-man = Man(3, [20, 20])
+man = Man(3, [40, 40])
 zombies = [] 
 maxZombies = 4
 robots = []

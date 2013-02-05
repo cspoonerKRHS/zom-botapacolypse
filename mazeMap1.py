@@ -11,7 +11,7 @@ class level():
         
     def load(self, level):
         self.mazeWalls = []
-        mazeWallSize = 20
+        mazeWallSize = 25
         
         geoMap="rsc/maps/"+ level
         geofile = open(geoMap, "r")

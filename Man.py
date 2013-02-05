@@ -41,7 +41,7 @@ class Man():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.radius = self.rect.width/2.4
+        self.radius = self.rect.width/2.5
         self.maxSpeed = maxSpeed
         self.speed = [0,0]
         self.place(position)
@@ -84,6 +84,14 @@ class Man():
             self.speed[0] = 0
         
         
+    def distToPointWithOffset(self, pt, offset):
+        x1 = self.rect.center[0] + offset[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1] + offset[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+        #print "I'm near something ", str(other.rect.center)
+
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
         x2 = pt[0]
@@ -91,7 +99,6 @@ class Man():
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         #print "I'm near something ", str(other.rect.center)
-
         
     def collideWall(self):
         if (self.rect.left < 0 
@@ -124,34 +131,20 @@ class Man():
                 and self.rect.left < MazeWall.rect.right):
                 if (self.rect.bottom > MazeWall.rect.top and 
                     self.rect.top < MazeWall.rect.bottom):
-                    if (self.distToPoint(MazeWall.rect.center)
+                    if (self.distToPointWithOffset(MazeWall.rect.center, [0,5])
                         < self.radius + MazeWall.radius): 
                         
-                        """
+                        
                         self.speed[0] = self.speed[0] * -1
                         self.speed[1] = self.speed[1] * -1
                         
                         self.move()
-                        """
+                        self.move()
+                        
                         
                         self.speed[0] = 0
                         self.speed[1] = 0
                         
-                        
-                        
-                        if self.rect.top < MazeWall.rect.bottom:
-                            self.rect.top = MazeWall.rect.bottom + 1
-                            print "hit head"
-                        elif self.rect.bottom > MazeWall.rect.top:
-                            self.rect.bottom = MazeWall.rect.top - 1
-                            print "hit feet"
-                        
-                        
-                        elif MazeWall.rect.right > self.rect.left:
-                            self.rect.right = MazeWall.rect.left + 1
-                        elif MazeWall.rect.left < self.rect.right:
-                            self.rect.left = MazeWall.rect.right + 1
-                      
         #print "Trying to hit the maze wall", str(MazeWall)
         
     def collideRobot(self, other):
