@@ -46,6 +46,7 @@ class Man():
         self.speed = [0,0]
         self.place(position)
         self.living = True
+        self.heading = "s"
     
     
     def __str__(self):
@@ -64,9 +65,11 @@ class Man():
         if dir == "up":
             self.surface = pygame.image.load("rsc\man\mann.png")
             self.speed[1] = -self.maxSpeed
+            self.heading = "n"
         elif dir == "down":
             self.surface = pygame.image.load("rsc\man\man.png")
             self.speed[1] = self.maxSpeed
+            self.heading = "s"
         elif dir == "stop up":
             self.speed[1] = 0
         elif dir == "stop down":
@@ -75,9 +78,11 @@ class Man():
         if dir == "right":
             self.surface = pygame.image.load("rsc\man\mane.png")
             self.speed[0] = self.maxSpeed
+            self.heading = "e"
         elif dir == "left":
             self.surface = pygame.image.load("rsc\man\manw.png")
             self.speed[0] = -self.maxSpeed
+            self.heading = "w"
         elif dir == "stop right":
             self.speed[0] = 0
         elif dir == "stop left":

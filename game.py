@@ -64,7 +64,7 @@ while True:
                 or event.key == pygame.K_a):
                     man.direction("left")
             elif (event.key == pygame.K_SPACE):
-                projectiles += [Projectile([10,0], man.rect.center, screenSize)]
+                projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
         elif event.type == pygame.KEYUP:
             if (event.key == pygame.K_UP 
                 or event.key == pygame.K_w):
@@ -78,8 +78,6 @@ while True:
             elif (event.key == pygame.K_LEFT 
                 or event.key == pygame.K_a):
                     man.direction("stop left")
-            elif (event.key == pygame.K_SPACE):
-                projectiles += [Projectile([10,0], man.rect.center, screenSize)]
             
                     
     if man.living:

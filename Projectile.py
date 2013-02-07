@@ -23,14 +23,21 @@ class Projectile():
     # living
     
     # Methods or Functions
-    def __init__(self, speed, position, screenSize):
+    def __init__(self, speed, position, heading, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/projectile/projectile.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
-        self.speed = speed
+        if heading == "n":
+            self.speed = [0, -speed]
+        elif heading == "s":
+            self.speed = [0, speed]
+        elif heading == "e":
+            self.speed = [speed, 0]
+        elif heading == "w":
+            self.speed = [-speed, 0]
         self.place(position)
         self.notBroken = True
         self.damage = 10
