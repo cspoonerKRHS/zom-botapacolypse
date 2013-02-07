@@ -85,7 +85,6 @@ while True:
     if man.living:
         man.move()
         man.collideWall()
-        man.collideMazeWall(mazeWall)
         for robot in robots:
             man.collideRobot(robot)
         man.collideStick(stick)
@@ -132,12 +131,9 @@ while True:
         for projectile in projectiles:
             if projectile.notBroken:
                 projectile.move()
-                projectile.collideWall(screenSize)
-                projectile.collideMazeWall(mazeWall)
-                if projectile.collideAttackZombie(zombie):
-                    zombie.unDead == False
-                if projectile.collideAttackRobot(robot):
-                    robot.living == False
+                projectile.collideWall(screenSize)  
+                projectile.collideAttackZombie(zombie)
+                projectile.collideAttackRobot(robot)
             if not projectile.notBroken:
                 projectiles.remove(projectile)
             
@@ -206,6 +202,8 @@ while True:
             zombie.collideMazeWall(mazeWall)
         for robot in robots:
             robot.collideMazeWall(mazeWall)
+        for projectile in projectiles:
+            projectile.collideMazeWall(mazeWall)
         man.collideMazeWall(mazeWall)
         screen.blit(mazeWall.surface, mazeWall.rect) 
     screen.blit(man.surface, man.rect)

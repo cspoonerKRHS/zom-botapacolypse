@@ -43,13 +43,13 @@ class Projectile():
     
     def place(self, position):
         self.rect.center = position
-        print "I've moved to", position
-        pass
+        #print "I've moved to", position
+        
         
     def move(self):
         self.rect = self.rect.move(self.speed)
-        print "I've moved", self.speed
-        pass
+        #print "I've moved", self.speed
+        
         
     def distToPoint(self, pt):
         #print "I can see", str(distToPoint)
@@ -66,8 +66,8 @@ class Projectile():
         if (self.rect.top < 0 
             or self.rect.bottom > screenSize):
             self.speed[1] = self.speed[1]*-1
-            print "Trying to hit screen walls", screenWidth, screenHeight
-            pass
+            #print "Trying to hit screen walls", screenWidth, screenHeight
+            
         
     def collideAttackMan(self, man):
         if (self.rect.right > man.rect.left 
@@ -76,17 +76,16 @@ class Projectile():
                 self.rect.top < man.rect.bottom):
                 if (self.distToPoint(man.rect.center)
                     < self.radius + man.radius):
-                        self.notBroken == False
+                    self.notBroken = False
 
     def collideMazeWall(self, MazeWall):
-        if (self.rect.right > MazeWall.rect.left 
-                and self.rect.left < MazeWall.rect.right):
+        if (self.rect.right > MazeWall.rect.left and
+            self.rect.left < MazeWall.rect.right):
                 if (self.rect.bottom > MazeWall.rect.top and 
                     self.rect.top < MazeWall.rect.bottom):
-                    if (self.distToPoint(MazeWall.rect.center)
-                        < self.radius + MazeWall.radius):  
-                        self.speed[0] = self.speed[0] * -1
-                        self.speed[1] = self.speed[1] * -1
+                        if (self.distToPoint(MazeWall.rect.center) < 
+                            self.radius + MazeWall.radius): 
+                                self.notBroken = False
         
     def collideAttackRobot(self, robot):
         if (self.rect.right > robot.rect.left 
@@ -95,7 +94,7 @@ class Projectile():
                 self.rect.top < robot.rect.bottom):
                 if (self.distToPoint(robot.rect.center)
                     < self.radius + robot.radius):  
-                        self.notBroken == False
+                    self.notBroken = False
             
     def collideAttackZombie(self, zombie):
         if (self.rect.right > zombie.rect.left 
@@ -104,7 +103,7 @@ class Projectile():
                 self.rect.top < zombie.rect.bottom):
                 if (self.distToPoint(zombie.rect.center)
                     < self.radius + zombie.radius):  
-                        self.notBroken == False
+                    self.notBroken = False
    
     def remove(self):
         print "I am being removed from the game", str(self)
