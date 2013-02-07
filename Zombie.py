@@ -113,7 +113,6 @@ class Zombie():
                     < self.radius + mazeWall.radius):  
                     self.speed[0] = self.speed[0] * -1
                     self.speed[1] = self.speed[1] * -1
-                    return True
         
     def collideRobot(self, robot):
         #print "Trying to collide with the robot", str(robot)
