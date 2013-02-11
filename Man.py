@@ -45,6 +45,7 @@ class Man():
         self.maxSpeed = maxSpeed
         self.speed = [0,0]
         self.place(position)
+        self.life = 100
         self.living = True
         self.heading = "s"
     
@@ -195,15 +196,7 @@ class Man():
     def attackWithStick(self, stick, other):
         pass
         #print "I have attacked with", str(stick), other
-    
-    def attackWithStunGun(self, stunGun, other):
-        pass
-        #print "I have attacked with", str(stunGun), other
-    
-    def attackWithTaser(self, taser, other):
-        pass
-        #print "I have attacked with", str(taser), other
-    
+
     def attackWithPistol(self, pistol, other):
         pass
         #print "I have attacked", str(pistol), other
@@ -213,6 +206,8 @@ class Man():
         #print "I've been hurt by", str(other)
     
     def die(self):
+        if self.life == 0:
+            self.living = False
         pass
         #print "I have died"
     
