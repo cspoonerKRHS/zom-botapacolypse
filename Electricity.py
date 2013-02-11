@@ -23,7 +23,7 @@ class Electricity():
     # living
     
     # Methods or Functions
-    def __init__(self, speed, position):
+    def __init__(self, speed, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/electricity/electricity2.png")]
         self.frame = 0
@@ -31,7 +31,11 @@ class Electricity():
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
         self.speed = speed
+        self.screenWidth = screenSize[0]
+        self.screenHeight = screenSize[1]
         self.place(position)
+        self.radius = self.rect.width/2
+        self.damage = 10
         self.notBroken = True
     
     
@@ -39,26 +43,51 @@ class Electricity():
         return "I am electricity" + str(self.rect.center) + str(self.notBroken)
     
     def place(self, position):
-        print "I've moved to", position
-    
+        self.rect.center = position
+        #print "I've moved to", position
+        
+        
     def move(self):
-        print "I've moved", self.speed
-    
-    def distToPoint(self):
-        print "I can see", str(distToPoint)
+        self.rect = self.rect.move(self.speed)
+        #print "I've moved", self.speed
         
-    def collideWall(self, screenWidth, screenHeight):
-        print "Trying to hit screen walls", screenWidth, screenHeight
+        
+    def distToPoint(self, pt):
+        #print "I can see", str(distToPoint)
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+                
+    def collideWall(self, screenSize):
+        if (self.rect.left < 0 
+            or self.rect.right > screenSize):
+            self.speed[0] = self.speed[0]*-1
+        if (self.rect.top < 0 
+            or self.rect.bottom > screenSize):
+            self.speed[1] = self.speed[1]*-1
+            #print "Trying to hit screen walls", screenWidth, screenHeight
     
     
-    def collideMazeWall(self, mazeWall):
-        print "Trying to hit the maze wall"
-        
-    def collideAttackRobot(self, robot):
-        print "Trying to collide with the robot by killing it"
-        
-    def collideAttackZombie(self, other):
-        print "Trying to collide with the zombie"
+    def collideMazeWall(self, MazeWall):
+        if (self.rect.right > MazeWall.rect.left and
+            self.rect.left < MazeWall.rect.right):
+                if (self.rect.bottom > MazeWall.rect.top and 
+                    self.rect.top < MazeWall.rect.bottom):
+                        if (self.distToPoint(MazeWall.rect.center) < 
+                            self.radius + MazeWall.radius): 
+                                self.notBroken = False
+            
+    def collideAttackZombie(self, zombie):
+        if (self.rect.right > zombie.rect.left 
+            and self.rect.left < zombie.rect.right):
+            if (self.rect.bottom > zombie.rect.top and 
+                self.rect.top < zombie.rect.bottom):
+                if (self.distToPoint(zombie.rect.center)
+                    < self.radius + zombie.radius):  
+                    self.notBroken = False
+   
    
     def remove(self):
         print "I am being removed from the game", self

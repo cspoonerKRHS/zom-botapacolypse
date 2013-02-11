@@ -57,8 +57,6 @@ class Robot():
        
     def hurt(self):
         if self.living:
-            if Electricity.collideAttackRobot:
-                self.life = self.life - 100
             if Projectile.collideAttackRobot:
                 self.life = self.life - 50
                 

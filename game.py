@@ -4,8 +4,6 @@ from Zombie import Zombie
 from Robot import Robot
 from MazeWall import MazeWall
 from Stick import Stick
-from Taser import Taser
-from StunGun import StunGun
 from Electricity import Electricity
 from Pistol import Pistol
 from Projectile import Projectile
@@ -34,9 +32,7 @@ maxRobots = 4
 mazeWall = MazeWall([100,100])
 mazeWall.place([200, 200])
 stick = Stick([125, 100])
-taser = Taser([300,300])
-stunGun = StunGun([150,200])
-electricity = Electricity([1,1], [130,206])
+electricity = Electricity([1,1], [130,206], screenSize)
 pistol = Pistol([250,250])
 projectiles = []
 maxProjectiles = 2
@@ -79,15 +75,13 @@ while True:
                 or event.key == pygame.K_a):
                     man.direction("stop left")
             
-                    
+#------------------------Man----------------------                    
     if man.living:
         man.move()
         man.collideWall()
         for robot in robots:
             man.collideRobot(robot)
         man.collideStick(stick)
-        man.collideTaser(taser)
-        man.collideStunGun(stunGun)
         man.collideElectricity(electricity)
         man.collidePistol(pistol)
         if man.attackWithStick(stick, Zombie):
@@ -99,24 +93,6 @@ while True:
         if man.attackWithStick(stick, MazeWall):    
             if stick.attack(mazeWall):
                 stick.useDown(mazeWall, 4)
-        if man.attackWithTaser(taser, Zombie):
-            if taser.attack(zombie):
-                taser.useDown(zombie, 1)
-        if man.attackWithTaser(taser, Robot):    
-            if taser.attack(robot):
-                taser.useDown(robot, 1)
-        if man.attackWithTaser(taser, MazeWall):    
-            if taser.attack(mazeWall):
-                taser.useDown(mazeWall, 1)
-        if man.attackWithStunGun(stunGun, Zombie):
-            if stunGun.attack(zombie):
-                stunGun.useDown(zombie, 1)
-        if man.attackWithStunGun(stunGun, Robot):    
-            if stunGun.attack(robot):
-                stunGun.useDown(robot, 1)
-        if man.attackWithStunGun(stunGun, MazeWall):    
-            if stunGun.attack(mazeWall):
-                stunGun.useDown(mazeWall, 1)
         if man.attackWithPistol(pistol, Zombie):
             if pistol.attack(zombie):
                 pistol.useDown(zombie, 1)
@@ -139,7 +115,7 @@ while True:
             if not projectile.notBroken:
                 projectiles.remove(projectile)
             
-    
+#------------Zombie---------------------
     while len(zombies) < maxZombies:
         zombieSpeed = [random.randint(1,6), 
                      random.randint(1,6)]
@@ -169,7 +145,7 @@ while True:
         for second in range(first+1, len(zombies)-1):
             zombies[first].collideZombie(zombies[second])
             
-    
+#------------------------Robot-------------------------    
     while len(robots) < maxRobots:
         robotSpeed = [random.randint(1,1), 
                      random.randint(1,1)]
@@ -198,7 +174,8 @@ while True:
     #stick.swing.whack.snapInHalf
        
     screen.fill(bgColor)
-    
+
+#--------------------Blit-------------------    
     for mazeWall in map.mazeWalls:
         for zombie in zombies:
             zombie.collideMazeWall(mazeWall)
@@ -217,10 +194,6 @@ while True:
             screen.blit(robot.surface, robot.rect)
     if stick.notBroken:
         screen.blit(stick.surface, stick.rect)
-    if taser.notBroken:
-        screen.blit(taser.surface, taser.rect)
-    if stunGun.notBroken:
-        screen.blit(stunGun.surface, stunGun.rect)
     if stick.notBroken:
         screen.blit(stick.surface, stick.rect)    
     if pistol.notBroken:
@@ -228,9 +201,7 @@ while True:
     for projectile in projectiles:
         if projectile.notBroken:
             screen.blit(projectile.surface, projectile.rect)
-    if stunGun.notBroken:
-        if stunGun.attack:
-            screen.blit(electricity.surface, electricity.rect)
+    screen.blit(electricity.surface, electricity.rect)
     screen.blit(healthBar.surface, healthBar.rect)
     
     pygame.display.flip()
