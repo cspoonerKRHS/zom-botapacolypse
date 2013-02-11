@@ -126,12 +126,16 @@ while True:
         if man.attackWithPistol(pistol, MazeWall):    
             if pistol.attack(mazeWall):
                 pistol.useDown(mazeWall, 1)
+
+#--------Projectile Stuff-----------------
         for projectile in projectiles:
             if projectile.notBroken:
                 projectile.move()
-                projectile.collideWall(screenSize)  
-                projectile.collideAttackZombie(zombie)
-                projectile.collideAttackRobot(robot)
+                projectile.collideWall(screenSize)
+                for zombie in zombies:  
+                    projectile.collideAttackZombie(zombie)
+                for robot in robots:
+                    projectile.collideAttackRobot(robot)
             if not projectile.notBroken:
                 projectiles.remove(projectile)
             
