@@ -55,10 +55,6 @@ class Robot():
             screen.blit(Electricity.surface, Electricity.rect)
         #print "I'm shooting Electricity "
        
-    def hurt(self):
-        if self.living:
-            if Projectile.collideAttackRobot:
-                self.life = self.life - 50
                 
        # print "I'm hurt"
         
@@ -76,19 +72,15 @@ class Robot():
         else:
             if self.speed == [0,0]:
                 self.randomDirection()
+        if self.life == 0:
+            self.living = False
         #print "I can see You"
     
     def randomDirection(self):
         while self.speed == [0,0]:
             xmult = random.randint(-1,1)
             ymult = random.randint(-1,1)
-            self.speed = [self.maxSpeed * xmult, self.maxSpeed * ymult]
-        
-    def dropItem(self):
-        if self.living == False:
-            screen.blit(taser.surface, taser.rect)
-        #print "I drop this" 
-         
+            self.speed = [self.maxSpeed * xmult, self.maxSpeed * ymult]     
       
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 

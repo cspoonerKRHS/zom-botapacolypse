@@ -162,8 +162,6 @@ while True:
             robot.shootElect(man)
             if not robot.shootElect(man):
                 robot.move()
-            robot.hurt()
-            robot.dropItem()
         if not robot.living:
             robots.remove(robot)
             

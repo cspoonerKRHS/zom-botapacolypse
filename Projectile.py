@@ -29,6 +29,7 @@ class Projectile():
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
+        self.surface = pygame.transform.scale(self.surface, [5, 5])
         self.rect = self.surface.get_rect()
         if heading == "n":
             self.speed = [0, -speed]
