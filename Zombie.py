@@ -181,6 +181,7 @@ class Zombie():
         if self.unDead == False:
             screen.blit(pistol.surface, pistol.rect)
         #print "I've droped", (Taser or stunGun or stick or pistol)
+
     
         if self.life == 0:
             self.unDead = False
