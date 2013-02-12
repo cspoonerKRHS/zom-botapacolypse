@@ -183,7 +183,8 @@ while True:
             projectile.collideMazeWall(mazeWall)
         man.collideMazeWall(mazeWall)
         screen.blit(mazeWall.surface, mazeWall.rect) 
-    screen.blit(man.surface, man.rect)
+    if man.living:
+        screen.blit(man.surface, man.rect)
     for zombie in zombies:
         if zombie.unDead:
             screen.blit(zombie.surface, zombie.rect)

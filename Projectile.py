@@ -103,7 +103,7 @@ class Projectile():
                 if (self.distToPoint(robot.rect.center)
                     < self.radius + robot.radius):  
                     self.notBroken = False
-                    robot.life = robot.life-10
+                    robot.life = robot.life-20
             
     def collideAttackZombie(self, zombie):
         if (self.rect.right > zombie.rect.left 
@@ -113,7 +113,7 @@ class Projectile():
                 if (self.distToPoint(zombie.rect.center)
                     < self.radius + zombie.radius):  
                     self.notBroken = False
-                    zombie.life = zombie.life-10
+                    zombie.life = zombie.life-20
    
     def remove(self):
         print "I am being removed from the game", str(self)

@@ -164,6 +164,7 @@ class Zombie():
             
             if pX > zX:
                 self.speed[0] = self.noSpeed
+                man.life = man.life -10 
             elif pX < zX:
                 self.speed[0] = -self.noSpeed
             else:
@@ -171,10 +172,12 @@ class Zombie():
         
             if pY > zY:
                 self.speed[1] = self.noSpeed
+                man.life = man.life -10 
             elif pY < zY:
                 self.speed[1] = -self.noSpeed
             else:
-                self.speed[1] = 0        
+                self.speed[1] = 0  
+             
         #print "Trying to bite", man
         
     def dropItem(self):

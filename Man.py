@@ -160,14 +160,6 @@ class Man():
     def collideStick(self, stick):
         pass
         #print "I have collided with", stick
-        
-    def collideStunGun(self, stunGun):
-        pass
-        #print "I have collided with", stunGun
-    
-    def collideTaser(self, taser):
-        pass
-        #print "I have collided with", taser
     
     def collidePistol(self, pistol):
         pass
@@ -200,12 +192,7 @@ class Man():
     def attackWithPistol(self, pistol, other):
         pass
         #print "I have attacked", str(pistol), other
-    
-    def hurt(self, other):
-        pass
-        #print "I've been hurt by", str(other)
-    
-    def die(self):
+
         if self.life == 0:
             self.living = False
         pass
