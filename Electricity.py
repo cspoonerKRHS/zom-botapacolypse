@@ -29,6 +29,7 @@ class Electricity():
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
+        self.surface = pygame.transform.scale(self.surface, [10, 10])
         self.rect = self.surface.get_rect()
         self.speed = speed
         self.screenWidth = screenSize[0]
@@ -87,6 +88,16 @@ class Electricity():
                 if (self.distToPoint(zombie.rect.center)
                     < self.radius + zombie.radius):  
                     self.notBroken = False
+                    
+    def collideAttackMan(self, man):
+        if (self.rect.right > man.rect.left 
+            and self.rect.left < man.rect.right):
+            if (self.rect.bottom > man.rect.top and 
+                self.rect.top < man.rect.bottom):
+                if (self.distToPoint(man.rect.center)
+                    < self.radius + man.radius):  
+                    self.notBroken = False
+                    man.life = man.life - 10
    
    
     def remove(self):
