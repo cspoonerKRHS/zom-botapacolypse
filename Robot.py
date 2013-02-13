@@ -50,7 +50,6 @@ class Robot():
         self.rect = self.rect.move(self.speed)
         #print "I've moved", self.speed
                 
-       # print "I'm hurt"
         
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -60,10 +59,9 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         #print "I'm near something ", str(other.rect.center)
         
-    def sight(self, man):
+    def see(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
             self.speed = [0,0]
-            #electricitys += [Electricity(10, robot.rect.center, screenSize)]
         else:
             if self.speed == [0,0]:
                 self.randomDirection()

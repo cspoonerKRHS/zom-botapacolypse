@@ -162,8 +162,8 @@ while True:
             robot.collideMazeWall(mazeWall)
             robot.collideRobot(robot)
             robot.collideWall(screenWidth, screenHeight)
-            if not robot.sight(man):
-               electricitys += [Electricity([10, 10], robot.rect.center, screenSize)]
+            if not robot.see(man):
+                electricitys += [Electricity([10, 10], robot.rect.center, screenSize)]
             else:
                 robot.move()
         if not robot.living:
