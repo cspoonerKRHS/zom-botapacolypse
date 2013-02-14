@@ -15,8 +15,16 @@ import pygame, math, sys, random
 class HealthBar():
     def __init__(self, position):
         self.surfaces = []
-        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar.png")]
-        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar100.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar90.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar80.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar70.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar60.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar50.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar40.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar30.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar20.png")]
+        self.surfaces += [pygame.image.load("rsc/HealthBar/healthbar10.png")]
         self.frame = 0
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
@@ -32,7 +40,28 @@ class HealthBar():
         print "I'm in place", position
         self.rect = self.rect.move(position)
         
-    def maxHealth(self, maxHealth):
-        print "This how much health you have to start", str(maxHealth)
+    def downHealth(self, man):
+        if man.life == 100:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar100.png")
+        elif man.life == 90:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar90.png")
+        elif man.life == 80:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar80.png")
+        elif man.life == 70:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar70.png")
+        elif man.life == 60:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar60.png")
+        elif man.life == 50:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar50.png")
+        elif man.life == 40:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar40.png")
+        elif man.life == 30:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar30.png")
+        elif man.life == 20:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar20.png")
+        elif man.life == 10:
+            self.surface = pygame.image.load("rsc/HealthBar/healthbar10.png")
+        
+        print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
            
     
