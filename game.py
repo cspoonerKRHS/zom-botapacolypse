@@ -32,7 +32,8 @@ maxRobots = 4
 mazeWall = MazeWall([100,100])
 mazeWall.place([200, 200])
 stick = Stick([125, 100])
-electricity = Electricity([1,1], [130,206], screenSize)
+electricitys = [] 
+maxelectricitys = 2
 pistol = Pistol([250,250])
 projectiles = []
 maxProjectiles = 2
@@ -82,7 +83,8 @@ while True:
         for robot in robots:
             man.collideRobot(robot)
         man.collideStick(stick)
-        man.collideElectricity(electricity)
+        for electricity in electricitys:
+            man.collideElectricity(electricity)
         man.collidePistol(pistol)
         if man.attackWithStick(stick, Zombie):
             if stick.attack(zombie):
@@ -155,12 +157,14 @@ while True:
         
     for robot in robots:
         if robot.living:
+            robot.checkLiving()
             robot.move()
             robot.collideMazeWall(mazeWall)
             robot.collideRobot(robot)
             robot.collideWall(screenWidth, screenHeight)
-            robot.shootElect(man)
-            if not robot.shootElect(man):
+            if not robot.see(man):
+                electricitys += [Electricity([10, 10], robot.rect.center, screenSize)]
+            else:
                 robot.move()
         if not robot.living:
             robots.remove(robot)
@@ -168,6 +172,21 @@ while True:
     for first in range(0,len(robots)-2):
         for second in range(first+1, len(robots)-1):
             robots[first].collideRobot(robots[second])
+#-----------------Electricity Stuff----------------
+
+    for electricity in electricitys:
+        if electricity.notBroken:
+            electricity.move()
+            electricity.collideWall(screenSize)
+            electricity.collideAttackMan(man)
+            for mazeWall in map.mazeWalls:
+                electricity.collideMazeWall(mazeWall)
+            for zombie in zombies:
+                electricity.collideAttackZombie(zombie)
+            if not electricity.notBroken:
+                electricitys.remove(electricity)
+
+
             
     #stick.swing.whack.snapInHalf
        
@@ -183,7 +202,8 @@ while True:
             projectile.collideMazeWall(mazeWall)
         man.collideMazeWall(mazeWall)
         screen.blit(mazeWall.surface, mazeWall.rect) 
-    screen.blit(man.surface, man.rect)
+    if man.living:
+        screen.blit(man.surface, man.rect)
     for zombie in zombies:
         if zombie.unDead:
             screen.blit(zombie.surface, zombie.rect)
@@ -199,7 +219,10 @@ while True:
     for projectile in projectiles:
         if projectile.notBroken:
             screen.blit(projectile.surface, projectile.rect)
-    screen.blit(electricity.surface, electricity.rect)
+    for electricity in electricitys:
+        if electricity.notBroken:
+            screen.blit(electricity.surface, electricity.rect)
+                
     screen.blit(healthBar.surface, healthBar.rect)
     
     pygame.display.flip()

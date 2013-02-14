@@ -49,14 +49,7 @@ class Robot():
     def move(self):
         self.rect = self.rect.move(self.speed)
         #print "I've moved", self.speed
-        
-    def shootElect(self, other):
-        if self.sight(other):
-            screen.blit(Electricity.surface, Electricity.rect)
-        #print "I'm shooting Electricity "
-       
                 
-       # print "I'm hurt"
         
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -66,15 +59,21 @@ class Robot():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         #print "I'm near something ", str(other.rect.center)
         
-    def sight(self, man):
+    def see(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
             self.speed = [0,0]
         else:
             if self.speed == [0,0]:
                 self.randomDirection()
+            return True
+    def checkLiving(self):       
         if self.life == 0:
             self.living = False
         #print "I can see You"
+        
+    def shootElect(self, other):
+        self.sight(other)
+        #print "I'm shooting Electricity "
     
     def randomDirection(self):
         while self.speed == [0,0]:

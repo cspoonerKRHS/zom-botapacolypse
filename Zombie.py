@@ -164,23 +164,29 @@ class Zombie():
             
             if pX > zX:
                 self.speed[0] = self.noSpeed
+                man.life = man.life -25 
             elif pX < zX:
                 self.speed[0] = -self.noSpeed
+                man.life = man.life -25
             else:
                 self.speed[0] = 0
         
             if pY > zY:
                 self.speed[1] = self.noSpeed
+                man.life = man.life -25 
             elif pY < zY:
                 self.speed[1] = -self.noSpeed
+                man.life = man.life -25    
             else:
-                self.speed[1] = 0        
+                self.speed[1] = 0  
+             
         #print "Trying to bite", man
         
     def dropItem(self):
         if self.unDead == False:
             screen.blit(pistol.surface, pistol.rect)
         #print "I've droped", (Taser or stunGun or stick or pistol)
+
     
         if self.life == 0:
             self.unDead = False
