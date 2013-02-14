@@ -62,6 +62,6 @@ class HealthBar():
         elif man.life == 10:
             self.surface = pygame.image.load("rsc/HealthBar/healthbar10.png")
         
-        print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+        #print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
            
     

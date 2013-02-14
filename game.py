@@ -105,6 +105,7 @@ while True:
             if man.attackWithPistol(pistol, MazeWall):    
                 if pistol.attack(mazeWall):
                     pistol.useDown(mazeWall, 1)
+            healthBar.downHealth(man)
 
     #--------Projectile Stuff-----------------
             for projectile in projectiles:

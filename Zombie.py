@@ -163,19 +163,19 @@ class Zombie():
             
             if pX > zX:
                 self.speed[0] = self.noSpeed
-                man.life = man.life -25 
+                man.life = man.life -5 
             elif pX < zX:
                 self.speed[0] = -self.noSpeed
-                man.life = man.life -25
+                man.life = man.life -5
             else:
                 self.speed[0] = 0
         
             if pY > zY:
                 self.speed[1] = self.noSpeed
-                man.life = man.life -25 
+                man.life = man.life -5 
             elif pY < zY:
                 self.speed[1] = -self.noSpeed
-                man.life = man.life -25    
+                man.life = man.life -5    
             else:
                 self.speed[1] = 0  
              
