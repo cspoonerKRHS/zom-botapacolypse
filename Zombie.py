@@ -11,7 +11,6 @@
 # License:     GSL
 #-------------------------------------------------------------------
 import pygame, math
-from Taser import Taser
 from Robot import Robot
 
 
