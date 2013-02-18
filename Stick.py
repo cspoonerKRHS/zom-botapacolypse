@@ -29,7 +29,8 @@ class Stick():
         return "I'm a Stick " + str(self.rect.center) + str(self.notBroken)
      
     def place(self, position):
-        print "I've moved to", position
+        self.rect.center = position
+        #print "I've moved to", position
         
     def attack(self, other):
         print "I've attacked", str(other)
