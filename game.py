@@ -14,6 +14,7 @@ from gameover import GameOver
 if pygame.mixer:
     pygame.mixer.init()
 
+#-------------Level----------------------
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -24,7 +25,11 @@ screenHeight = 600
 screenSize = screenWidth, screenHeight
 screen = pygame.display.set_mode(screenSize)
 
+map = level("maze1.lvl", screenSize)
 
+bgColor = 50, 50, 50
+
+#----------------characters/environment--------------------
 man = Man(3, [40, 40])
 zombies = [] 
 maxZombies = 4
@@ -39,11 +44,9 @@ pistol = Pistol([250,250])
 projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 10])
-gameover = GameOver("rsc/man/mans.png", [400, 300], screenSize)
 
-map = level("maze1.lvl", screenSize)
 
-bgColor = 50, 50, 50
+#----------------------Game-----------------------
 while True:
     while man.living:
         for event in pygame.event.get():
@@ -77,15 +80,13 @@ while True:
                     or event.key == pygame.K_a):
                         man.direction("stop left")
              
-    #------------------------Man----------------------                    
+#------------------------Man----------------------                    
         if man.living:
             man.move()
             man.collideWall()
             for robot in robots:
                 man.collideRobot(robot)
             man.collideStick(stick)
-            for electricity in electricitys:
-                man.collideElectricity(electricity)
             man.collidePistol(pistol)
             if man.attackWithStick(stick, Zombie):
                 if stick.attack(zombie):
@@ -106,8 +107,9 @@ while True:
                 if pistol.attack(mazeWall):
                     pistol.useDown(mazeWall, 1)
             healthBar.downHealth(man)
+            man.remove()
 
-    #--------Projectile Stuff-----------------
+#--------Projectile Stuff-----------------
             for projectile in projectiles:
                 if projectile.notBroken:
                     projectile.move()
@@ -119,7 +121,7 @@ while True:
                 if not projectile.notBroken:
                     projectiles.remove(projectile)
                 
-    #------------Zombie---------------------
+#------------Zombie---------------------
         while len(zombies) < maxZombies:
             zombieSpeed = [random.randint(1,6), 
                          random.randint(1,6)]
@@ -149,7 +151,7 @@ while True:
             for second in range(first+1, len(zombies)-1):
                 zombies[first].collideZombie(zombies[second])
                 
-    #------------------------Robot-------------------------    
+#------------------------Robot-------------------------    
         while len(robots) < maxRobots:
             robotSpeed = [random.randint(1,1), 
                          random.randint(1,1)]
@@ -174,7 +176,7 @@ while True:
         for first in range(0,len(robots)-2):
             for second in range(first+1, len(robots)-1):
                 robots[first].collideRobot(robots[second])
-    #-----------------Electricity Stuff----------------
+#-----------------Electricity Stuff----------------
 
         for electricity in electricitys:
             if electricity.notBroken:
@@ -187,14 +189,11 @@ while True:
                     electricity.collideAttackZombie(zombie)
                 if not electricity.notBroken:
                     electricitys.remove(electricity)
-
-
-                
-        #stick.swing.whack.snapInHalf
+#------------------stick.swing.whack.snapInHalf--------------------------
            
-        screen.fill(bgColor)
 
-    #--------------------Blit-------------------    
+
+#--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
             for zombie in zombies:
                 zombie.collideMazeWall(mazeWall)
@@ -213,9 +212,7 @@ while True:
             if robot.living:
                 screen.blit(robot.surface, robot.rect)
         if stick.notBroken:
-            screen.blit(stick.surface, stick.rect)
-        if stick.notBroken:
-            screen.blit(stick.surface, stick.rect)    
+            screen.blit(stick.surface, stick.rect)   
         if pistol.notBroken:
             screen.blit(pistol.surface, pistol.rect)
         for projectile in projectiles:
@@ -223,19 +220,20 @@ while True:
                 screen.blit(projectile.surface, projectile.rect)
         for electricity in electricitys:
             if electricity.notBroken:
-                screen.blit(electricity.surface, electricity.rect)
-                    
+                screen.blit(electricity.surface, electricity.rect)       
         screen.blit(healthBar.surface, healthBar.rect)
         
         pygame.display.flip()
-        #print "-----------------------"
         clock.tick(35)
+        screen.fill(bgColor)
         #print clock.get_fps()
-        #print "-----------------------"
 
+#--------------------EndGame--------------
     while not man.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
-        screen.fill(bgColor)
+        gameover = GameOver("rsc/man/mans.png", [400, 300], screenSize)
+        screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
-    
+        gameover.place([400,300])
+        pygame.display.flip()

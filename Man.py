@@ -150,13 +150,11 @@ class Man():
                         
                         self.speed[0] = 0
                         self.speed[1] = 0
-                        
-        #print "Trying to hit the maze wall", str(MazeWall)
         
     def collideRobot(self, other):
         pass
         #print "Trying to collide with the robot", str(Robot)
-                            
+
     def collideStick(self, stick):
         pass
         #print "I have collided with", stick
@@ -165,22 +163,11 @@ class Man():
         pass
         #print "I have collided with", pistol
         
-    def collideElectricity(self, electricity):
-        pass
-        #print "I'm being electricuted by", electricity
     
     def pickUpStick(self, stick):
         pass
         #print "I have picked up", stick
-    
-    def pickUpStunGun(self, stunGun):
-        pass
-        #print "I have picked up", stunGun
-    
-    def pickUpTaser(self, taser):
-        pass
-        #print "I have picked up", taser
-    
+
     def pickUpPistol(self, pistol):
         pass
         #print "I have picked up", pistol
@@ -193,18 +180,17 @@ class Man():
         pass
         #print "I have attacked", str(pistol), other
 
-        if self.life == 0:
-            self.living = False
         pass
         #print "I have died"
     
     def remove(self):
-        pass
+        if self.life == 0:
+            self.living = False
         #print "I am being removed from the game", self
                     
         #return True
         
-        
+
         #return False
         
         
