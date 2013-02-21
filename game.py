@@ -37,7 +37,7 @@ robots = []
 maxRobots = 4
 mazeWall = MazeWall([100,100])
 mazeWall.place([200, 200])
-stick = Stick([125, 100])
+stick = Stick([125, 125])
 electricitys = [] 
 maxelectricitys = 2
 pistol = Pistol([250,250])
@@ -84,6 +84,8 @@ while True:
         if man.living:
             man.move()
             man.collideWall()
+            man.collideStick(stick)
+            man.pickUpStick(stick)
             for robot in robots:
                 man.collideRobot(robot)
             man.collideStick(stick)
@@ -189,9 +191,14 @@ while True:
                     electricity.collideAttackZombie(zombie)
                 if not electricity.notBroken:
                     electricitys.remove(electricity)
-#------------------stick.swing.whack.snapInHalf--------------------------
-           
+   
 
+#------------------stick.swing.whack.snapInHalf--------------------------
+        if stick.notBroken:
+            stick.collideZombie(zombie)
+            stick.collideRobot(robot)
+            #for mazeWall in map.mazeWalls:
+            #    stick.collideMazeWall(mazeWall)
 
 #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:

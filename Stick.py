@@ -20,6 +20,7 @@ class Stick():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         self.place(position)
         self.notBroken = True
         self.hitCount = 10
@@ -32,6 +33,14 @@ class Stick():
     def place(self, position):
         self.rect.center = position
         #print "I've moved to", position
+        
+    def distToPoint(self, pt):
+        #print "I can see", str(distToPoint)
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
       
     def collideZombie(self, zombie):
         if (self.rect.right > zombie.rect.left 
@@ -40,9 +49,9 @@ class Stick():
                 self.rect.top < zombie.rect.bottom):
                 if (self.distToPoint(zombie.rect.center)
                     < self.radius + zombie.radius):  
-                    self.hitCount = self.hitCount -1
-                    zombie.life = zombie.life-10
-        print "I've hit the zombie", str(other)
+                    self.hitCount -= 1
+                    zombie.life -= 10
+                    print "I've hit the zombie", str(other)
         
     def collideRobot(self, robot):
         if (self.rect.right > robot.rect.left 
@@ -51,24 +60,22 @@ class Stick():
                     self.rect.top < robot.rect.bottom):
                     if (self.distToPoint(robot.rect.center)
                         < self.radius + robot.radius):  
-                        self.hitCount = self.hitCount -1
-                        robot.life = robot.life-10
-        print "I've hit the Robot", str(other)
+                        self.hitCount -= 1
+                        robot.life -= 10
+                        #print "I've hit the Robot", str(other)
         
-    def collideMazeWall(self, Mazewall):
-        if (self.rect.right > MazeWall.rect.left and
-                self.rect.left < MazeWall.rect.right):
-                    if (self.rect.bottom > MazeWall.rect.top and 
-                        self.rect.top < MazeWall.rect.bottom):
-                            if (self.distToPoint(MazeWall.rect.center) < 
-                                self.radius + MazeWall.radius): 
+    def collideMazeWall(self, mazeWall):
+        if (self.rect.right > mazeWall.rect.left and
+                self.rect.left < mazeWall.rect.right):
+                    if (self.rect.bottom > mazeWall.rect.top and 
+                        self.rect.top < mazeWall.rect.bottom):
+                            if (self.distToPoint(mazeWall.rect.center) < 
+                                self.radius + mazeWall.radius): 
                                     self.notBroken = False
-        print "I've hit the MazeWall", str(other)
-            
+                                    #print "I've hit the mazeWall", str(mazeWall)   
     def broken(self):
         print "I'm broken"
         
     def remove(self):
         print "I'm gone"
-        
-    
+

@@ -48,7 +48,7 @@ class Man():
         self.life = 100
         self.living = True
         self.heading = "s"
-    
+        self.haveStick = False
     
     def __str__(self):
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
@@ -156,6 +156,13 @@ class Man():
         #print "Trying to collide with the robot", str(Robot)
 
     def collideStick(self, stick):
+        if (self.rect.right > stick.rect.left 
+                and self.rect.left < stick.rect.right):
+                if (self.rect.bottom > stick.rect.top and 
+                    self.rect.top < stick.rect.bottom):
+                    if (self.distToPoint(stick.rect.center)
+                        < self.radius + stick.radius):
+                        self.haveStick = True
         pass
         #print "I have collided with", stick
     
@@ -165,6 +172,8 @@ class Man():
         
     
     def pickUpStick(self, stick):
+        if self.haveStick == True:
+            print "-----------------------------------------------------"    
         pass
         #print "I have picked up", stick
 
