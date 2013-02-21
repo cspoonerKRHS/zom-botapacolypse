@@ -6,12 +6,12 @@ class level():
         self.screenSize = screenSize
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
+        self.mazeWallSize = 25
         self.load(level)
-        
         
     def load(self, level):
         self.mazeWalls = []
-        mazeWallSize = 25
+        
         
         geoMap="rsc/maps/"+ level
         geofile = open(geoMap, "r")
@@ -30,5 +30,8 @@ class level():
         for y, line in enumerate(newlines):
             for x, c in enumerate(line):
                 if c == "m":
-                    self.mazeWalls += [MazeWall([(x*mazeWallSize)+mazeWallSize/2, (y*mazeWallSize)+mazeWallSize/2])]
+                    self.mazeWalls += [MazeWall(self.mazeWallSize, 
+                                                [(x*self.mazeWallSize)+self.mazeWallSize/2, 
+                                                 (y*self.mazeWallSize)+self.mazeWallSize/2])
+                                                ]
             

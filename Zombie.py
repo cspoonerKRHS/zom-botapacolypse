@@ -54,11 +54,11 @@ class Zombie():
         #    self.zombieNoise = pygame.mixer.sound("zombie.wav")   
     
     def __str__(self):
-        return "I am the Undead" + str(self.rect.center) + str(self.speed) + str(self.living)
+        return "I am the Undead" + str(self.rect.center) + str(self.speed) + str(self.unDead)
     
     def place(self, position):
-        self.rect = self.rect.move(position)
-    
+        self.rect.center = position
+   
     def move(self):
         self.rect = self.rect.move(self.speed)
             
@@ -112,6 +112,8 @@ class Zombie():
                     < self.radius + mazeWall.radius):  
                     self.speed[0] = self.speed[0] * -1
                     self.speed[1] = self.speed[1] * -1
+                    return True
+        return False
         
     def collideRobot(self, robot):
         #print "Trying to collide with the robot", str(robot)

@@ -35,8 +35,8 @@ zombies = []
 maxZombies = 4
 robots = []
 maxRobots = 4
-mazeWall = MazeWall([100,100])
-mazeWall.place([200, 200])
+#mazeWall = MazeWall([100,100])
+#mazeWall.place([200, 200])
 stick = Stick([125, 125])
 electricitys = [] 
 maxelectricitys = 2
@@ -127,9 +127,21 @@ while True:
         while len(zombies) < maxZombies:
             zombieSpeed = [random.randint(1,6), 
                          random.randint(1,6)]
-            zombiePos = [random.randint(100,screenWidth-100),
-                       random.randint(100,screenHeight/2)]
+            zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                     random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
             zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
+            collided = True
+            while collided:
+                collided = False
+                for mazeWall in map.mazeWalls:
+                    if zombies[-1].collideMazeWall(mazeWall):
+                        zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                     random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                        print zombiePos
+                        zombies[-1].place(zombiePos)
+                        collided = True
+                     
+                        
             
         for zombie in zombies:
             if zombie.unDead:
