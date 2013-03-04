@@ -32,9 +32,9 @@ bgColor = 50, 50, 50
 #----------------characters/environment--------------------
 man = Man(3, [40, 40])
 zombies = [] 
-maxZombies = 4
+maxZombies = 25
 robots = []
-maxRobots = 4
+maxRobots = 25
 #mazeWall = MazeWall([100,100])
 #mazeWall.place([200, 200])
 stick = Stick([125, 125])
@@ -44,6 +44,41 @@ pistol = Pistol([250,250])
 projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 10])
+
+while len(zombies) < maxZombies:
+    zombieSpeed = [random.randint(1,6), 
+                 random.randint(1,6)]
+    zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
+    zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
+    collided = True
+    while collided:
+        collided = False
+        for mazeWall in map.mazeWalls:
+            if zombies[-1].collideMazeWall(mazeWall):
+                zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                print zombiePos
+                zombies[-1].place(zombiePos)
+                collided = True
+
+while len(robots) < maxRobots:
+    robotSpeed = [random.randint(1,6), 
+                 random.randint(1,6)]
+    robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
+    robots += [Robot(robotSpeed, robotPos, screenSize)]
+    collided = True
+    while collided:
+        collided = False
+        for mazeWall in map.mazeWalls:
+            if robots[-1].collideMazeWall(mazeWall):
+                robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                print robotPos
+                robots[-1].place(robotPos)
+                collided = True
+                     
 
 
 #----------------------Game-----------------------
@@ -83,7 +118,7 @@ while True:
 #------------------------Man----------------------                    
         if man.living:
             man.move()
-            man.collideWall()
+            man.collideWall(screenWidth, screenHeight)
             man.collideStick(stick)
             man.pickUpStick(stick)
             for robot in robots:
@@ -124,6 +159,7 @@ while True:
                     projectiles.remove(projectile)
                 
 #------------Zombie---------------------
+        """
         while len(zombies) < maxZombies:
             zombieSpeed = [random.randint(1,6), 
                          random.randint(1,6)]
@@ -141,7 +177,7 @@ while True:
                         zombies[-1].place(zombiePos)
                         collided = True
                      
-                        
+        """              
             
         for zombie in zombies:
             if zombie.unDead:
@@ -153,12 +189,13 @@ while True:
                     zombie.collideRobot(robot)
                 if zombie.chase(man):
                     zombie.collideWall(screenWidth, screenHeight)
+                    zombie.collideMazeWall(mazeWall)
                     for first in range(0,len(zombies)-2):
                         for second in range(first+1, len(zombies)-1):
                             zombies[first].collideZombie2(zombies[second])
                 zombie.biteMan(man)
                 zombie.dropItem()
-                if not zombie.unDead:
+                if zombie.unDead == False:
                     zombies.remove(zombie)
                 
 
@@ -167,6 +204,7 @@ while True:
                 zombies[first].collideZombie(zombies[second])
                 
 #------------------------Robot-------------------------    
+        """
         while len(robots) < maxRobots:
             robotSpeed = [random.randint(1,6), 
                          random.randint(1,6)]
@@ -183,6 +221,7 @@ while True:
                         print robotPos
                         robots[-1].place(robotPos)
                         collided = True
+            """
             
         for robot in robots:
             if robot.living:

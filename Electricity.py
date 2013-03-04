@@ -69,6 +69,7 @@ class Electricity():
             or self.rect.bottom > screenSize):
             self.speed[1] = self.speed[1]*-1
             #print "Trying to hit screen walls", screenWidth, screenHeight
+            self.notBroken = False
     
     
     def collideMazeWall(self, MazeWall):

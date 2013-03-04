@@ -14,11 +14,7 @@ import pygame, math
 from Zombie import Zombie
 from Robot import Robot
 from MazeWall import MazeWall
-screenWidth = 800
-screenHeight = 600
 
-screenSize = screenWidth, screenHeight
-screen = pygame.display.set_mode(screenSize)
 
 class Man():
     # Attributes or Variables
@@ -44,6 +40,7 @@ class Man():
         self.radius = self.rect.width/2.5
         self.maxSpeed = maxSpeed
         self.speed = [0,0]
+        self.noSpeed = 0
         self.place(position)
         self.ammo = 20
         self.life = 100
@@ -73,9 +70,9 @@ class Man():
             self.speed[1] = self.maxSpeed
             self.heading = "s"
         elif dir == "stop up":
-            self.speed[1] = 0
+            self.speed[1] = self.noSpeed
         elif dir == "stop down":
-            self.speed[1] = 0
+            self.speed[1] = self.noSpeed
             
         if dir == "right":
             self.surface = pygame.image.load("rsc\man\mane.png")
@@ -86,9 +83,9 @@ class Man():
             self.speed[0] = -self.maxSpeed
             self.heading = "w"
         elif dir == "stop right":
-            self.speed[0] = 0
+            self.speed[0] = self.noSpeed
         elif dir == "stop left":
-            self.speed[0] = 0
+            self.speed[0] = self.noSpeed
         
         
     def distToPointWithOffset(self, pt, offset):
@@ -107,7 +104,7 @@ class Man():
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
         #print "I'm near something ", str(other.rect.center)
         
-    def collideWall(self):
+    def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
             or self.rect.right > screenWidth):
             self.speed[0] = self.speed[0]*0
