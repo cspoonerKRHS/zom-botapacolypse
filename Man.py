@@ -45,6 +45,7 @@ class Man():
         self.maxSpeed = maxSpeed
         self.speed = [0,0]
         self.place(position)
+        self.ammo = 20
         self.life = 100
         self.living = True
         self.heading = "s"
@@ -193,7 +194,7 @@ class Man():
         #print "I have died"
     
     def remove(self):
-        if self.life == 0:
+        if self.life <= 0:
             self.living = False
         #print "I am being removed from the game", self
                     

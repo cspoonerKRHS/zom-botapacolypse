@@ -43,7 +43,7 @@ class Robot():
         return "I'm a Robot " + str(self.rect.center) + str(self.speed) + str(self.living)
      
     def place(self, position):
-        self.rect = self.rect.move(position)
+        self.rect.center = position
         #print "I've moved to", position
         
     def move(self):
@@ -92,13 +92,15 @@ class Robot():
         
     def collideMazeWall(self, MazeWall):
         if (self.rect.right > MazeWall.rect.left 
-                and self.rect.left < MazeWall.rect.right):
-                if (self.rect.bottom > MazeWall.rect.top and 
-                    self.rect.top < MazeWall.rect.bottom):
-                    if (self.distToPoint(MazeWall.rect.center)
-                        < self.radius + MazeWall.radius):  
-                        self.speed[0] = self.speed[0] * -1
-                        self.speed[1] = self.speed[1] * -1
+            and self.rect.left < MazeWall.rect.right):
+            if (self.rect.bottom > MazeWall.rect.top and 
+                self.rect.top < MazeWall.rect.bottom):
+                if (self.distToPoint(MazeWall.rect.center)
+                    < self.radius + MazeWall.radius):  
+                    self.speed[0] = self.speed[0] * -1
+                    self.speed[1] = self.speed[1] * -1
+                    return True
+        return False
         #print "trying to hit ", str(MazeWall)
         #if pygame.mixer:
         #   self.bounceSound.play()

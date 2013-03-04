@@ -158,8 +158,9 @@ while True:
                             zombies[first].collideZombie2(zombies[second])
                 zombie.biteMan(man)
                 zombie.dropItem()
-            if not zombie.unDead:
-                zombies.remove(zombie)  
+                if not zombie.unDead:
+                    zombies.remove(zombie)
+                
 
         for first in range(0,len(zombies)-2):
             for second in range(first+1, len(zombies)-1):
@@ -167,11 +168,21 @@ while True:
                 
 #------------------------Robot-------------------------    
         while len(robots) < maxRobots:
-            robotSpeed = [random.randint(1,1), 
-                         random.randint(1,1)]
-            robotPos = [random.randint(100,screenWidth-100),
-                       random.randint(100,screenHeight/2)]
+            robotSpeed = [random.randint(1,6), 
+                         random.randint(1,6)]
+            robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                     random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
             robots += [Robot(robotSpeed, robotPos, screenSize)]
+            collided = True
+            while collided:
+                collided = False
+                for mazeWall in map.mazeWalls:
+                    if robots[-1].collideMazeWall(mazeWall):
+                        robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                     random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                        print robotPos
+                        robots[-1].place(robotPos)
+                        collided = True
             
         for robot in robots:
             if robot.living:
