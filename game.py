@@ -32,9 +32,9 @@ bgColor = 50, 50, 50
 #----------------characters/environment--------------------
 man = Man(3, [40, 40])
 zombies = [] 
-maxZombies = 25
+maxZombies = 20
 robots = []
-maxRobots = 25
+maxRobots = 20
 #mazeWall = MazeWall([100,100])
 #mazeWall.place([200, 200])
 stick = Stick([125, 125])
