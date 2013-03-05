@@ -301,7 +301,7 @@ while True:
     while not man.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
-        gameover = GameOver("rsc/man/mans.png", [400, 300], screenSize)
+        gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         gameover.place([400,300])
