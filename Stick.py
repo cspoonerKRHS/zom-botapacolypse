@@ -51,7 +51,7 @@ class Stick():
                     < self.radius + zombie.radius):  
                     self.hitCount -= 1
                     zombie.life -= 10
-                    print "I've hit the zombie", str(other)
+                    #print "I've hit the zombie", str(other)
         
     def collideRobot(self, robot):
         if (self.rect.right > robot.rect.left 

@@ -93,6 +93,8 @@ class Zombie():
                 self.speed[1] = -self.maxSpeed
             else:
                 self.speed[1] = self.noSpeed
+            return True
+        return False
         
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 

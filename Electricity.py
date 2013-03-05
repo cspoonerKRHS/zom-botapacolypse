@@ -23,7 +23,7 @@ class Electricity():
     # living
     
     # Methods or Functions
-    def __init__(self, speed, position, screenSize):
+    def __init__(self, target, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/electricity/electricity2.png")]
         self.frame = 0
@@ -31,7 +31,7 @@ class Electricity():
         self.surface = self.surfaces[self.frame]
         self.surface = pygame.transform.scale(self.surface, [10, 10])
         self.rect = self.surface.get_rect()
-        self.speed = speed
+        self.speed = self.setSpeed(target, position)    
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
         self.place(position)
@@ -42,6 +42,28 @@ class Electricity():
     
     def __str__(self):
         return "I am electricity" + str(self.rect.center) + str(self.notBroken)
+    
+    def setSpeed(self, target, position):
+        tX = target[0]
+        tY = target[1]
+        mX = position[0]
+        mY = position[1]
+        speed = [0,0]
+        if tX > mX + 5:
+            speed[0] = 10
+        elif tX < mX -5:
+            speed[0] = -10
+        else:
+            speed[0] = 0
+    
+        if tY > mY + 5:
+            speed[1] = 10
+        elif tY < mY - 5:
+            speed[1] = -10
+        else:
+            speed[1] = 0
+        
+        return speed
     
     def place(self, position):
         self.rect.center = position

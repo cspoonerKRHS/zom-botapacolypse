@@ -61,6 +61,12 @@ while len(zombies) < maxZombies:
                 print zombiePos
                 zombies[-1].place(zombiePos)
                 collided = True
+            elif zombies[-1].chase(man):
+                zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                print zombiePos
+                zombies[-1].place(zombiePos)
+                collided = True
 
 while len(robots) < maxRobots:
     robotSpeed = [random.randint(1,6), 
@@ -73,6 +79,12 @@ while len(robots) < maxRobots:
         collided = False
         for mazeWall in map.mazeWalls:
             if robots[-1].collideMazeWall(mazeWall):
+                robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                print robotPos
+                robots[-1].place(robotPos)
+                collided = True
+            elif robots[-1].see(man):
                 robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
                              random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
                 print robotPos
@@ -230,8 +242,8 @@ while True:
                 robot.collideMazeWall(mazeWall)
                 robot.collideRobot(robot)
                 robot.collideWall(screenWidth, screenHeight)
-                if not robot.see(man):
-                    electricitys += [Electricity([10, 10], robot.rect.center, screenSize)]
+                if robot.see(man):
+                    electricitys += [Electricity(man.rect.center, robot.rect.center, screenSize)]
                 else:
                     robot.move()
             if not robot.living:

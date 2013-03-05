@@ -62,18 +62,17 @@ class Robot():
     def see(self, man):
         if self.distToPoint(man.rect.center) < self.detectionRadius:
             self.speed = [0,0]
+            return True
         else:
             if self.speed == [0,0]:
                 self.randomDirection()
-            return True
+                return False
+            
+    
     def checkLiving(self):       
         if self.life == 0:
             self.living = False
         #print "I can see You"
-        
-    def shootElect(self, other):
-        self.sight(other)
-        #print "I'm shooting Electricity "
     
     def randomDirection(self):
         while self.speed == [0,0]:
