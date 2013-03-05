@@ -32,7 +32,7 @@ class Pistol():
         print "I've attacked", str(other)
      
     def place(self, position):
-        print "I've moved to", position
+        self.rect.center = position
    
     def useDown(self):
         print "I've been used", str(self)
