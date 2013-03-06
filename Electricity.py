@@ -111,6 +111,7 @@ class Electricity():
                 if (self.distToPoint(zombie.rect.center)
                     < self.radius + zombie.radius):  
                     self.notBroken = False
+                    zombie.life -=2
                     
     def collideAttackMan(self, man):
         if (self.rect.right > man.rect.left 
