@@ -20,6 +20,7 @@ class Pistol():
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
+        self.radius = self.rect.width/2
         self.place(position)
         self.notBroken = True
         if pygame.mixer:

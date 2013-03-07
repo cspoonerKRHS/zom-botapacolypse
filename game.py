@@ -40,7 +40,7 @@ maxRobots = 20
 stick = Stick([125, 125])
 electricitys = [] 
 maxelectricitys = 2
-pistol = Pistol([250,250])
+pistol = Pistol([700,50])
 projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 10])
@@ -112,7 +112,8 @@ while True:
                     or event.key == pygame.K_a):
                         man.direction("left")
                 elif (event.key == pygame.K_SPACE):
-                    projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
+                    if man.havePistol == True:
+                        projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_UP 
                     or event.key == pygame.K_w):
@@ -135,8 +136,8 @@ while True:
             man.pickUpStick(stick)
             for robot in robots:
                 man.collideRobot(robot)
-            man.collideStick(stick)
             man.collidePistol(pistol)
+            man.pickUpPistol(pistol)
             if man.attackWithStick(stick, Zombie):
                 if stick.attack(zombie):
                     stick.useDown(zombie, 1)

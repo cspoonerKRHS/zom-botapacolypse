@@ -47,7 +47,8 @@ class Man():
         self.living = True
         self.heading = "s"
         self.haveStick = False
-    
+        self.havePistol = False
+        
     def __str__(self):
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
     
@@ -165,6 +166,13 @@ class Man():
         #print "I have collided with", stick
     
     def collidePistol(self, pistol):
+        if (self.rect.right > pistol.rect.left 
+            and self.rect.left < pistol.rect.right):
+            if (self.rect.bottom > pistol.rect.top and 
+                self.rect.top < pistol.rect.bottom):
+                if (self.distToPoint(pistol.rect.center)
+                    < self.radius + pistol.radius):
+                    self.havePistol = True
         pass
         #print "I have collided with", pistol
         
@@ -172,12 +180,10 @@ class Man():
     def pickUpStick(self, stick):
         if self.haveStick == True:
             print "-----------------------------------------------------"    
-        pass
-        #print "I have picked up", stick
 
     def pickUpPistol(self, pistol):
-        pass
-        #print "I have picked up", pistol
+        if self.havePistol == True:
+            print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"          
     
     def attackWithStick(self, stick, other):
         pass
