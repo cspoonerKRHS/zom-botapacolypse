@@ -30,7 +30,7 @@ map = level("maze1.lvl", screenSize)
 bgColor = 50, 50, 50
 
 #----------------characters/environment--------------------
-man = Man(3, [40, 40])
+man = Man(4, [40, 40])
 zombies = [] 
 maxZombies = 20
 robots = []
@@ -40,7 +40,7 @@ maxRobots = 20
 stick = Stick([125, 125])
 electricitys = [] 
 maxelectricitys = 2
-pistol = Pistol([700,50])
+pistol = Pistol([290,110])
 projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 10])
