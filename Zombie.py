@@ -10,7 +10,7 @@
 # Copyright:   (c) Michael Simon 2012
 # License:     GSL
 #-------------------------------------------------------------------
-import pygame, math
+import pygame, math, random
 from Robot import Robot
 
 
@@ -43,6 +43,7 @@ class Zombie():
         self.maxSpeed = 2
         self.speed = speed
         self.detectionRadius = 100
+        self.mazeRadius = 30
         self.biteRadius = 15
         self.noSpeed = 0
         self.place(position)
@@ -114,6 +115,25 @@ class Zombie():
                     < self.radius + mazeWall.radius):  
                     self.speed[0] = self.speed[0] * -1
                     self.speed[1] = self.speed[1] * -1
+                    """
+                    dir = random.choice([-1,1])
+                    print self.rect.top, mazeWall.rect.bottom, ",", self.rect.bottom, mazeWall.rect.top, ",", self.rect.right, mazeWall.rect.left, ",", self.rect.left, mazeWall.rect.right
+                    if (self.rect.top > mazeWall.rect.bottom 
+                        or self.rect.bottom < mazeWall.rect.top):
+                        print "hit top/bottom"
+                        self.move()
+                        self.move()
+                        self.speed[0] = self.maxSpeed * dir
+                        self.speed[1] = 0
+                    elif (self.rect.right > mazeWall.rect.left 
+                        or self.rect.left < mazeWall.rect.right):
+                        print "hit right/left"
+                        self.move()
+                        self.move()
+                        self.speed[0] = 0
+                        self.speed[1] = self.maxSpeed * dir
+                    print self.speed
+                    """
                     return True
         return False
         

@@ -40,7 +40,11 @@ maxRobots = 20
 stick = Stick([125, 125])
 electricitys = [] 
 maxelectricitys = 2
-pistol = Pistol([290,110])
+pistol1 = Pistol([290,110])
+pistol2 = Pistol([40, 500])
+pistol3 = Pistol([125, 50])
+pistol4 = Pistol([700, 50])
+pistol5 = Pistol([420, 415])
 projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 10])
@@ -113,7 +117,18 @@ while True:
                         man.direction("left")
                 elif (event.key == pygame.K_SPACE):
                     if man.havePistol == True:
+                        man.haveStick == False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
+                    """
+                    elif man.haveStick == True:
+                        man.havePistol = False
+                        for zombie in zombies:
+                            if zombie.rect.center < man.attackRadius:
+                                zombie.life -= 100
+                        for robot in robots:
+                            if robot.rect.center < man.attackRadius:
+                                robot.life -= 100
+                    """
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_UP 
                     or event.key == pygame.K_w):
@@ -136,8 +151,11 @@ while True:
             man.pickUpStick(stick)
             for robot in robots:
                 man.collideRobot(robot)
-            man.collidePistol(pistol)
-            man.pickUpPistol(pistol)
+            man.collidePistol(pistol1)
+            man.collidePistol(pistol2)
+            man.collidePistol(pistol3)
+            man.collidePistol(pistol4)
+            man.collidePistol(pistol5)
             if man.attackWithStick(stick, Zombie):
                 if stick.attack(zombie):
                     stick.useDown(zombie, 1)
@@ -147,13 +165,13 @@ while True:
             if man.attackWithStick(stick, MazeWall):    
                 if stick.attack(mazeWall):
                     stick.useDown(mazeWall, 4)
-            if man.attackWithPistol(pistol, Zombie):
+            if man.attackWithPistol(pistol1, Zombie):
                 if pistol.attack(zombie):
                     pistol.useDown(zombie, 1)
-            if man.attackWithPistol(pistol, Robot):    
+            if man.attackWithPistol(pistol1, Robot):    
                 if pistol.attack(robot):
                     pistol.useDown(robot, 1)
-            if man.attackWithPistol(pistol, MazeWall):    
+            if man.attackWithPistol(pistol1, MazeWall):    
                 if pistol.attack(mazeWall):
                     pistol.useDown(mazeWall, 1)
             healthBar.downHealth(man)
@@ -295,8 +313,16 @@ while True:
                 screen.blit(robot.surface, robot.rect)
         if stick.notBroken:
             screen.blit(stick.surface, stick.rect)   
-        if pistol.notBroken:
-            screen.blit(pistol.surface, pistol.rect)
+        if pistol1.notBroken:
+            screen.blit(pistol1.surface, pistol1.rect)
+        if pistol2.notBroken:
+            screen.blit(pistol2.surface, pistol2.rect)
+        if pistol3.notBroken:
+            screen.blit(pistol3.surface, pistol3.rect)
+        if pistol4.notBroken:
+            screen.blit(pistol4.surface, pistol4.rect)
+        if pistol5.notBroken:
+            screen.blit(pistol5.surface, pistol5.rect)
         for projectile in projectiles:
             if projectile.notBroken:
                 screen.blit(projectile.surface, projectile.rect)

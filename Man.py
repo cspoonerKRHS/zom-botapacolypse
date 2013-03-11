@@ -43,6 +43,7 @@ class Man():
         self.noSpeed = 0
         self.place(position)
         self.ammo = 20
+        self.attackRadius = 200
         self.life = 100
         self.living = True
         self.heading = "s"
@@ -162,6 +163,7 @@ class Man():
                     if (self.distToPoint(stick.rect.center)
                         < self.radius + stick.radius):
                         self.haveStick = True
+                        stick.notBroken = False
         pass
         #print "I have collided with", stick
     
@@ -173,6 +175,7 @@ class Man():
                 if (self.distToPoint(pistol.rect.center)
                     < self.radius + pistol.radius):
                     self.havePistol = True
+                    pistol.notBroken = False
         pass
         #print "I have collided with", pistol
         
@@ -187,8 +190,6 @@ class Man():
     
     def attackWithStick(self, stick, other):
         pass
-        #print "I have attacked with", str(stick), other
-
     def attackWithPistol(self, pistol, other):
         pass
         #print "I have attacked", str(pistol), other
