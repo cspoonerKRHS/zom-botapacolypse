@@ -47,6 +47,7 @@ class Man():
         self.life = 100
         self.living = True
         self.heading = "s"
+        self.haveNothing = True
         self.haveStick = False
         self.havePistol = False
         
@@ -60,15 +61,33 @@ class Man():
     def move(self):
         #print "I've moved", self.speed
         self.rect = self.rect.move(self.speed)
+        
+    def checkHave (self):
+        if self.haveStick == True:
+            self.havePistol = False
+            self.haveNothing = False
+        elif self.havePistol == True:
+            self.haveStick = False
+            self.haveNothing = False
+        else:
+            self.haveNothing == True
+            self.haveStick = False
+            self.havePistol = False
     
     def direction(self, dir):
         #print "I am trying to move", dir
         if dir == "up":
-            self.surface = pygame.image.load("rsc\man\mann.png")
+            if self.haveNothing:
+                self.surface = pygame.image.load("rsc\man\mann.png")
+            if self.havePistol:
+                self.surface = pygame.image.load("rsc\man\manwgunn.png")
             self.speed[1] = -self.maxSpeed
             self.heading = "n"
         elif dir == "down":
-            self.surface = pygame.image.load("rsc\man\man.png")
+            if self.haveNothing:
+                self.surface = pygame.image.load("rsc\man\mans.png")
+            if self.havePistol:
+                self.surface = pygame.image.load("rsc\man\manwguns.png")
             self.speed[1] = self.maxSpeed
             self.heading = "s"
         elif dir == "stop up":
@@ -77,11 +96,17 @@ class Man():
             self.speed[1] = self.noSpeed
             
         if dir == "right":
-            self.surface = pygame.image.load("rsc\man\mane.png")
+            if self.haveNothing:
+                self.surface = pygame.image.load("rsc\man\mane.png")
+            if self.havePistol:
+                self.surface = pygame.image.load("rsc\man\manwgune.png")
             self.speed[0] = self.maxSpeed
             self.heading = "e"
         elif dir == "left":
-            self.surface = pygame.image.load("rsc\man\manw.png")
+            if self.haveNothing:
+                self.surface = pygame.image.load("rsc\man\manw.png")
+            if self.havePistol:
+                self.surface = pygame.image.load("rsc\man\manwgunw.png")
             self.speed[0] = -self.maxSpeed
             self.heading = "w"
         elif dir == "stop right":

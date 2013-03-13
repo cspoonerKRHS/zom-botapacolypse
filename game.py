@@ -146,6 +146,7 @@ while True:
 #------------------------Man----------------------                    
         if man.living:
             man.move()
+            man.checkHave()
             man.collideWall(screenWidth, screenHeight)
             man.collideStick(stick)
             man.pickUpStick(stick)
