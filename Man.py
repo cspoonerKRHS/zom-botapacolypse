@@ -81,6 +81,8 @@ class Man():
                 self.surface = pygame.image.load("rsc\man\mann.png")
             if self.havePistol:
                 self.surface = pygame.image.load("rsc\man\manwgunn.png")
+            if self.haveStick:
+                self.surface = pygame.image.load("rsc\man\mannS.png")
             self.speed[1] = -self.maxSpeed
             self.heading = "n"
         elif dir == "down":
@@ -88,6 +90,8 @@ class Man():
                 self.surface = pygame.image.load("rsc\man\mans.png")
             if self.havePistol:
                 self.surface = pygame.image.load("rsc\man\manwguns.png")
+            if self.haveStick:
+                self.surface = pygame.image.load("rsc\man\mansS.png")
             self.speed[1] = self.maxSpeed
             self.heading = "s"
         elif dir == "stop up":
@@ -100,6 +104,8 @@ class Man():
                 self.surface = pygame.image.load("rsc\man\mane.png")
             if self.havePistol:
                 self.surface = pygame.image.load("rsc\man\manwgune.png")
+            if self.haveStick:
+                self.surface = pygame.image.load("rsc\man\maneS.png")
             self.speed[0] = self.maxSpeed
             self.heading = "e"
         elif dir == "left":
@@ -107,6 +113,8 @@ class Man():
                 self.surface = pygame.image.load("rsc\man\manw.png")
             if self.havePistol:
                 self.surface = pygame.image.load("rsc\man\manwgunw.png")
+            if self.haveStick:
+                self.surface = pygame.image.load("rsc\man\manwS.png")
             self.speed[0] = -self.maxSpeed
             self.heading = "w"
         elif dir == "stop right":
