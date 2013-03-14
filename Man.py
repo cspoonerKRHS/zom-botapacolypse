@@ -204,7 +204,7 @@ class Man():
         pass
         #print "I have collided with", pistol
         
-    
+
     def pickUpStick(self, stick):
         if self.haveStick == True:
             print "-----------------------------------------------------"    

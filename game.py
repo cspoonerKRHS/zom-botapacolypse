@@ -119,6 +119,27 @@ while True:
                     if man.havePistol == True:
                         man.haveStick == False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
+                    if man.haveStick ==  True:
+                        if (event.key == pygame.K_SPACE):
+                            if if self.distToPoint(man.rect.center) < self.detectionRadius:
+            pX = man.rect.center[0]
+            pY = man.rect.center[1]
+            zX = self.rect.center[0]
+            zY = self.rect.center[1]
+            
+            if pX > zX:
+                self.speed[0] = self.maxSpeed
+            elif pX < zX:
+                self.speed[0] = -self.maxSpeed
+            else:
+                self.speed[0] = self.noSpeed
+        
+            if pY > zY:
+                self.speed[1] = self.maxSpeed
+            elif pY < zY:
+                self.speed[1] = -self.maxSpeed
+            else:
+                self.speed[1] = self.noSpeed
                     """
                     elif man.haveStick == True:
                         man.havePistol = False
