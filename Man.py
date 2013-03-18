@@ -43,7 +43,7 @@ class Man():
         self.noSpeed = 0
         self.place(position)
         self.ammo = 20
-        self.attackRadius = 200
+        self.attackRadius = 20
         self.life = 100
         self.living = True
         self.heading = "s"
