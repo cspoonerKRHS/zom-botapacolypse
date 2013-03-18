@@ -38,6 +38,9 @@ maxRobots = 20
 #mazeWall = MazeWall([100,100])
 #mazeWall.place([200, 200])
 stick = Stick([125, 125])
+stick2 = Stick([50, 420])
+stick3 = Stick([660, 120])
+stick4 = Stick([500, 450])
 electricitys = [] 
 maxelectricitys = 2
 pistol1 = Pistol([290,110])
@@ -120,6 +123,7 @@ while True:
                         man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
                     if man.haveStick ==  True:
+                        man.havePistol = False
                         for zombie in zombies:
                             if zombie.distToPoint(man.rect.center) < man.attackRadius:
                                 pX = man.rect.center[0]
@@ -182,7 +186,13 @@ while True:
             man.checkHave()
             man.collideWall(screenWidth, screenHeight)
             man.collideStick(stick)
+            man.collideStick(stick2)
+            man.collideStick(stick3)
+            man.collideStick(stick4)
             man.pickUpStick(stick)
+            man.pickUpStick(stick2)
+            man.pickUpStick(stick3)
+            man.pickUpStick(stick4)
             for robot in robots:
                 man.collideRobot(robot)
             man.collidePistol(pistol1)
@@ -345,8 +355,16 @@ while True:
         for robot in robots:
             if robot.living:
                 screen.blit(robot.surface, robot.rect)
+       
         if stick.notBroken:
             screen.blit(stick.surface, stick.rect)   
+        if stick2.notBroken:
+            screen.blit(stick2.surface, stick2.rect)
+        if stick3.notBroken:
+            screen.blit(stick3.surface, stick3.rect)
+        if stick4.notBroken:
+            screen.blit(stick4.surface, stick4.rect)
+        
         if pistol1.notBroken:
             screen.blit(pistol1.surface, pistol1.rect)
         if pistol2.notBroken:
@@ -357,12 +375,15 @@ while True:
             screen.blit(pistol4.surface, pistol4.rect)
         if pistol5.notBroken:
             screen.blit(pistol5.surface, pistol5.rect)
+        
         for projectile in projectiles:
             if projectile.notBroken:
                 screen.blit(projectile.surface, projectile.rect)
+        
         for electricity in electricitys:
             if electricity.notBroken:
                 screen.blit(electricity.surface, electricity.rect)       
+        
         screen.blit(healthBar.surface, healthBar.rect)
         
         pygame.display.flip()
