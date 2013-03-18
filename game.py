@@ -117,29 +117,41 @@ while True:
                         man.direction("left")
                 elif (event.key == pygame.K_SPACE):
                     if man.havePistol == True:
-                        man.haveStick == False
+                        man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
                     if man.haveStick ==  True:
-                        if (event.key == pygame.K_SPACE):
-                            if if self.distToPoint(man.rect.center) < self.detectionRadius:
-            pX = man.rect.center[0]
-            pY = man.rect.center[1]
-            zX = self.rect.center[0]
-            zY = self.rect.center[1]
-            
-            if pX > zX:
-                self.speed[0] = self.maxSpeed
-            elif pX < zX:
-                self.speed[0] = -self.maxSpeed
-            else:
-                self.speed[0] = self.noSpeed
-        
-            if pY > zY:
-                self.speed[1] = self.maxSpeed
-            elif pY < zY:
-                self.speed[1] = -self.maxSpeed
-            else:
-                self.speed[1] = self.noSpeed
+                        for zombie in zombies:
+                            if zombie.distToPoint(man.rect.center) < man.attackRadius:
+                                pX = man.rect.center[0]
+                                pY = man.rect.center[1]
+                                zX = zombie.rect.center[0]
+                                zY = zombie.rect.center[1]
+                                
+                                if pX > zX and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                                elif pX < zX and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                            
+                                if pY > zY and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                                elif pY < zY and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                        for robot in robots:
+                            if robot.distToPoint(man.rect.center) < man.attackRadius:
+                                pX = man.rect.center[0]
+                                pY = man.rect.center[1]
+                                zX = robot.rect.center[0]
+                                zY = robot.rect.center[1]
+                                
+                                if pX > zX and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
+                                elif pX < zX and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
+                            
+                                if pY > zY and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
+                                elif pY < zY and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
                     """
                     elif man.haveStick == True:
                         man.havePistol = False
