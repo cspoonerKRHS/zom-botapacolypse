@@ -121,7 +121,7 @@ class Electricity():
                 if (self.distToPoint(man.rect.center)
                     < self.radius + man.radius):  
                     self.notBroken = False
-                    man.life = man.life - 2
+                    man.life = man.life - 1
    
    
     def remove(self):
