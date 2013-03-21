@@ -42,7 +42,6 @@ class Man():
         self.speed = [0,0]
         self.noSpeed = 0
         self.place(position)
-        self.ammo = 20
         self.attackRadius = 40
         self.life = 100
         self.living = True
@@ -197,8 +196,6 @@ class Man():
                         < self.radius + stick.radius):
                         self.haveStick = True
                         stick.notBroken = False
-        pass
-        #print "I have collided with", stick
     
     def collidePistol(self, pistol):
         if (self.rect.right > pistol.rect.left 
@@ -209,26 +206,6 @@ class Man():
                     < self.radius + pistol.radius):
                     self.havePistol = True
                     pistol.notBroken = False
-        pass
-        #print "I have collided with", pistol
-        
-
-    def pickUpStick(self, stick):
-        if self.haveStick == True:
-            print "-----------------------------------------------------"    
-
-    def pickUpPistol(self, pistol):
-        if self.havePistol == True:
-            print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"          
-    
-    def attackWithStick(self, stick, other):
-        pass
-    def attackWithPistol(self, pistol, other):
-        pass
-        #print "I have attacked", str(pistol), other
-
-        pass
-        #print "I have died"
     
     def remove(self):
         if self.life <= 0:

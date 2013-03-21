@@ -31,6 +31,7 @@ bgColor = 50, 50, 50
 
 #----------------characters/environment--------------------
 man = Man(4, [40, 40])
+man.haveNothing = True
 zombies = [] 
 maxZombies = 20
 robots = []
@@ -50,7 +51,7 @@ pistol4 = Pistol([700, 50])
 pistol5 = Pistol([420, 415])
 projectiles = []
 maxProjectiles = 2
-healthBar = HealthBar([630, 10])
+healthBar = HealthBar([630, 2])
 
 while len(zombies) < maxZombies:
     zombieSpeed = [random.randint(1,6), 
@@ -118,10 +119,14 @@ while True:
                 elif (event.key == pygame.K_LEFT 
                     or event.key == pygame.K_a):
                         man.direction("left")
-                elif (event.key == pygame.K_SPACE):
+                if (event.key == pygame.K_SPACE):
                     if man.havePistol == True:
                         man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
+                        for projectile in projectiles:
+                            projectile.ammo -= 1
+                            if projectile.ammo == 0:
+                                man.haveNothing = True
                     if man.haveStick ==  True:
                         man.havePistol = False
                         for zombie in zombies:
@@ -189,36 +194,14 @@ while True:
             man.collideStick(stick2)
             man.collideStick(stick3)
             man.collideStick(stick4)
-            man.pickUpStick(stick)
-            man.pickUpStick(stick2)
-            man.pickUpStick(stick3)
-            man.pickUpStick(stick4)
             for robot in robots:
                 man.collideRobot(robot)
-            man.collidePistol(pistol1)
-            man.collidePistol(pistol2)
-            man.collidePistol(pistol3)
-            man.collidePistol(pistol4)
-            man.collidePistol(pistol5)
-            if man.attackWithStick(stick, Zombie):
-                if stick.attack(zombie):
-                    stick.useDown(zombie, 1)
-            if man.attackWithStick(stick, Robot):    
-                if stick.attack(robot):
-                    stick.useDown(robot, 1)
-            if man.attackWithStick(stick, MazeWall):    
-                if stick.attack(mazeWall):
-                    stick.useDown(mazeWall, 4)
-            if man.attackWithPistol(pistol1, Zombie):
-                if pistol.attack(zombie):
-                    pistol.useDown(zombie, 1)
-            if man.attackWithPistol(pistol1, Robot):    
-                if pistol.attack(robot):
-                    pistol.useDown(robot, 1)
-            if man.attackWithPistol(pistol1, MazeWall):    
-                if pistol.attack(mazeWall):
-                    pistol.useDown(mazeWall, 1)
-            healthBar.downHealth(man)
+                man.collidePistol(pistol1)
+                man.collidePistol(pistol2)
+                man.collidePistol(pistol3)
+                man.collidePistol(pistol4)
+                man.collidePistol(pistol5)
+                healthBar.downHealth(man)
             man.remove()
 
 #--------Projectile Stuff-----------------

@@ -42,6 +42,7 @@ class Projectile():
         self.place(position)
         self.notBroken = True
         self.damage = 10
+        self.ammo = 20
         self.screenWidth = screenSize[0]
         self.screenHeight = screenSize[1]
         self.radius = self.rect.width/2     
