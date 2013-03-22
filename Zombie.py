@@ -171,10 +171,10 @@ class Zombie():
                 self.rect.top < other.rect.bottom):
                 if (self.distToPoint(other.rect.center)
                     < self.radius + other.radius):  
-                    self.speed[0] = self.speed[0] * 0
-                    self.speed[1] = self.speed[1] * 0
-                    other.speed[0] = other.speed[0] * 0
-                    other.speed[1] = other.speed[1] * 0
+                    self.speed[0] = self.speed[0] * -1
+                    self.speed[1] = self.speed[1] * -1
+                    other.speed[0] = other.speed[0] * -1
+                    other.speed[1] = other.speed[1] * -1
                     return True
 
     
