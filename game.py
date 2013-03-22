@@ -10,6 +10,7 @@ from Projectile import Projectile
 from HealthBar import HealthBar
 from mazeMap1 import level
 from gameover import GameOver
+from Menu import Button
 
 if pygame.mixer:
     pygame.mixer.init()
@@ -53,57 +54,78 @@ projectiles = []
 maxProjectiles = 2
 healthBar = HealthBar([630, 2])
 
-while len(zombies) < maxZombies:
-    zombieSpeed = [random.randint(1,6), 
-                 random.randint(1,6)]
-    zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
-    zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
-    collided = True
-    while collided:
-        collided = False
-        for mazeWall in map.mazeWalls:
-            if zombies[-1].collideMazeWall(mazeWall):
-                zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                print zombiePos
-                zombies[-1].place(zombiePos)
-                collided = True
-            elif zombies[-1].chase(man):
-                zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                print zombiePos
-                zombies[-1].place(zombiePos)
-                collided = True
-
-while len(robots) < maxRobots:
-    robotSpeed = [random.randint(1,6), 
-                 random.randint(1,6)]
-    robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
-    robots += [Robot(robotSpeed, robotPos, screenSize)]
-    collided = True
-    while collided:
-        collided = False
-        for mazeWall in map.mazeWalls:
-            if robots[-1].collideMazeWall(mazeWall):
-                robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                print robotPos
-                robots[-1].place(robotPos)
-                collided = True
-            elif robots[-1].see(man):
-                robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                             random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                print robotPos
-                robots[-1].place(robotPos)
-                collided = True
-                     
+singlePlayer = Button("YOU WILL DIE", [250,300], (200, 10, 10))
+exit = Button("EXIT", [250, 400], [200, 10, 10])
 
 
-#----------------------Game-----------------------
+man.living = False
+run = False
 while True:
-    while man.living:
+    while not run and not man.living:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if singlePlayer.collidePt(event.pos):
+                        man.living = True
+                        run = True                     
+                    elif exit.collidePt(event.pos):
+                        exit.clicked = True
+                        sys.exit()
+        screen.fill([40, 10, 54])
+        screen.blit(singlePlayer.surface, singlePlayer.rect)
+        screen.blit(exit.surface, exit.rect)
+        pygame.display.flip()
+
+    while len(zombies) < maxZombies:
+        zombieSpeed = [random.randint(1,6), 
+                     random.randint(1,6)]
+        zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
+        zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
+        collided = True
+        while collided:
+            collided = False
+            for mazeWall in map.mazeWalls:
+                if zombies[-1].collideMazeWall(mazeWall):
+                    zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                    print zombiePos
+                    zombies[-1].place(zombiePos)
+                    collided = True
+                elif zombies[-1].chase(man):
+                    zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                    print zombiePos
+                    zombies[-1].place(zombiePos)
+                    collided = True
+
+    while len(robots) < maxRobots:
+        robotSpeed = [random.randint(1,6), 
+                     random.randint(1,6)]
+        robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
+        robots += [Robot(robotSpeed, robotPos, screenSize)]
+        collided = True
+        while collided:
+            collided = False
+            for mazeWall in map.mazeWalls:
+                if robots[-1].collideMazeWall(mazeWall):
+                    robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                    print robotPos
+                    robots[-1].place(robotPos)
+                    collided = True
+                elif robots[-1].see(man):
+                    robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                    print robotPos
+                    robots[-1].place(robotPos)
+                    collided = True
+                     
+#----------------------Game-----------------------
+    print "start", run, man.living
+    while run and man.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             elif event.type == pygame.KEYDOWN:
@@ -129,48 +151,48 @@ while True:
                                 man.haveNothing = True
                     if man.haveStick ==  True:
                         man.havePistol = False
-                        for zombie in zombies:
-                            if zombie.distToPoint(man.rect.center) < man.attackRadius:
-                                pX = man.rect.center[0]
-                                pY = man.rect.center[1]
-                                zX = zombie.rect.center[0]
-                                zY = zombie.rect.center[1]
-                                
-                                if pX > zX and (event.key == pygame.K_SPACE):
-                                    zombie.life -=10
-                                elif pX < zX and (event.key == pygame.K_SPACE):
-                                    zombie.life -=10
+                    for zombie in zombies:
+                        if zombie.distToPoint(man.rect.center) < man.attackRadius:
+                            pX = man.rect.center[0]
+                            pY = man.rect.center[1]
+                            zX = zombie.rect.center[0]
+                            zY = zombie.rect.center[1]
                             
-                                if pY > zY and (event.key == pygame.K_SPACE):
-                                    zombie.life -=10
-                                elif pY < zY and (event.key == pygame.K_SPACE):
-                                    zombie.life -=10
-                        for robot in robots:
-                            if robot.distToPoint(man.rect.center) < man.attackRadius:
-                                pX = man.rect.center[0]
-                                pY = man.rect.center[1]
-                                zX = robot.rect.center[0]
-                                zY = robot.rect.center[1]
-                                
-                                if pX > zX and (event.key == pygame.K_SPACE):
-                                    robot.life -=10
-                                elif pX < zX and (event.key == pygame.K_SPACE):
-                                    robot.life -=10
+                            if pX > zX and (event.key == pygame.K_SPACE):
+                                zombie.life -=10
+                            elif pX < zX and (event.key == pygame.K_SPACE):
+                                zombie.life -=10
+                        
+                            if pY > zY and (event.key == pygame.K_SPACE):
+                                zombie.life -=10
+                            elif pY < zY and (event.key == pygame.K_SPACE):
+                                zombie.life -=10
+                    for robot in robots:
+                        if robot.distToPoint(man.rect.center) < man.attackRadius:
+                            pX = man.rect.center[0]
+                            pY = man.rect.center[1]
+                            zX = robot.rect.center[0]
+                            zY = robot.rect.center[1]
                             
-                                if pY > zY and (event.key == pygame.K_SPACE):
-                                    robot.life -=10
-                                elif pY < zY and (event.key == pygame.K_SPACE):
-                                    robot.life -=10
-                    """
-                    elif man.haveStick == True:
-                        man.havePistol = False
-                        for zombie in zombies:
-                            if zombie.rect.center < man.attackRadius:
-                                zombie.life -= 100
-                        for robot in robots:
-                            if robot.rect.center < man.attackRadius:
-                                robot.life -= 100
-                    """
+                            if pX > zX and (event.key == pygame.K_SPACE):
+                                robot.life -=10
+                            elif pX < zX and (event.key == pygame.K_SPACE):
+                                robot.life -=10
+                        
+                            if pY > zY and (event.key == pygame.K_SPACE):
+                                robot.life -=10
+                            elif pY < zY and (event.key == pygame.K_SPACE):
+                                robot.life -=10
+                            """
+                            elif man.haveStick == True:
+                                man.havePistol = False
+                                for zombie in zombies:
+                                    if zombie.rect.center < man.attackRadius:
+                                        zombie.life -= 100
+                                for robot in robots:
+                                    if robot.rect.center < man.attackRadius:
+                                        robot.life -= 100
+                            """
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_UP 
                     or event.key == pygame.K_w):
@@ -184,8 +206,11 @@ while True:
                 elif (event.key == pygame.K_LEFT 
                     or event.key == pygame.K_a):
                         man.direction("stop left")
+        
+            
+        
              
-#------------------------Man----------------------                    
+    #------------------------Man----------------------                    
         if man.living:
             man.move()
             man.checkHave()
@@ -204,7 +229,7 @@ while True:
                 healthBar.downHealth(man)
             man.remove()
 
-#--------Projectile Stuff-----------------
+    #--------Projectile Stuff-----------------
             for projectile in projectiles:
                 if projectile.notBroken:
                     projectile.move()
@@ -216,7 +241,7 @@ while True:
                 if not projectile.notBroken:
                     projectiles.remove(projectile)
                 
-#------------Zombie---------------------
+    #------------Zombie---------------------
         """
         while len(zombies) < maxZombies:
             zombieSpeed = [random.randint(1,6), 
@@ -261,7 +286,7 @@ while True:
             for second in range(first+1, len(zombies)-1):
                 zombies[first].collideZombie(zombies[second])
                 
-#------------------------Robot-------------------------    
+    #------------------------Robot-------------------------    
         """
         while len(robots) < maxRobots:
             robotSpeed = [random.randint(1,6), 
@@ -298,7 +323,7 @@ while True:
         for first in range(0,len(robots)-2):
             for second in range(first+1, len(robots)-1):
                 robots[first].collideRobot(robots[second])
-#-----------------Electricity Stuff----------------
+    #-----------------Electricity Stuff----------------
 
         for electricity in electricitys:
             if electricity.notBroken:
@@ -311,16 +336,16 @@ while True:
                     electricity.collideAttackZombie(zombie)
                 if not electricity.notBroken:
                     electricitys.remove(electricity)
-   
 
-#------------------stick.swing.whack.snapInHalf--------------------------
+
+    #------------------stick.swing.whack.snapInHalf--------------------------
         if stick.notBroken:
             stick.collideZombie(zombie)
             stick.collideRobot(robot)
             #for mazeWall in map.mazeWalls:
             #    stick.collideMazeWall(mazeWall)
 
-#--------------------Blit-------------------    
+    #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
             for zombie in zombies:
                 zombie.collideMazeWall(mazeWall)
@@ -372,14 +397,16 @@ while True:
         pygame.display.flip()
         clock.tick(35)
         screen.fill(bgColor)
-        #print clock.get_fps()
+            #print clock.get_fps()
 
 #--------------------EndGame--------------
-    while not man.living:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-        gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
-        screen.fill([0, 0, 0])
-        screen.blit(gameover.surface, gameover.rect)
-        gameover.place([400,300])
-        pygame.display.flip()
+"""
+while run and not man.living:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: sys.exit()
+    gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
+    screen.fill([0, 0, 0])
+    screen.blit(gameover.surface, gameover.rect)
+    gameover.place([400,300])
+    pygame.display.flip()
+"""
