@@ -44,7 +44,7 @@ class Man():
         self.place(position)
         self.attackRadius = 40
         self.life = 100
-        self.living = True
+        self.living = False
         self.heading = "s"
         self.haveNothing = True
         self.haveStick = False

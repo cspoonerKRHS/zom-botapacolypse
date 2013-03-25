@@ -4,6 +4,7 @@ class Button:
     
     def __init__(self, text, location, color, highlighted = False):
         self.surfaces = []
+        pygame.font.init()
         self.font = pygame.font.Font(None, 60)
         self.text = text
         self.surface = self.font.render(str(self.text), 1, color)

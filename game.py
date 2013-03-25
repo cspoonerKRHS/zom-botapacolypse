@@ -30,37 +30,40 @@ map = level("maze1.lvl", screenSize)
 
 bgColor = 50, 50, 50
 
-#----------------characters/environment--------------------
-man = Man(4, [40, 40])
-man.haveNothing = True
-zombies = [] 
-maxZombies = 20
-robots = []
-maxRobots = 20
-#mazeWall = MazeWall([100,100])
-#mazeWall.place([200, 200])
-stick = Stick([125, 125])
-stick2 = Stick([50, 420])
-stick3 = Stick([660, 120])
-stick4 = Stick([500, 450])
-electricitys = [] 
-maxelectricitys = 2
-pistol1 = Pistol([290,110])
-pistol2 = Pistol([40, 500])
-pistol3 = Pistol([125, 50])
-pistol4 = Pistol([700, 50])
-pistol5 = Pistol([420, 415])
-projectiles = []
-maxProjectiles = 2
-healthBar = HealthBar([630, 2])
+
 
 singlePlayer = Button("YOU WILL DIE", [250,300], (200, 10, 10))
 exit = Button("EXIT", [250, 400], [200, 10, 10])
+restart = Button("RESTART???", [250, 250], (200, 10, 10))
 
-
-man.living = False
+#
 run = False
 while True:
+    #----------------characters/environment--------------------
+    man = Man(4, [40, 40])
+    man.haveNothing = True
+    zombies = [] 
+    maxZombies = 20
+    robots = []
+    maxRobots = 20
+    #mazeWall = MazeWall([100,100])
+    #mazeWall.place([200, 200])
+    stick = Stick([125, 125])
+    stick2 = Stick([50, 420])
+    stick3 = Stick([660, 120])
+    stick4 = Stick([500, 450])
+    electricitys = [] 
+    maxelectricitys = 2
+    pistol1 = Pistol([290,110])
+    pistol2 = Pistol([40, 500])
+    pistol3 = Pistol([125, 50])
+    pistol4 = Pistol([700, 50])
+    pistol5 = Pistol([420, 415])
+    projectiles = []
+    maxProjectiles = 2
+    healthBar = HealthBar([630, 2])
+    
+
     while not run and not man.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
@@ -68,7 +71,7 @@ while True:
                 if event.button == 1:
                     if singlePlayer.collidePt(event.pos):
                         man.living = True
-                        run = True                     
+                        run = True                           
                     elif exit.collidePt(event.pos):
                         exit.clicked = True
                         sys.exit()
@@ -76,7 +79,8 @@ while True:
         screen.blit(singlePlayer.surface, singlePlayer.rect)
         screen.blit(exit.surface, exit.rect)
         pygame.display.flip()
-
+        
+    
     while len(zombies) < maxZombies:
         zombieSpeed = [random.randint(1,6), 
                      random.randint(1,6)]
@@ -124,7 +128,7 @@ while True:
                     collided = True
                      
 #----------------------Game-----------------------
-    print "start", run, man.living
+    man.living = True
     while run and man.living:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
@@ -206,7 +210,7 @@ while True:
                 elif (event.key == pygame.K_LEFT 
                     or event.key == pygame.K_a):
                         man.direction("stop left")
-        
+
             
         
              
@@ -228,7 +232,6 @@ while True:
                 man.collidePistol(pistol5)
                 healthBar.downHealth(man)
             man.remove()
-
     #--------Projectile Stuff-----------------
             for projectile in projectiles:
                 if projectile.notBroken:
@@ -240,7 +243,6 @@ while True:
                         projectile.collideAttackRobot(robot)
                 if not projectile.notBroken:
                     projectiles.remove(projectile)
-                
     #------------Zombie---------------------
         """
         while len(zombies) < maxZombies:
@@ -261,7 +263,7 @@ while True:
                         collided = True
                      
         """              
-            
+  
         for zombie in zombies:
             if zombie.unDead:
                 zombie.move()
@@ -393,20 +395,28 @@ while True:
                 screen.blit(electricity.surface, electricity.rect)       
         
         screen.blit(healthBar.surface, healthBar.rect)
-        
+
         pygame.display.flip()
         clock.tick(35)
         screen.fill(bgColor)
             #print clock.get_fps()
 
 #--------------------EndGame--------------
-"""
-while run and not man.living:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
-    gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
-    screen.fill([0, 0, 0])
-    screen.blit(gameover.surface, gameover.rect)
-    gameover.place([400,300])
-    pygame.display.flip()
-"""
+
+    while run and not man.living:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if restart.collidePt(event.pos):
+                    man.living = True
+                    run = True
+                elif exit.collidePt(event.pos):
+                    exit.clicked = True
+                    sys.exit()
+        gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
+        screen.fill([0, 0, 0])
+        screen.blit(gameover.surface, gameover.rect)
+        screen.blit(restart.surface, restart.rect)
+        screen.blit(exit.surface, exit.rect)
+        gameover.place([400,300])
+        pygame.display.flip()
