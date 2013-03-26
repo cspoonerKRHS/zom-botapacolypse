@@ -34,6 +34,10 @@ class Pistol():
      
     def place(self, position):
         self.rect.center = position
+        
+    def checkLiving(self, projectile):       
+        if projectile.ammo == 0:
+            self.notBroken = False
    
     def useDown(self):
         print "I've been used", str(self)

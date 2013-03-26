@@ -235,6 +235,11 @@ while True:
             man.remove()
     #--------Projectile Stuff-----------------
             for projectile in projectiles:
+                pistol1.checkLiving(projectile)
+                pistol2.checkLiving(projectile)
+                pistol3.checkLiving(projectile)
+                pistol4.checkLiving(projectile)
+                pistol5.checkLiving(projectile)
                 if projectile.notBroken:
                     projectile.move()
                     projectile.collideWall(screenSize)
