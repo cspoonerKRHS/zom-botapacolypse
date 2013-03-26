@@ -32,10 +32,10 @@ bgColor = 50, 50, 50
 
 
 
-singlePlayer = Button("YOU WILL DIE", [250,300], (200, 10, 10))
-exit = Button("EXIT", [250, 400], [200, 10, 10])
-exit2 = Button("EXIT", [600, 525], [200, 10, 10])
-restart = Button("RESTART???", [100, 525], (200, 10, 10))
+singlePlayer = Button("BEGIN THE END...", [250,300], (238, 0, 0))
+exit = Button("EXIT", [250, 400], [238, 0, 0])
+exit2 = Button("EXIT", [600, 525], [205, 205, 0])
+restart = Button("RESTART???", [100, 525], (205, 205, 0))
 
 #
 run = False
@@ -76,7 +76,9 @@ while True:
                     elif exit.collidePt(event.pos):
                         exit.clicked = True
                         sys.exit()
-        screen.fill([40, 10, 54])
+        screen.fill([0, 0, 0])
+        banner = GameOver("rsc/Menus/titlebanner.png", [25, 25], screenSize)
+        screen.blit(banner.surface, banner.rect)
         screen.blit(singlePlayer.surface, singlePlayer.rect)
         screen.blit(exit.surface, exit.rect)
         pygame.display.flip()
@@ -95,13 +97,11 @@ while True:
                 if zombies[-1].collideMazeWall(mazeWall):
                     zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
                                  random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                    print zombiePos
                     zombies[-1].place(zombiePos)
                     collided = True
                 elif zombies[-1].chase(man):
                     zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
                                  random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                    print zombiePos
                     zombies[-1].place(zombiePos)
                     collided = True
 
@@ -118,13 +118,11 @@ while True:
                 if robots[-1].collideMazeWall(mazeWall):
                     robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
                                  random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                    print robotPos
                     robots[-1].place(robotPos)
                     collided = True
                 elif robots[-1].see(man):
                     robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
                                  random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                    print robotPos
                     robots[-1].place(robotPos)
                     collided = True
                      

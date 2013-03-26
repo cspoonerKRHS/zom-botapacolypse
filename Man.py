@@ -54,11 +54,9 @@ class Man():
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
     
     def place(self, position):
-        #print "I've moved to", position
         self.rect = self.rect.move(position)
     
     def move(self):
-        #print "I've moved", self.speed
         self.rect = self.rect.move(self.speed)
         
     def checkHave (self):
@@ -74,7 +72,6 @@ class Man():
             self.havePistol = False
     
     def direction(self, dir):
-        #print "I am trying to move", dir
         if dir == "up":
             if self.haveNothing:
                 self.surface = pygame.image.load("rsc\man\mann.png")
@@ -128,7 +125,6 @@ class Man():
         y1 = self.rect.center[1] + offset[1]
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        #print "I'm near something ", str(other.rect.center)
 
     def distToPoint(self, pt):
         x1 = self.rect.center[0]
@@ -136,7 +132,6 @@ class Man():
         y1 = self.rect.center[1]
         y2 = pt[1]
         return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-        #print "I'm near something ", str(other.rect.center)
         
     def collideWall(self, screenWidth, screenHeight):
         if (self.rect.left < 0 
@@ -162,7 +157,6 @@ class Man():
             self.speed = [0, -1]
             if (self.rect.bottom < screenHeight):
                 self.speed = [0, 0]
-        #print "Trying to hit screen walls", screenWidth, screenHeight    
     
     def collideMazeWall(self, MazeWall):
         if (self.rect.right > MazeWall.rect.left 
@@ -185,7 +179,6 @@ class Man():
         
     def collideRobot(self, other):
         pass
-        #print "Trying to collide with the robot", str(Robot)
 
     def collideStick(self, stick):
         if (self.rect.right > stick.rect.left 
@@ -210,11 +203,5 @@ class Man():
     def remove(self):
         if self.life <= 0:
             self.living = False
-        #print "I am being removed from the game", self
-                    
-        #return True
-        
-
-        #return False
         
         

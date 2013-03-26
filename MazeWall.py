@@ -33,7 +33,6 @@ class MazeWall():
         return "I am a wall" + str(self.rect.center)
     
     def place(self, position):
-        print "I'm staying at", position
         self.rect.center = position
     
     def distToPoint(self):
