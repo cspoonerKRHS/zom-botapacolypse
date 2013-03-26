@@ -34,7 +34,8 @@ bgColor = 50, 50, 50
 
 singlePlayer = Button("YOU WILL DIE", [250,300], (200, 10, 10))
 exit = Button("EXIT", [250, 400], [200, 10, 10])
-restart = Button("RESTART???", [250, 250], (200, 10, 10))
+exit2 = Button("EXIT", [600, 525], [200, 10, 10])
+restart = Button("RESTART???", [100, 525], (200, 10, 10))
 
 #
 run = False
@@ -410,13 +411,13 @@ while True:
                 if restart.collidePt(event.pos):
                     man.living = True
                     run = True
-                elif exit.collidePt(event.pos):
+                elif exit2.collidePt(event.pos):
                     exit.clicked = True
                     sys.exit()
         gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart.surface, restart.rect)
-        screen.blit(exit.surface, exit.rect)
+        screen.blit(exit2.surface, exit2.rect)
         gameover.place([400,300])
         pygame.display.flip()
