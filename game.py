@@ -365,15 +365,12 @@ while True:
                 projectile.collideMazeWall(mazeWall)
             man.collideMazeWall(mazeWall)
             screen.blit(mazeWall.surface, mazeWall.rect) 
+        
+        screen.blit(winBlock.surface, winBlock.rect)
+        
         if man.living:
             screen.blit(man.surface, man.rect)
-        for zombie in zombies:
-            if zombie.unDead:
-                screen.blit(zombie.surface, zombie.rect)
-        for robot in robots:
-            if robot.living:
-                screen.blit(robot.surface, robot.rect)
-       
+        
         if stick.notBroken:
             screen.blit(stick.surface, stick.rect)   
         if stick2.notBroken:
@@ -394,6 +391,13 @@ while True:
         if pistol5.notBroken:
             screen.blit(pistol5.surface, pistol5.rect)
         
+        for zombie in zombies:
+            if zombie.unDead:
+                screen.blit(zombie.surface, zombie.rect)
+        for robot in robots:
+            if robot.living:
+                screen.blit(robot.surface, robot.rect)
+                
         for projectile in projectiles:
             if projectile.notBroken:
                 screen.blit(projectile.surface, projectile.rect)
@@ -403,7 +407,7 @@ while True:
                 screen.blit(electricity.surface, electricity.rect)       
         
         screen.blit(healthBar.surface, healthBar.rect)
-        screen.blit(winBlock.surface, winBlock.rect)
+
         
         pygame.display.flip()
         clock.tick(35)
