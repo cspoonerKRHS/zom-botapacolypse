@@ -43,12 +43,13 @@ class Man():
         self.noSpeed = 0
         self.place(position)
         self.attackRadius = 40
-        self.life = 100
+        self.life = 1000
         self.living = False
         self.heading = "s"
         self.haveNothing = True
         self.haveStick = False
         self.havePistol = False
+        self.win = False
         
     def __str__(self):
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
@@ -145,19 +146,23 @@ class Man():
             self.speed = [0, 1]
             if (self.rect.top > 0):
                 self.speed = [0, 0]
+                run = False
         if (self.rect.left < 0):
             self.speed = [1, 0]
             if (self.rect.left > 0):
                 self.speed = [0, 0]
+                run = False
         if (self.rect.right > screenWidth):
             self.speed = [-1, 0]
             if (self.rect.right < screenWidth):
                 self.speed = [0, 0]
+                run = False
         if (self.rect.bottom > screenHeight):
             self.speed = [0, -1]
             if (self.rect.bottom < screenHeight):
                 self.speed = [0, 0]
-    
+                run = False
+
     def collideMazeWall(self, MazeWall):
         if (self.rect.right > MazeWall.rect.left 
                 and self.rect.left < MazeWall.rect.right):
@@ -176,7 +181,18 @@ class Man():
                         
                         self.speed[0] = 0
                         self.speed[1] = 0
-        
+                        
+    def collideWinBlock(self, winblock):
+        if (self.rect.right > winblock.rect.left 
+                and self.rect.left < winblock.rect.right):
+                if (self.rect.bottom > winblock.rect.top and 
+                    self.rect.top < winblock.rect.bottom):
+                    if (self.distToPointWithOffset(winblock.rect.center, [0,5])
+                        < self.radius + winblock.radius):
+                        self.win = True
+                        self.living = True
+                        run = False
+                        
     def collideRobot(self, other):
         pass
 

@@ -11,6 +11,7 @@ from HealthBar import HealthBar
 from mazeMap1 import level
 from gameover import GameOver
 from Menu import Button
+from WinBlock import WinBlock
 
 if pygame.mixer:
     pygame.mixer.init()
@@ -36,6 +37,7 @@ singlePlayer = Button("BEGIN THE END...", [250,300], (238, 0, 0))
 exit = Button("EXIT", [250, 400], [238, 0, 0])
 exit2 = Button("EXIT", [600, 525], [205, 205, 0])
 restart = Button("RESTART???", [100, 525], (205, 205, 0))
+restart2 = Button("RESTART", [100, 525], (205, 205, 0))
 
 #
 run = False
@@ -47,8 +49,6 @@ while True:
     maxZombies = 20
     robots = []
     maxRobots = 20
-    #mazeWall = MazeWall([100,100])
-    #mazeWall.place([200, 200])
     stick = Stick([125, 125])
     stick2 = Stick([50, 420])
     stick3 = Stick([660, 120])
@@ -63,9 +63,10 @@ while True:
     projectiles = []
     maxProjectiles = 2
     healthBar = HealthBar([630, 2])
+    winBlock = WinBlock([780, 550])
     
 
-    while not run and not man.living:
+    while not run and not man.living and not man.win:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -128,7 +129,7 @@ while True:
                      
 #----------------------Game-----------------------
     man.living = True
-    while run and man.living:
+    while run and man.living and not man.win:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             elif event.type == pygame.KEYDOWN:
@@ -218,6 +219,7 @@ while True:
             man.move()
             man.checkHave()
             man.collideWall(screenWidth, screenHeight)
+            man.collideWinBlock(winBlock)
             man.collideStick(stick)
             man.collideStick(stick2)
             man.collideStick(stick3)
@@ -351,6 +353,8 @@ while True:
             #for mazeWall in map.mazeWalls:
             #    stick.collideMazeWall(mazeWall)
 
+            
+    #-----------------WinBlock--------------------
     #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
             for zombie in zombies:
@@ -399,7 +403,8 @@ while True:
                 screen.blit(electricity.surface, electricity.rect)       
         
         screen.blit(healthBar.surface, healthBar.rect)
-
+        screen.blit(winBlock.surface, winBlock.rect)
+        
         pygame.display.flip()
         clock.tick(35)
         screen.fill(bgColor)
@@ -407,7 +412,7 @@ while True:
 
 #--------------------EndGame--------------
 
-    while run and not man.living:
+    while run and not man.living and not man.win:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -421,6 +426,24 @@ while True:
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart.surface, restart.rect)
+        screen.blit(exit2.surface, exit2.rect)
+        gameover.place([400,300])
+        pygame.display.flip()
+        
+#-----------------WinGame----------------------------
+    while run and man.living and man.win:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if restart2.collidePt(event.pos):
+                    man.win = False
+                elif exit2.collidePt(event.pos):
+                    exit.clicked = True
+                    sys.exit()
+        gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
+        screen.fill([0, 0, 0])
+        screen.blit(gameover.surface, gameover.rect)
+        screen.blit(restart2.surface, restart2.rect)
         screen.blit(exit2.surface, exit2.rect)
         gameover.place([400,300])
         pygame.display.flip()
