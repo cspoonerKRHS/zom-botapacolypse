@@ -115,25 +115,36 @@ class Zombie():
                     < self.radius + mazeWall.radius):  
                     self.speed[0] = self.speed[0] * -1
                     self.speed[1] = self.speed[1] * -1
-                    """
+ 
                     dir = random.choice([-1,1])
                     print self.rect.top, mazeWall.rect.bottom, ",", self.rect.bottom, mazeWall.rect.top, ",", self.rect.right, mazeWall.rect.left, ",", self.rect.left, mazeWall.rect.right
-                    if (self.rect.top > mazeWall.rect.bottom 
-                        or self.rect.bottom < mazeWall.rect.top):
-                        print "hit top/bottom"
+                    
+                    if (self.rect.top < mazeWall.rect.bottom and self.speed[1] != 0):
+                        print "hit top"
                         self.move()
                         self.move()
                         self.speed[0] = self.maxSpeed * dir
                         self.speed[1] = 0
-                    elif (self.rect.right > mazeWall.rect.left 
-                        or self.rect.left < mazeWall.rect.right):
-                        print "hit right/left"
+                    elif (self.rect.bottom > mazeWall.rect.top and self.speed[1] != 0):
+                        print "hit bottom"
+                        self.move()
+                        self.move()
+                        self.speed[0] = self.maxSpeed * dir
+                        self.speed[1] = 0
+                    elif (self.rect.right > mazeWall.rect.left and self.speed[0] != 0):
+                        print "hit right"
+                        self.move()
+                        self.move()
+                        self.speed[0] = 0
+                        self.speed[1] = self.maxSpeed * dir
+                    elif (self.rect.left < mazeWall.rect.right and self.speed[0] != 0):
+                        print "hit left"
                         self.move()
                         self.move()
                         self.speed[0] = 0
                         self.speed[1] = self.maxSpeed * dir
                     print self.speed
-                    """
+
                     return True
         return False
         

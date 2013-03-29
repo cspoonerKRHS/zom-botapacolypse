@@ -89,15 +89,46 @@ class Robot():
             self.speed[1] = self.speed[1]*-1
         #print " robot trying to hit edges of screen", screenWidth, screenHeight
         
-    def collideMazeWall(self, MazeWall):
-        if (self.rect.right > MazeWall.rect.left 
-            and self.rect.left < MazeWall.rect.right):
-            if (self.rect.bottom > MazeWall.rect.top and 
-                self.rect.top < MazeWall.rect.bottom):
-                if (self.distToPoint(MazeWall.rect.center)
-                    < self.radius + MazeWall.radius):  
+    def collideMazeWall(self, mazeWall):
+        if (self.rect.right > mazeWall.rect.left 
+            and self.rect.left < mazeWall.rect.right):
+            if (self.rect.bottom > mazeWall.rect.top and 
+                self.rect.top < mazeWall.rect.bottom):
+                if (self.distToPoint(mazeWall.rect.center)
+                    < self.radius + mazeWall.radius):  
                     self.speed[0] = self.speed[0] * -1
                     self.speed[1] = self.speed[1] * -1
+                    
+                    dir = random.choice([-1,1])
+                    
+                    print self.rect.top, mazeWall.rect.bottom, ",", self.rect.bottom, mazeWall.rect.top, ",", self.rect.right, mazeWall.rect.left, ",", self.rect.left, mazeWall.rect.right
+                    
+                    if (self.rect.top < mazeWall.rect.bottom and self.speed[1] != 0):
+                        print "hit top"
+                        self.move()
+                        self.move()
+                        self.speed[0] = self.maxSpeed * dir
+                        self.speed[1] = 0
+                    elif (self.rect.bottom > mazeWall.rect.top and self.speed[1] != 0):
+                        print "hit bottom"
+                        self.move()
+                        self.move()
+                        self.speed[0] = self.maxSpeed * dir
+                        self.speed[1] = 0
+                    elif (self.rect.right > mazeWall.rect.left and self.speed[0] != 0):
+                        print "hit right"
+                        self.move()
+                        self.move()
+                        self.speed[0] = 0
+                        self.speed[1] = self.maxSpeed * dir
+                    elif (self.rect.left < mazeWall.rect.right and self.speed[0] != 0):
+                        print "hit left"
+                        self.move()
+                        self.move()
+                        self.speed[0] = 0
+                        self.speed[1] = self.maxSpeed * dir
+                    print self.speed
+
                     return True
         return False
         #print "trying to hit ", str(MazeWall)

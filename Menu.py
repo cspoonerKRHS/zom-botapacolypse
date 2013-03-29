@@ -7,15 +7,33 @@ class Button:
         pygame.font.init()
         self.font = pygame.font.Font(None, 60)
         self.text = text
-        self.surface = self.font.render(str(self.text), 1, color)
+        self.normalText = self.text
+        self.selectedText = self.text + " (-)"
+        self.color = color
+        self.surface = self.font.render(str(self.text), 1, self.color)
         self.frame = 0
         self.rect = self.surface.get_rect()
         self.clicked = False
         self.highlighted = highlighted
-        self.place(location)
+        self.location = location
+        self.place(self.location)
         
     def place(self, pt):
-        self.rect = self.rect.move(pt)    
+        self.rect.center = pt   
+
+    def select(self):
+        self.text = self.selectedText
+        self.surface = self.font.render(str(self.text), 1, self.color)
+        self.rect = self.surface.get_rect()
+        self.place(self.location)
+        
+    def deselect(self):
+        self.text = self.normalText
+        self.surface = self.font.render(str(self.text), 1, self.color)
+        self.rect = self.surface.get_rect()
+        self.place(self.location)
+
+        
         
     def update(self, color):
         if self.highlighted:

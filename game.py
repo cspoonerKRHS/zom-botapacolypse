@@ -33,22 +33,27 @@ bgColor = 50, 50, 50
 
 
 
-singlePlayer = Button("BEGIN THE END...", [250,300], (238, 0, 0))
-exit = Button("EXIT", [250, 400], [238, 0, 0])
+singlePlayer = Button("BEGIN THE END...", [350,300], (238, 0, 0))
+exit = Button("EXIT", [222, 500], [238, 0, 0])
 exit2 = Button("EXIT", [600, 525], [205, 205, 0])
 restart = Button("RESTART???", [100, 525], (205, 205, 0))
 restart2 = Button("RESTART", [100, 525], (205, 205, 0))
+difficulty = Button("DIFFICULTY", [289, 400], (238, 0, 0))
+easy = Button("EASY", [400, 300], (238, 0, 0))
+medium = Button("MEDIUM", [400, 400], (238, 0, 0))
+hard = Button("HARD", [400, 500], (238, 0, 0))
+back = Button("BACK", [400, 200], (238, 0, 0))
 
-#
+
 run = False
+difficultyScreen = False
+mode = ""
 while True:
     #----------------characters/environment--------------------
     man = Man(4, [40, 40])
     man.haveNothing = True
     zombies = [] 
-    maxZombies = 20
     robots = []
-    maxRobots = 20
     stick = Stick([125, 125])
     stick2 = Stick([50, 420])
     stick3 = Stick([660, 120])
@@ -65,15 +70,23 @@ while True:
     healthBar = HealthBar([630, 2])
     winBlock = WinBlock([780, 550])
     
-
-    while not run and not man.living and not man.win:
+    if mode == "":
+        maxZombies = 15
+        maxRobots = 15
+        mode = "medium"
+        medium.clicked = True;
+        medium.select()
+        
+    while not run and not man.living and not man.win and not difficultyScreen:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if singlePlayer.collidePt(event.pos):
                         man.living = True
-                        run = True                           
+                        run = True
+                    elif difficulty.collidePt(event.pos):
+                        difficultyScreen = True
                     elif exit.collidePt(event.pos):
                         exit.clicked = True
                         sys.exit()
@@ -81,10 +94,54 @@ while True:
         banner = GameOver("rsc/Menus/titlebanner.png", [25, 25], screenSize)
         screen.blit(banner.surface, banner.rect)
         screen.blit(singlePlayer.surface, singlePlayer.rect)
+        screen.blit(difficulty.surface, difficulty.rect)
         screen.blit(exit.surface, exit.rect)
         pygame.display.flip()
-        
-    
+
+#---------------------Difficulty------------------------------------        
+    while not run and not man.living and not man.win and difficultyScreen:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if easy.collidePt(event.pos):
+                        maxZombies = 5
+                        maxRobots = 5
+                        mode = "easy"
+                        easy.clicked = True
+                        medium.clicked = False
+                        hard.clicked = False
+                    if medium.collidePt(event.pos):
+                        maxZombies = 15
+                        maxRobots = 15
+                        mode = "medium"
+                        easy.clicked = False
+                        medium.clicked = True
+                        hard.clicked = False
+                    if hard.collidePt(event.pos):
+                        maxZombies = 25
+                        maxRobots = 25
+                        mode = "hard"
+                        easy.clicked = False
+                        medium.clicked = False
+                        hard.clicked = True
+                    elif back.collidePt(event.pos):
+                        difficultyScreen = False
+        for b in [easy, medium, hard]:
+            if b.clicked:
+                b.select()
+            else:
+                b.deselect()
+        screen.fill([0, 0, 0])
+        banner = GameOver("rsc/Menus/titlebanner.png", [25, 25], screenSize)
+        screen.blit(banner.surface, banner.rect)
+        screen.blit(easy.surface, easy.rect)
+        screen.blit(medium.surface, medium.rect)
+        screen.blit(hard.surface, hard.rect)
+        screen.blit(back.surface, back.rect)
+        pygame.display.flip()
+
+#-------------------------GameStart------------------------------    
     while len(zombies) < maxZombies:
         zombieSpeed = [random.randint(1,6), 
                      random.randint(1,6)]
