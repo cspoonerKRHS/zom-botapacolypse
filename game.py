@@ -343,9 +343,9 @@ while True:
                             zombies[first].collideZombie2(zombies[second])
                 zombie.biteMan(man)
                 zombie.dropItem()
+                zombie.dead()
                 if zombie.unDead == False:
                     zombies.remove(zombie)
-                zombie.dead()
 
         for first in range(0,len(zombies)-2):
             for second in range(first+1, len(zombies)-1):
@@ -382,9 +382,9 @@ while True:
                     electricitys += [Electricity(man.rect.center, robot.rect.center, screenSize)]
                 else:
                     robot.move()
+                robot.dead()
             if not robot.living:
                 robots.remove(robot)
-                robot.dead()
                 
         for first in range(0,len(robots)-2):
             for second in range(first+1, len(robots)-1):
