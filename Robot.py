@@ -151,8 +151,10 @@ class Robot():
                         return True
         return False
     
-        if self.life == 0:
+    def dead(self):
+        if self.life <= 0:
             self.living = False
+
        
   
     

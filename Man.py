@@ -216,7 +216,7 @@ class Man():
                     self.havePistol = True
                     pistol.notBroken = False
     
-    def remove(self):
+    def dead(self):
         if self.life <= 0:
             self.living = False
         

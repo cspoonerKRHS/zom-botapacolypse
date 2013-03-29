@@ -289,7 +289,7 @@ while True:
                 man.collidePistol(pistol4)
                 man.collidePistol(pistol5)
                 healthBar.downHealth(man)
-            man.remove()
+            man.dead()
     #--------Projectile Stuff-----------------
             for projectile in projectiles:
                 pistol1.checkLiving(projectile)
@@ -345,7 +345,7 @@ while True:
                 zombie.dropItem()
                 if zombie.unDead == False:
                     zombies.remove(zombie)
-                
+                zombie.dead()
 
         for first in range(0,len(zombies)-2):
             for second in range(first+1, len(zombies)-1):
@@ -384,6 +384,7 @@ while True:
                     robot.move()
             if not robot.living:
                 robots.remove(robot)
+                robot.dead()
                 
         for first in range(0,len(robots)-2):
             for second in range(first+1, len(robots)-1):
