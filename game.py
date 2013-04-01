@@ -35,9 +35,9 @@ bgColor = 50, 50, 50
 
 singlePlayer = Button("BEGIN THE END...", [350,300], (238, 0, 0))
 exit = Button("EXIT", [222, 500], [238, 0, 0])
-exit2 = Button("EXIT", [600, 525], [205, 205, 0])
-restart = Button("RESTART???", [100, 525], (205, 205, 0))
-restart2 = Button("RESTART", [100, 525], (205, 205, 0))
+exit2 = Button("EXIT", [650, 555], [205, 205, 0])
+restart = Button("RESTART???", [200, 555], (205, 205, 0))
+restart2 = Button("RESTART", [200, 555], (205, 205, 0))
 difficulty = Button("DIFFICULTY", [289, 400], (238, 0, 0))
 easy = Button("EASY", [400, 300], (238, 0, 0))
 medium = Button("MEDIUM", [400, 400], (238, 0, 0))
@@ -49,7 +49,7 @@ run = False
 difficultyScreen = False
 mode = ""
 while True:
-    #----------------characters/environment--------------------
+    #----------------characters/environment-------------------
     man = Man(4, [40, 40])
     man.haveNothing = True
     zombies = [] 
