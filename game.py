@@ -43,6 +43,7 @@ easy = Button("EASY", [400, 300], (238, 0, 0))
 medium = Button("MEDIUM", [400, 400], (238, 0, 0))
 hard = Button("HARD", [400, 500], (238, 0, 0))
 back = Button("BACK", [400, 200], (238, 0, 0))
+menu = Button("MENU", [450, 555], (205, 205, 0))
 
 
 run = False
@@ -484,11 +485,16 @@ while True:
                 elif exit2.collidePt(event.pos):
                     exit.clicked = True
                     sys.exit()
+                elif menu.collidePt(event.pos):
+                    run = False
+                    man.living = False
+                    man.win = False
         gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart.surface, restart.rect)
         screen.blit(exit2.surface, exit2.rect)
+        screen.blit(menu.surface, menu.rect)
         gameover.place([400,300])
         pygame.display.flip()
         
@@ -502,10 +508,15 @@ while True:
                 elif exit2.collidePt(event.pos):
                     exit.clicked = True
                     sys.exit()
-        gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
+                elif menu.collidePt(event.pos):
+                    run = False
+                    man.living = False
+                    man.win = False
+        gameover = GameOver("rsc/Menus/win.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart2.surface, restart2.rect)
         screen.blit(exit2.surface, exit2.rect)
+        screen.blit(menu.surface, menu.rect)
         gameover.place([400,300])
         pygame.display.flip()
