@@ -37,7 +37,7 @@ class HealthBar():
         return "I'm a Health Bar " + str(self.rect.center) + str(self.speed) + str(self.living)
      
     def place(self, position):
-        print "I'm in place", position
+        #print "I'm in place", position
         self.rect = self.rect.move(position)
         
     def downHealth(self, man):
