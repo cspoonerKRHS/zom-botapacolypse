@@ -36,9 +36,10 @@ bgColor = 50, 50, 50
 singlePlayer = Button("BEGIN THE END...", [350,300], (238, 0, 0))
 exit = Button("EXIT", [222, 500], [238, 0, 0])
 exit2 = Button("EXIT", [650, 555], [205, 205, 0])
-restart = Button("RESTART???", [200, 555], (205, 205, 0))
+restart = Button("RESTART", [200, 555], (205, 205, 0))
 restart2 = Button("RESTART", [200, 555], (205, 205, 0))
 difficulty = Button("DIFFICULTY", [289, 400], (238, 0, 0))
+difficulty2 = Button("DIFFICULTY", [450, 555], (205, 205, 0))
 easy = Button("EASY", [400, 300], (238, 0, 0))
 medium = Button("MEDIUM", [400, 400], (238, 0, 0))
 hard = Button("HARD", [400, 500], (238, 0, 0))
@@ -68,7 +69,7 @@ while True:
     pistol5 = Pistol([420, 415])
     projectiles = []
     maxProjectiles = 2
-    healthBar = HealthBar([630, 2])
+    healthBar = HealthBar([695, 2])
     winBlock = WinBlock([780, 550])
     
     if mode == "":
@@ -416,14 +417,15 @@ while True:
     #-----------------WinBlock--------------------
     #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
-            for zombie in zombies:
-                zombie.collideMazeWall(mazeWall)
-            for robot in robots:
-                robot.collideMazeWall(mazeWall)
-            for projectile in projectiles:
-                projectile.collideMazeWall(mazeWall)
-            man.collideMazeWall(mazeWall)
-            screen.blit(mazeWall.surface, mazeWall.rect) 
+            if mazeWall.living:
+                for zombie in zombies:
+                    zombie.collideMazeWall(mazeWall)
+                for robot in robots:
+                    robot.collideMazeWall(mazeWall)
+                for projectile in projectiles:
+                    projectile.collideMazeWall(mazeWall)
+                man.collideMazeWall(mazeWall)
+                screen.blit(mazeWall.surface, mazeWall.rect) 
         
         screen.blit(winBlock.surface, winBlock.rect)
         
@@ -485,16 +487,17 @@ while True:
                 elif exit2.collidePt(event.pos):
                     exit.clicked = True
                     sys.exit()
-                elif menu.collidePt(event.pos):
+                elif difficulty2.collidePt(event.pos):
                     run = False
                     man.living = False
                     man.win = False
+                    difficultyScreen = True
         gameover = GameOver("rsc/Menus/gameover.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart.surface, restart.rect)
         screen.blit(exit2.surface, exit2.rect)
-        screen.blit(menu.surface, menu.rect)
+        screen.blit(difficulty2.surface, difficulty2.rect)
         gameover.place([400,300])
         pygame.display.flip()
         
@@ -508,15 +511,16 @@ while True:
                 elif exit2.collidePt(event.pos):
                     exit.clicked = True
                     sys.exit()
-                elif menu.collidePt(event.pos):
+                elif difficulty2.collidePt(event.pos):
                     run = False
                     man.living = False
                     man.win = False
+                    difficultyScreen = True
         gameover = GameOver("rsc/Menus/win.png", [0,0], screenSize)
         screen.fill([0, 0, 0])
         screen.blit(gameover.surface, gameover.rect)
         screen.blit(restart2.surface, restart2.rect)
         screen.blit(exit2.surface, exit2.rect)
-        screen.blit(menu.surface, menu.rect)
+        screen.blit(difficulty2.surface, difficulty2.rect)
         gameover.place([400,300])
         pygame.display.flip()

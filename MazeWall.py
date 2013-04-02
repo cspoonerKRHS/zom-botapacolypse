@@ -28,6 +28,7 @@ class MazeWall():
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         self.place(position)
+        self.living = True
     
     def __str__(self):
         return "I am a wall" + str(self.rect.center)
@@ -35,8 +36,13 @@ class MazeWall():
     def place(self, position):
         self.rect.center = position
     
-    def distToPoint(self):
-        print "I can see", str(distToPoint)
+    def distToPoint(self, pt):
+        x1 = self.rect.center[0]
+        x2 = pt[0]
+        y1 = self.rect.center[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
+        #print "I'm near something ", str(other.rect.center)
     
         #return True
         
