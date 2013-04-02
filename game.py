@@ -70,7 +70,7 @@ while True:
     projectiles = []
     maxProjectiles = 2
     healthBar = HealthBar([695, 2])
-    winBlock = WinBlock([780, 550])
+    winBlock = WinBlock([790, 560])
     
     if mode == "":
         maxZombies = 15

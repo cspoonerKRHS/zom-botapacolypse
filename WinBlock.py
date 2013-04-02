@@ -22,7 +22,7 @@ class WinBlock():
     
     # Methods or Functions
     def __init__(self, position):
-        self.surface = pygame.image.load("rsc/MazeWall/block3.png")
+        self.surface = pygame.image.load("rsc/MazeWall/block5.png")
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         self.place(position)
