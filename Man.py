@@ -30,24 +30,26 @@ class Man():
     def __init__(self, maxSpeed, position):
         #Up/North
         self.surfacesUpNothing = [pygame.image.load("rsc\man\mann.png"), pygame.image.load("rsc\man\mann1.png"), pygame.image.load("rsc\man\mann2.png")]
-        self.surfacesUpStick = [pygame.image.load("rsc\man\mannS.png"), pygame.image.load("rsc\man\mannS1.png"), pygame.image.load("rsc\man\mannS2.png")]
+        self.surfacesUpStick = [pygame.image.load("rsc\man\mannS.png"), pygame.image.load("rsc\man\mann1S.png"), pygame.image.load("rsc\man\mann2S.png")]
         self.surfacesUpGun = [pygame.image.load("rsc\man\mannG.png"), pygame.image.load("rsc\man\mannG1.png"), pygame.image.load("rsc\man\mannG2.png")]
         #Down/South
         self.surfacesDownNothing = [pygame.image.load("rsc\man\mans.png"), pygame.image.load("rsc\man\mans1.png"), pygame.image.load("rsc\man\mans2.png")]
-        self.surfacesDownStick = [pygame.image.load("rsc\man\mansS.png"), pygame.image.load("rsc\man\mansS1.png"), pygame.image.load("rsc\man\mansS2.png")]
+        self.surfacesDownStick = [pygame.image.load("rsc\man\mansS.png"), pygame.image.load("rsc\man\mans1S.png"), pygame.image.load("rsc\man\mans2S.png")]
         self.surfacesDownGun = [pygame.image.load("rsc\man\mansG.png"), pygame.image.load("rsc\man\mansG1.png"), pygame.image.load("rsc\man\mansG2.png")]
         #Right/East
         self.surfacesRightNothing = [pygame.image.load("rsc\man\mane.png"), pygame.image.load("rsc\man\mane1.png"), pygame.image.load("rsc\man\mane2.png")]
-        self.surfacesRightStick = [pygame.image.load("rsc\man\maneS.png"), pygame.image.load("rsc\man\maneS1.png"), pygame.image.load("rsc\man\maneS2.png")]
+        self.surfacesRightStick = [pygame.image.load("rsc\man\maneS.png"), pygame.image.load("rsc\man\mane1S.png"), pygame.image.load("rsc\man\mane2S.png")]
         self.surfacesRightGun = [pygame.image.load("rsc\man\maneG.png"), pygame.image.load("rsc\man\maneG1.png"), pygame.image.load("rsc\man\maneG2.png")]
         #Left/West
         self.surfacesLeftNothing = [pygame.image.load("rsc\man\manw.png"), pygame.image.load("rsc\man\manw1.png"), pygame.image.load("rsc\man\manw2.png")]
-        self.surfacesLeftStick = [pygame.image.load("rsc\man\manwS.png"), pygame.image.load("rsc\man\manwS1.png"), pygame.image.load("rsc\man\manwS2.png")]
+        self.surfacesLeftStick = [pygame.image.load("rsc\man\manwS.png"), pygame.image.load("rsc\man\manw1S.png"), pygame.image.load("rsc\man\manw2S.png")]
         self.surfacesLeftGun = [pygame.image.load("rsc\man\manwG.png"), pygame.image.load("rsc\man\manwG1.png"), pygame.image.load("rsc\man\manwG2.png")]
         
-        self.dir = "down"
+        self.dir = "stop down"
         self.surfaces = self.surfacesDownNothing
         self.frame = 0
+        self.wait = 0
+        self.waitMax = 5
         self.maxFrame = len(self.surfaces)-1
         self.surface = self.surfaces[self.frame]
         self.rect = self.surface.get_rect()
@@ -71,6 +73,19 @@ class Man():
         self.rect = self.rect.move(position)
     
     def move(self):
+        if self.dir[0] == "s":
+            self.frame = 0
+        elif self.wait >= self.waitMax:
+            self.wait = 0
+            if self.frame < self.maxFrame:
+                self.frame += 1
+            else:
+                self.frame = 1
+        else:
+            self.wait += 1
+            
+        self.surface = self.surfaces[self.frame]
+
         self.rect = self.rect.move(self.speed)
         
     def checkHave (self):
@@ -88,50 +103,53 @@ class Man():
     def direction(self, dir):
         if dir == "up":
             if self.haveNothing:
-                self.surface = pygame.image.load("rsc\man\mann.png")
+                self.surfaces = self.surfacesUpNothing
             if self.havePistol:
-                self.surface = pygame.image.load("rsc\man\manwgunn.png")
+                self.surfaces = self.surfacesUpGun
             if self.haveStick:
-                self.surface = pygame.image.load("rsc\man\mannS.png")
+                self.surfaces = self.surfacesUpStick
             self.speed[1] = -self.maxSpeed
-            self.heading = "n"
+            self.dir = dir
         elif dir == "down":
             if self.haveNothing:
-                self.surface = pygame.image.load("rsc\man\mans.png")
+                self.surfaces = self.surfacesDownNothing
             if self.havePistol:
-                self.surface = pygame.image.load("rsc\man\manwguns.png")
+                self.surfaces = self.surfacesDownGun
             if self.haveStick:
-                self.surface = pygame.image.load("rsc\man\mansS.png")
+                self.surfaces = self.surfacesDownStick
             self.speed[1] = self.maxSpeed
-            self.heading = "s"
+            self.dir = dir
         elif dir == "stop up":
             self.speed[1] = self.noSpeed
+            self.dir = dir
         elif dir == "stop down":
             self.speed[1] = self.noSpeed
+            self.dir = dir
             
         if dir == "right":
             if self.haveNothing:
-                self.surface = pygame.image.load("rsc\man\mane.png")
+                self.surfaces = self.surfacesRightNothing
             if self.havePistol:
-                self.surface = pygame.image.load("rsc\man\manwgune.png")
+                self.surfaces = self.surfacesRightGun
             if self.haveStick:
-                self.surface = pygame.image.load("rsc\man\maneS.png")
+                self.surfaces = self.surfacesRightStick
             self.speed[0] = self.maxSpeed
-            self.heading = "e"
+            self.dir = dir
         elif dir == "left":
             if self.haveNothing:
-                self.surface = pygame.image.load("rsc\man\manw.png")
+                self.surfaces = self.surfacesLeftNothing
             if self.havePistol:
-                self.surface = pygame.image.load("rsc\man\manwgunw.png")
+                self.surfaces = self.surfacesLeftGun
             if self.haveStick:
-                self.surface = pygame.image.load("rsc\man\manwS.png")
+                self.surfaces = self.surfacesLeftStick
             self.speed[0] = -self.maxSpeed
-            self.heading = "w"
+            self.dir = dir
         elif dir == "stop right":
             self.speed[0] = self.noSpeed
+            self.dir = dir
         elif dir == "stop left":
             self.speed[0] = self.noSpeed
-        
+            self.dir = dir
         
     def distToPointWithOffset(self, pt, offset):
         x1 = self.rect.center[0] + offset[0]
