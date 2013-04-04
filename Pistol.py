@@ -22,6 +22,7 @@ class Pistol():
         self.rect = self.surface.get_rect()
         self.radius = self.rect.width/2
         self.place(position)
+        self.ammo = 20
         self.notBroken = True
         if pygame.mixer:
             self.gunshotSound = pygame.mixer.Sound("gunshot.wav")

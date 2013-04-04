@@ -205,14 +205,26 @@ while True:
                     or event.key == pygame.K_a):
                         man.direction("left")
                 if (event.key == pygame.K_SPACE):
-                    if man.havePistol == True:
+                    if man.havePistol == True and pistol1.ammo >0 and pistol2.ammo >0 and pistol3.ammo >0 and pistol4.ammo >0 and pistol5.ammo >0:
+                        print man.haveNothing, man.havePistol
                         man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
-                        for projectile in projectiles:
-                            projectile.ammo -= 1
-                            if projectile.ammo == 0:
-                                man.haveNothing = True
-                    if man.haveStick ==  True:
+                        pistol1.ammo -= 1
+                        pistol2.ammo -= 1
+                        pistol3.ammo -= 1
+                        pistol4.ammo -= 1
+                        pistol5.ammo -= 1
+                        if pistol1.ammo < 0:
+                            man.haveNothing = True
+                        elif pistol2.ammo < 0:
+                            man.haveNothing = True
+                        elif pistol3.ammo < 0:
+                            man.haveNothing = True
+                        elif pistol4.ammo < 0:
+                            man.haveNothing = True
+                        elif pistol5.ammo < 0:
+                            man.haveNothing = True
+                    if man.haveStick == True:
                         man.havePistol = False
                     for zombie in zombies:
                         if zombie.distToPoint(man.rect.center) < man.attackRadius:
@@ -285,11 +297,16 @@ while True:
             man.collideStick(stick4)
             for robot in robots:
                 man.collideRobot(robot)
-                man.collidePistol(pistol1)
-                man.collidePistol(pistol2)
-                man.collidePistol(pistol3)
-                man.collidePistol(pistol4)
-                man.collidePistol(pistol5)
+                if man.collidePistol(pistol1):
+                    pistol1.ammo = 20
+                if man.collidePistol(pistol2):
+                    pistol1.ammo = 20
+                if man.collidePistol(pistol3):
+                    pistol1.ammo = 20
+                if man.collidePistol(pistol4):
+                    pistol1.ammo = 20
+                if man.collidePistol(pistol5):
+                    pistol1.ammo = 20
                 healthBar.downHealth(man)
             man.dead()
     #--------Projectile Stuff-----------------
