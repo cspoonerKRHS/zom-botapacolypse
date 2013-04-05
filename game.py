@@ -206,14 +206,15 @@ while True:
                         man.direction("left")
 #-------------------------------------------------------------------------------                        
                 if (event.key == pygame.K_SPACE):
-                    if man.havePistol == True and man.ammo >0:
+                    if man.havePistol == True:
                         man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
                         
                         man.ammo -= 1
-                        if man.ammo <= 0:
+                        if man.ammo == 0:
                             man.haveNothing = True
-                    print man.ammo
+                            man.havePistol = False
+                    print man.ammo, man.haveNothing, man.havePistol
 #-----------------------------------------------------------------------------------
                     if man.haveStick == True:
                         man.havePistol = False
@@ -289,14 +290,19 @@ while True:
             for robot in robots:
                 man.collideRobot(robot)
             if man.collidePistol(pistol1):
+                man.haveNothing = False
                 man.ammo += 20
             if man.collidePistol(pistol2):
+                man.haveNothing = False
                 man.ammo += 20
             if man.collidePistol(pistol3):
+                man.haveNothing = False
                 man.ammo += 20
             if man.collidePistol(pistol4):
+                man.haveNothing = False
                 man.ammo += 20
             if man.collidePistol(pistol5):
+                man.haveNothing = False
                 man.ammo += 20
             healthBar.downHealth(man)
             man.dead()
