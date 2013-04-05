@@ -46,6 +46,7 @@ class Man():
         self.surfacesLeftGun = [pygame.image.load("rsc\man\manwG.png"), pygame.image.load("rsc\man\manwG1.png"), pygame.image.load("rsc\man\manwG2.png")]
         
         self.dir = "stop down"
+        self.heading = "s"
         self.surfaces = self.surfacesDownNothing
         self.frame = 0
         self.wait = 0
@@ -65,6 +66,7 @@ class Man():
         self.haveStick = False
         self.havePistol = False
         self.win = False
+        self.ammo = 5
         
     def __str__(self):
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
@@ -110,6 +112,7 @@ class Man():
                 self.surfaces = self.surfacesUpStick
             self.speed[1] = -self.maxSpeed
             self.dir = dir
+            self.heading = "n"
         elif dir == "down":
             if self.haveNothing:
                 self.surfaces = self.surfacesDownNothing
@@ -119,6 +122,7 @@ class Man():
                 self.surfaces = self.surfacesDownStick
             self.speed[1] = self.maxSpeed
             self.dir = dir
+            self.heading = "s"
         elif dir == "stop up":
             self.speed[1] = self.noSpeed
             self.dir = dir
@@ -135,6 +139,7 @@ class Man():
                 self.surfaces = self.surfacesRightStick
             self.speed[0] = self.maxSpeed
             self.dir = dir
+            self.heading = "e"
         elif dir == "left":
             if self.haveNothing:
                 self.surfaces = self.surfacesLeftNothing
@@ -144,6 +149,7 @@ class Man():
                 self.surfaces = self.surfacesLeftStick
             self.speed[0] = -self.maxSpeed
             self.dir = dir
+            self.heading = "w"
         elif dir == "stop right":
             self.speed[0] = self.noSpeed
             self.dir = dir
