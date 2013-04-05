@@ -209,9 +209,9 @@ while True:
                     if man.havePistol == True:
                         man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
-                        
-                        man.ammo -= 1
-                        if man.ammo == 0:
+                        if man.ammo > 0:
+                            man.ammo -= 1
+                        if man.ammo == 0 or man.ammo <= 0:
                             man.haveNothing = True
                             man.havePistol = False
                     print man.ammo, man.haveNothing, man.havePistol
@@ -291,19 +291,20 @@ while True:
                 man.collideRobot(robot)
             if man.collidePistol(pistol1):
                 man.haveNothing = False
-                man.ammo += 20
+                man.ammo += 5
             if man.collidePistol(pistol2):
                 man.haveNothing = False
-                man.ammo += 20
+                man.ammo += 5
             if man.collidePistol(pistol3):
                 man.haveNothing = False
-                man.ammo += 20
+                man.ammo += 5
             if man.collidePistol(pistol4):
                 man.haveNothing = False
-                man.ammo += 20
+                man.ammo += 5
             if man.collidePistol(pistol5):
                 man.haveNothing = False
-                man.ammo += 20
+                man.ammo += 5
+            print man.ammo
             healthBar.downHealth(man)
             man.dead()
     #--------Projectile Stuff-----------------

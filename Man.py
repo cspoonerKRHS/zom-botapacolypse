@@ -67,7 +67,6 @@ class Man():
         self.havePistol = False
         self.win = False
         self.ammo = 5
-        
     def __str__(self):
         return "I am the Man" + str(self.rect.center) + str(self.speed) + str(self.living)
     
