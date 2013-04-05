@@ -211,6 +211,8 @@ while True:
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
                         if man.ammo > 0:
                             man.ammo -= 1
+                        elif man.ammo == 0:
+                            man.ammo += 20
                         if man.ammo == 0 or man.ammo <= 0:
                             man.haveNothing = True
                             man.havePistol = False
