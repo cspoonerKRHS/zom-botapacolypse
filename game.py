@@ -446,8 +446,7 @@ while True:
         
         screen.blit(winBlock.surface, winBlock.rect)
         
-        if man.living:
-            screen.blit(man.surface, man.rect)
+
         
         if stick.notBroken:
             screen.blit(stick.surface, stick.rect)   
@@ -468,6 +467,9 @@ while True:
             screen.blit(pistol4.surface, pistol4.rect)
         if pistol5.notBroken:
             screen.blit(pistol5.surface, pistol5.rect)
+        
+        if man.living:
+            screen.blit(man.surface, man.rect)
         
         for zombie in zombies:
             if zombie.unDead:
