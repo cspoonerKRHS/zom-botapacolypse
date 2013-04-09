@@ -67,16 +67,13 @@ class Electricity():
     
     def place(self, position):
         self.rect.center = position
-        #print "I've moved to", position
         
         
     def move(self):
         self.rect = self.rect.move(self.speed)
-        #print "I've moved", self.speed
         
         
     def distToPoint(self, pt):
-        #print "I can see", str(distToPoint)
         x1 = self.rect.center[0]
         x2 = pt[0]
         y1 = self.rect.center[1]
@@ -90,7 +87,6 @@ class Electricity():
         if (self.rect.top < 0 
             or self.rect.bottom > screenSize):
             self.speed[1] = self.speed[1]*-1
-            #print "Trying to hit screen walls", screenWidth, screenHeight
             self.notBroken = False
     
     
@@ -122,14 +118,4 @@ class Electricity():
                     < self.radius + man.radius):  
                     self.notBroken = False
                     man.life = man.life - 1
-   
-   
-    def remove(self):
-        print "I am being removed from the game", self
-                    
-        #return True
-        
-        
-        #return False
-        
         

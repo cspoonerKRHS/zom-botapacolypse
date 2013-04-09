@@ -326,26 +326,6 @@ while True:
                 if not projectile.notBroken:
                     projectiles.remove(projectile)
     #------------Zombie---------------------
-        """
-        while len(zombies) < maxZombies:
-            zombieSpeed = [random.randint(1,6), 
-                         random.randint(1,6)]
-            zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                                     random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
-            zombies += [Zombie(zombieSpeed, zombiePos, screenSize)]
-            collided = True
-            while collided:
-                collided = False
-                for mazeWall in map.mazeWalls:
-                    if zombies[-1].collideMazeWall(mazeWall):
-                        zombiePos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                                     random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                        print zombiePos
-                        zombies[-1].place(zombiePos)
-                        collided = True
-                     
-        """              
-  
         for zombie in zombies:
             if zombie.unDead:
                 zombie.move()
@@ -371,24 +351,6 @@ while True:
                 zombies[first].collideZombie(zombies[second])
                 
     #------------------------Robot-------------------------    
-        """
-        while len(robots) < maxRobots:
-            robotSpeed = [random.randint(1,6), 
-                         random.randint(1,6)]
-            robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                                     random.randint(map. mazeWallSize,screenHeight - map.mazeWallSize)]
-            robots += [Robot(robotSpeed, robotPos, screenSize)]
-            collided = True
-            while collided:
-                collided = False
-                for mazeWall in map.mazeWalls:
-                    if robots[-1].collideMazeWall(mazeWall):
-                        robotPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
-                                     random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
-                        print robotPos
-                        robots[-1].place(robotPos)
-                        collided = True
-            """
             
         for robot in robots:
             if robot.living:
@@ -430,8 +392,6 @@ while True:
             #for mazeWall in map.mazeWalls:
             #    stick.collideMazeWall(mazeWall)
 
-            
-    #-----------------WinBlock--------------------
     #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
             if mazeWall.living:
@@ -492,7 +452,6 @@ while True:
         pygame.display.flip()
         clock.tick(35)
         screen.fill(bgColor)
-            #print clock.get_fps()
 
 #--------------------EndGame--------------
 

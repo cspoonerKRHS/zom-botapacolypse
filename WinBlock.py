@@ -36,9 +36,6 @@ class WinBlock():
     def distToPoint(self):
         print "I can see", str(distToPoint)
     
-        #return True
-        
-        
-        #return False
+
         
         

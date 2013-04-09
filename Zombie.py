@@ -106,7 +106,6 @@ class Zombie():
             self.speed[1] = self.speed[1]*-1
     
     def collideMazeWall(self, mazeWall):
-        #print "Trying to hit the maze wall", str(mazeWall)
         if (self.rect.right > mazeWall.rect.left 
             and self.rect.left < mazeWall.rect.right):
             if (self.rect.bottom > mazeWall.rect.top and 
@@ -117,39 +116,32 @@ class Zombie():
                     self.speed[1] = self.speed[1] * -1
  
                     dir = random.choice([-1,1])
-                    #print self.rect.top, mazeWall.rect.bottom, ",", self.rect.bottom, mazeWall.rect.top, ",", self.rect.right, mazeWall.rect.left, ",", self.rect.left, mazeWall.rect.right
                     
                     if (self.rect.top < mazeWall.rect.bottom and self.speed[1] != 0):
-                        #print "hit top"
                         self.move()
                         self.move()
                         self.speed[0] = self.maxSpeed * dir
                         self.speed[1] = 0
                     elif (self.rect.bottom > mazeWall.rect.top and self.speed[1] != 0):
-                        #print "hit bottom"
                         self.move()
                         self.move()
                         self.speed[0] = self.maxSpeed * dir
                         self.speed[1] = 0
                     elif (self.rect.right > mazeWall.rect.left and self.speed[0] != 0):
-                        #print "hit right"
                         self.move()
                         self.move()
                         self.speed[0] = 0
                         self.speed[1] = self.maxSpeed * dir
                     elif (self.rect.left < mazeWall.rect.right and self.speed[0] != 0):
-                        #print "hit left"
                         self.move()
                         self.move()
                         self.speed[0] = 0
                         self.speed[1] = self.maxSpeed * dir
-                    #print self.speed
 
                     return True
         return False
         
     def collideRobot(self, robot):
-        #print "Trying to collide with the robot", str(robot)
         if (self.rect.right > robot.rect.left 
             and self.rect.left < robot.rect.right):
             if (self.rect.bottom > robot.rect.top and 
@@ -214,12 +206,10 @@ class Zombie():
             else:
                 self.speed[1] = 0  
              
-        #print "Trying to bite", man
         
     def dropItem(self):
         if self.unDead == False:
             screen.blit(pistol.surface, pistol.rect)
-        #print "I've droped", (Taser or stunGun or stick or pistol)
 
     def dead(self):
         if self.life <= 0:

@@ -81,7 +81,5 @@ class HealthBar():
             self.surface = pygame.image.load("rsc/HealthBar/healthbar10.png")
         elif man.life == 5:
             self.surface = pygame.image.load("rsc/HealthBar/healthbar5.png")
-        
-        #print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
            
     

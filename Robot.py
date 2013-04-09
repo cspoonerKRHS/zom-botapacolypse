@@ -87,7 +87,6 @@ class Robot():
         if (self.rect.top < 0 
             or self.rect.bottom > screenHeight):
             self.speed[1] = self.speed[1]*-1
-        #print " robot trying to hit edges of screen", screenWidth, screenHeight
         
     def collideMazeWall(self, mazeWall):
         if (self.rect.right > mazeWall.rect.left 
@@ -101,42 +100,31 @@ class Robot():
                     
                     dir = random.choice([-1,1])
                     
-                    #print self.rect.top, mazeWall.rect.bottom, ",", self.rect.bottom, mazeWall.rect.top, ",", self.rect.right, mazeWall.rect.left, ",", self.rect.left, mazeWall.rect.right
-                    
                     if (self.rect.top < mazeWall.rect.bottom and self.speed[1] != 0):
-                        #print "hit top"
                         self.move()
                         self.move()
                         self.speed[0] = self.maxSpeed * dir
                         self.speed[1] = 0
                     elif (self.rect.bottom > mazeWall.rect.top and self.speed[1] != 0):
-                        #print "hit bottom"
                         self.move()
                         self.move()
                         self.speed[0] = self.maxSpeed * dir
                         self.speed[1] = 0
                     elif (self.rect.right > mazeWall.rect.left and self.speed[0] != 0):
-                        #print "hit right"
                         self.move()
                         self.move()
                         self.speed[0] = 0
                         self.speed[1] = self.maxSpeed * dir
                     elif (self.rect.left < mazeWall.rect.right and self.speed[0] != 0):
-                        #print "hit left"
                         self.move()
                         self.move()
                         self.speed[0] = 0
                         self.speed[1] = self.maxSpeed * dir
-                    #print self.speed
 
                     return True
         return False
-        #print "trying to hit ", str(MazeWall)
-        #if pygame.mixer:
-        #   self.bounceSound.play()
            
     def collideRobot (self, other):
-        #print "trying to hit ", str(other)
         if self.living and other.living:
             if (self.rect.right > other.rect.left 
                 and self.rect.left < other.rect.right):
