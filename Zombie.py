@@ -44,7 +44,7 @@ class Zombie():
         self.speed = speed
         self.detectionRadius = 100
         self.mazeRadius = 30
-        self.biteRadius = 15
+        self.biteRadius = 12
         self.noSpeed = 0
         self.place(position)
         self.screenWidth = screenSize[0]
