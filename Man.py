@@ -250,6 +250,10 @@ class Man():
                 if (self.distToPoint(pistol.rect.center)
                     < self.radius + pistol.radius):
                     self.havePistol = True
+                    pistol.notBroken = False
+                    if pistol.notBroken == False:
+                        self.haveNothing = True
+
     
     def dead(self):
         if self.life <= 0:

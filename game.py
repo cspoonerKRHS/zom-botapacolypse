@@ -212,7 +212,7 @@ while True:
                         if man.ammo > 0:
                             man.ammo -= 1
                         elif man.ammo == 0:
-                            man.ammo += 20
+                            man.ammo += 5
                         if man.ammo == 0 or man.ammo <= 0:
                             man.haveNothing = True
                             man.havePistol = False
@@ -291,19 +291,19 @@ while True:
             man.collideStick(stick4)
             for robot in robots:
                 man.collideRobot(robot)
-            if man.collidePistol(pistol1):
+            if man.collidePistol(pistol1) and not pistol1.notBroken:
                 man.haveNothing = False
                 man.ammo += 5
-            if man.collidePistol(pistol2):
+            if man.collidePistol(pistol2) and not pistol2.notBroken:
                 man.haveNothing = False
                 man.ammo += 5
-            if man.collidePistol(pistol3):
+            if man.collidePistol(pistol3) and not pistol3.notBroken:
                 man.haveNothing = False
                 man.ammo += 5
-            if man.collidePistol(pistol4):
+            if man.collidePistol(pistol4) and not pistol4.notBroken:
                 man.haveNothing = False
                 man.ammo += 5
-            if man.collidePistol(pistol5):
+            if man.collidePistol(pistol5) and not pistol5.notBroken:
                 man.haveNothing = False
                 man.ammo += 5
             print man.ammo
@@ -427,6 +427,16 @@ while True:
             screen.blit(pistol4.surface, pistol4.rect)
         if pistol5.notBroken:
             screen.blit(pistol5.surface, pistol5.rect)
+        if pistol1.notBroken == False:
+            pistol1.remove()
+        if pistol2.notBroken == False:
+            pistol2.remove()
+        if pistol3.notBroken == False:
+            pistol3.remove()
+        if pistol4.notBroken == False:
+            pistol4.remove()
+        if pistol5.notBroken == False:
+            pistol5.remove()
         
         if man.living:
             screen.blit(man.surface, man.rect)
