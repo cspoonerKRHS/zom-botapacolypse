@@ -13,7 +13,7 @@
 import pygame, math, sys, random
 
 class Pistol():
-    def __init__(self, position):
+    def __init__(self, speed, position, screenSize):
         self.surfaces = []
         self.surfaces += [pygame.image.load("rsc/Pistol/pistol.png")]
         self.frame = 0
@@ -30,8 +30,12 @@ class Pistol():
     def  __str__(self):
         return "I'm a Pistol " + str(self.rect.center) + str(self.notBroken)
         
-    def attack(self, other):
-        print "I've attacked", str(other)
+    def distToPoint(self, pt):
+        x1 = self.rect[0]
+        x2 = pt[0]
+        y1 = self.rect[1]
+        y2 = pt[1]
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2))
      
     def place(self, position):
         self.rect.center = position
@@ -39,6 +43,15 @@ class Pistol():
     def checkLiving(self, projectile):       
         if projectile.ammo == 0:
             self.notBroken = False
+           
+    def collideMazeWall(self, mazeWall):
+        if (self.rect.right > mazeWall.rect.left 
+            and self.rect.left < mazeWall.rect.right):
+            if (self.rect.bottom > mazeWall.rect.top and 
+                self.rect.top < mazeWall.rect.bottom):
+                (self.distToPoint(mazeWall.rect.center)
+                    < self.radius + mazeWall.radius)
+
    
     def useDown(self):
         print "I've been used", str(self)

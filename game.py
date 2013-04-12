@@ -62,11 +62,8 @@ while True:
     stick4 = Stick([500, 450])
     electricitys = [] 
     maxelectricitys = 2
-    pistol1 = Pistol([290,110])
-    pistol2 = Pistol([40, 500])
-    pistol3 = Pistol([125, 50])
-    pistol4 = Pistol([700, 50])
-    pistol5 = Pistol([420, 415])
+    pistols = []
+    maxPistols = 5
     projectiles = []
     maxProjectiles = 2
     healthBar = HealthBar([695, 2])
@@ -164,6 +161,23 @@ while True:
                                  random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
                     zombies[-1].place(zombiePos)
                     collided = True
+                    
+    while len(pistols) < maxPistols:
+        pistolSpeed = [0, 0]
+        pistolPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+        pistols += [Pistol(pistolSpeed, pistolPos, screenSize)]
+        collided = True
+        while collided:
+            collided = False
+            for mazeWall in map.mazeWalls:
+                if pistols[-1].collideMazeWall(mazeWall):
+                    pistolPos = [random.randint(map.mazeWallSize, screenWidth - map.mazeWallSize),
+                                 random.randint(map.mazeWallSize, screenHeight - map.mazeWallSize)]
+                    pistols[-1].place(pistolPos)
+                    collided = True
+                    pistols[-1].place(pistolPos)
+                    collided = True
 
     while len(robots) < maxRobots:
         robotSpeed = [random.randint(1,6), 
@@ -207,61 +221,54 @@ while True:
 #-------------------------------------------------------------------------------                        
                 if (event.key == pygame.K_SPACE):
                     if man.havePistol == True:
-                        man.haveStick = False
                         projectiles += [Projectile(10, man.rect.center, man.heading, screenSize)]
                         if man.ammo > 0:
                             man.ammo -= 1
-                        elif man.ammo == 0:
-                            man.ammo += 5
+                        elif man.ammo <= 0:
+                            man.ammo += 20
                         if man.ammo == 0 or man.ammo <= 0:
                             man.haveNothing = True
                             man.havePistol = False
-                    print man.ammo, man.haveNothing, man.havePistol
+                        print "Ammo:", man.ammo
+
+                    
+
 #-----------------------------------------------------------------------------------
-                    if man.haveStick == True:
-                        man.havePistol = False
+
                     for zombie in zombies:
-                        if zombie.distToPoint(man.rect.center) < man.attackRadius:
-                            pX = man.rect.center[0]
-                            pY = man.rect.center[1]
-                            zX = zombie.rect.center[0]
-                            zY = zombie.rect.center[1]
+                        if man.haveStick:
+                            if zombie.distToPoint(man.rect.center) < man.attackRadius:
+                                pX = man.rect.center[0]
+                                pY = man.rect.center[1]
+                                zX = zombie.rect.center[0]
+                                zY = zombie.rect.center[1]
+                                
+                                if pX > zX and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                                elif pX < zX and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
                             
-                            if pX > zX and (event.key == pygame.K_SPACE):
-                                zombie.life -=10
-                            elif pX < zX and (event.key == pygame.K_SPACE):
-                                zombie.life -=10
-                        
-                            if pY > zY and (event.key == pygame.K_SPACE):
-                                zombie.life -=10
-                            elif pY < zY and (event.key == pygame.K_SPACE):
-                                zombie.life -=10
+                                if pY > zY and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
+                                elif pY < zY and (event.key == pygame.K_SPACE):
+                                    zombie.life -=10
                     for robot in robots:
-                        if robot.distToPoint(man.rect.center) < man.attackRadius:
-                            pX = man.rect.center[0]
-                            pY = man.rect.center[1]
-                            zX = robot.rect.center[0]
-                            zY = robot.rect.center[1]
+                         if man.haveStick:
+                            if robot.distToPoint(man.rect.center) < man.attackRadius:
+                                pX = man.rect.center[0]
+                                pY = man.rect.center[1]
+                                zX = robot.rect.center[0]
+                                zY = robot.rect.center[1]
+                                
+                                if pX > zX and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
+                                elif pX < zX and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
                             
-                            if pX > zX and (event.key == pygame.K_SPACE):
-                                robot.life -=10
-                            elif pX < zX and (event.key == pygame.K_SPACE):
-                                robot.life -=10
-                        
-                            if pY > zY and (event.key == pygame.K_SPACE):
-                                robot.life -=10
-                            elif pY < zY and (event.key == pygame.K_SPACE):
-                                robot.life -=10
-                            """
-                            elif man.haveStick == True:
-                                man.havePistol = False
-                                for zombie in zombies:
-                                    if zombie.rect.center < man.attackRadius:
-                                        zombie.life -= 100
-                                for robot in robots:
-                                    if robot.rect.center < man.attackRadius:
-                                        robot.life -= 100
-                            """
+                                if pY > zY and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
+                                elif pY < zY and (event.key == pygame.K_SPACE):
+                                    robot.life -=10
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_UP 
                     or event.key == pygame.K_w):
@@ -276,9 +283,7 @@ while True:
                     or event.key == pygame.K_a):
                         man.direction("stop left")
 
-            
-        
-             
+         
     #------------------------Man----------------------                    
         if man.living:
             man.move()
@@ -291,32 +296,15 @@ while True:
             man.collideStick(stick4)
             for robot in robots:
                 man.collideRobot(robot)
-            if man.collidePistol(pistol1) and not pistol1.notBroken:
-                man.haveNothing = False
-                man.ammo += 5
-            if man.collidePistol(pistol2) and not pistol2.notBroken:
-                man.haveNothing = False
-                man.ammo += 5
-            if man.collidePistol(pistol3) and not pistol3.notBroken:
-                man.haveNothing = False
-                man.ammo += 5
-            if man.collidePistol(pistol4) and not pistol4.notBroken:
-                man.haveNothing = False
-                man.ammo += 5
-            if man.collidePistol(pistol5) and not pistol5.notBroken:
-                man.haveNothing = False
-                man.ammo += 5
-            print man.ammo
+            for pistol in pistols:
+                man.collidePistol(pistol)
             healthBar.downHealth(man)
             man.dead()
     #--------Projectile Stuff-----------------
             for projectile in projectiles:
-                pistol1.checkLiving(projectile)
-                pistol2.checkLiving(projectile)
-                pistol3.checkLiving(projectile)
-                pistol4.checkLiving(projectile)
-                pistol5.checkLiving(projectile)
                 if projectile.notBroken:
+                    for pistol in pistols:
+                        pistol.checkLiving(projectile)
                     projectile.move()
                     projectile.collideWall(screenSize)
                     for zombie in zombies:  
@@ -391,6 +379,8 @@ while True:
             stick.collideRobot(robot)
             #for mazeWall in map.mazeWalls:
             #    stick.collideMazeWall(mazeWall)
+            
+   
 
     #--------------------Blit-------------------    
         for mazeWall in map.mazeWalls:
@@ -417,26 +407,11 @@ while True:
         if stick4.notBroken:
             screen.blit(stick4.surface, stick4.rect)
         
-        if pistol1.notBroken:
-            screen.blit(pistol1.surface, pistol1.rect)
-        if pistol2.notBroken:
-            screen.blit(pistol2.surface, pistol2.rect)
-        if pistol3.notBroken:
-            screen.blit(pistol3.surface, pistol3.rect)
-        if pistol4.notBroken:
-            screen.blit(pistol4.surface, pistol4.rect)
-        if pistol5.notBroken:
-            screen.blit(pistol5.surface, pistol5.rect)
-        if pistol1.notBroken == False:
-            pistol1.remove()
-        if pistol2.notBroken == False:
-            pistol2.remove()
-        if pistol3.notBroken == False:
-            pistol3.remove()
-        if pistol4.notBroken == False:
-            pistol4.remove()
-        if pistol5.notBroken == False:
-            pistol5.remove()
+        for pistol in pistols:
+            if pistol.notBroken:
+                screen.blit(pistol.surface, pistol.rect)
+            elif pistol.notBroken == False:
+                pistols.remove(pistol)
         
         if man.living:
             screen.blit(man.surface, man.rect)

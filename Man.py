@@ -93,7 +93,7 @@ class Man():
         if self.haveStick == True:
             self.havePistol = False
             self.haveNothing = False
-        elif self.havePistol == True:
+        if self.havePistol == True:
             self.haveStick = False
             self.haveNothing = False
         else:
@@ -251,8 +251,7 @@ class Man():
                     < self.radius + pistol.radius):
                     self.havePistol = True
                     pistol.notBroken = False
-                    if pistol.notBroken == False:
-                        self.haveNothing = True
+
 
     
     def dead(self):
